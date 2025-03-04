@@ -2,41 +2,43 @@
 
 export const GLOBAL = {
   // Site metadata
-  username: "Zaggonaut",
-  rootUrl: "https://zaggonaut.dev",
-  shortDescription: "A Retro-Inspired Theme for Astro",
-  longDescription: "Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro.",
-  
+  username: 'Sifat',
+  rootUrl: 'https://sifat.is-a.dev',
+  shortDescription: 'A software engineer and web developer.',
+  longDescription:
+    'I am a software engineer and web developer. I have worked on a variety of projects, including full-stack applications, static websites, and web applications. I am passionate about web development and have a strong interest in front-end technologies.',
+
   // Social media links
-  githubProfile: "https://github.com/RATIU5/zaggonaut",
-  twitterProfile: "https://twitter.com/",
-  
+  githubProfile: 'https://github.com/mahi160',
+  linkedinProfile: 'https://linkedin.com/in/mahi160',
+
   // Common text names used throughout the site
-  articlesName: "Articles",
-  projectsName: "Projects",
-  viewAll: "View All",
-  
+  articlesName: 'Articles',
+  projectsName: 'Projects',
+  viewAll: 'View All',
+
   // Common descriptions used throughout the site
-  noArticles: "No featured articles yet.",
-  noProjects: "No featured projects yet.",
+  noArticles: 'No featured articles yet.',
+  noProjects: 'No featured projects yet.',
 
   // Blog metadata
-  blogTitle: "My Thoughts & Takes",
-  blogShortDescription: "Practical wisdom, unfiltered thoughts, and hot takes.",
-  blogLongDescription: "Web development, tech trends, and the occasional programming mishap.",
+  blogTitle: 'My Thoughts & Takes',
+  blogShortDescription: 'Practical wisdom, unfiltered thoughts, and hot takes.',
+  blogLongDescription: 'Web development, tech trends, and the occasional programming mishap.',
 
   // Project metadata
-  projectTitle: "Projects and Code",
-  projectShortDescription: "A list of my web development projects and developer tools.",
-  projectLongDescription: "All of my projects, including both frontend and full-stack applications.",
+  projectTitle: 'Projects and Code',
+  projectShortDescription: 'A list of my web development projects and developer tools.',
+  projectLongDescription:
+    'All of my projects, including both frontend and full-stack applications.',
 
   // Profile image
-  profileImage: "michael-dam-unsplash.webp",
+  profileImage: 'michael-dam-unsplash.webp',
 
   // Menu items
   menu: {
-    home: "/",
-    projects: "/projects",
-    blog: "/blog",
-  }
+    home: '/',
+    // projects: '/projects',
+    blog: '/blog',
+  },
 };
