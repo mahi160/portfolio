@@ -3,10 +3,10 @@
 export const GLOBAL = {
   // Site metadata
   username: 'Sifat',
-  rootUrl: 'https://siifat.is-a.dev',
-  shortDescription: 'A Retro-Inspired Theme for Astro',
+  rootUrl: 'https://sifat.is-a.dev',
+  shortDescription: 'A software engineer and web developer.',
   longDescription:
-    'Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro.',
+    'I am a software engineer and web developer. I have worked on a variety of projects, including full-stack applications, static websites, and web applications. I am passionate about web development and have a strong interest in front-end technologies.',
 
   // Social media links
   githubProfile: 'https://github.com/mahi160',
@@ -38,7 +38,7 @@ export const GLOBAL = {
   // Menu items
   menu: {
     home: '/',
-    projects: '/projects',
+    // projects: '/projects',
     blog: '/blog',
   },
 };
