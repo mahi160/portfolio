@@ -4,9 +4,10 @@ title: The Developer's Time Machine
 description: Welcome to "Git The Developer's Time Machine" - where version control meets pop culture! As Doctor Strange said, "We're in the endgame now," but with Git, you can always go back in time!
 tags: ['code', 'git']
 time: 10
-featured: true
+featured: false
 timestamp: 2025-03-04T15:12:38.273Z
-filename: learn-git
+filename: .learn-git
+
 ---
 
 ## What is Git? (The Matrix of Code Management)
