@@ -11,6 +11,12 @@ filename: building-a-library
 
 At [QuestionPro](https://questionpro.com/), we are building a component library for all our satellite projects using React. During this process, we learned a lot about setting up a project and publishing it to npm. This is not a step-by-step tutorial but rather a collection of key takeaways that might help you if you’re working on a component library.
 
+## 0. Why an In-House Component Library?
+
+You might be asking, "In a sea of UI libraries for React, why on earth would we build our own?" That's a fair question! The answer is pretty simple: **consistency and efficiency**. We have a bunch of products that all share the same design system and branding. With different teams working on different projects, it gets really tough to keep all those designs perfectly aligned.
+
+So, to ensure our products have a consistent look and feel, we decided to build a common UI library that everyone can use. This means our teams can stop worrying about moving icons "1px to the left" and instead focus on what really matters: building amazing features and functionality.
+
 ## 1. Keep It Simple
 
 A React component can be as simple as an HTML element. Avoid over-engineering components by forcing props for everything. For example, don’t pass text as a `label` prop when you can just use children. We don’t use raw HTML like that, so try to keep the developer experience as close to HTML as possible.
