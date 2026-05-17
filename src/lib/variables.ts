@@ -4,9 +4,13 @@ export const GLOBAL = {
   // Site metadata
   username: 'Sifat',
   rootUrl: 'https://sifat.is-a.dev',
-  shortDescription: 'A software engineer and web developer.',
+  shortDescription: 'Frontend by trade. Terminal by choice. Go by curiosity.',
   longDescription:
-    'I am a software engineer and web developer. I have worked on a variety of projects, including full-stack applications, static websites, and web applications. I am passionate about web development and have a strong interest in front-end technologies.',
+    "Frontend engineer who got too curious about what lives below the network call. By day I lead UIs — by night I'm writing Go, living in the terminal, and building tools I wish existed. I also have strong opinions about Neovim that keep changing.",
+  currentRole: 'Senior Software Engineer @ QuestionPro',
+
+  // Resume
+  resumeUrl: '/salauddin-omar-sifat.pdf',
 
   // Social media links
   githubProfile: 'https://github.com/mahi160',
@@ -22,23 +26,23 @@ export const GLOBAL = {
   noProjects: 'No featured projects yet.',
 
   // Blog metadata
-  blogTitle: 'My Thoughts & Takes',
-  blogShortDescription: 'Practical wisdom, unfiltered thoughts, and hot takes.',
-  blogLongDescription: 'Web development, tech trends, and the occasional programming mishap.',
+  blogTitle: 'Writing',
+  blogShortDescription: 'Notes on developer tools, frontend systems, AI workflows, and terminal-first programming.',
+  blogLongDescription: 'I write about the tools and workflows behind the work: frontend systems, terminal setups, AI-assisted coding, and the craft of building software.',
 
   // Project metadata
-  projectTitle: 'Projects and Code',
-  projectShortDescription: 'A list of my web development projects and developer tools.',
+  projectTitle: 'Projects',
+  projectShortDescription: 'Developer tools, frontend systems, and experiments in terminal-first workflows.',
   projectLongDescription:
-    'All of my projects, including both frontend and full-stack applications.',
+    'Selected projects that show how I think about interfaces, developer tooling, local-first systems, and focused workflows.',
 
   // Profile image
-  profileImage: 'michael-dam-unsplash.webp',
+  profileImage: 'pp.webp',
 
   // Menu items
   menu: {
     home: '/',
-    // projects: '/projects',
+    projects: '/projects',
     blog: '/blog',
   },
 };

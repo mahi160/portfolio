@@ -32,20 +32,21 @@ import { GLOBAL } from "../../lib/variables";
     <meta name="language" content="English" />
     <link rel="canonical" href={`${GLOBAL.rootUrl}/blog`} />
   </Fragment>
-  <Section class="my-8">
-    <div class="flex items-center gap-4 pt-8 pb-16">
-      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{GLOBAL.articlesName}</h1>
-    </div>
+  <Section class="py-12">
+    <header class="flex flex-col gap-2 pb-8 max-w-[var(--content-width)]">
+      <p class="text-xs uppercase tracking-[0.2em] font-mono zag-muted zag-transition">Writing</p>
+      <h1 class="font-display text-3xl sm:text-4xl leading-tight text-zag-accent-dark dark:text-zag-accent-light">{GLOBAL.articlesName}</h1>
+    </header>
     <ul>
       {
-        articles.map((project) => (
+        articles.map((article) => (
           <li>
             <ArticleSnippet
-              title={project.title}
-              description={project.description}
-              duration={`${project.time} min`}
-              url={project.filename}
-              timestamp={project.timestamp}
+              title={article.title}
+              description={article.description}
+              duration={`${article.time} min`}
+              url={article.filename}
+              timestamp={article.timestamp}
             />
           </li>
         ))

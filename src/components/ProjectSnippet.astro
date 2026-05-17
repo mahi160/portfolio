@@ -13,35 +13,35 @@ export type Props = {
 const { title, description, url, githubUrl, liveUrl, tags } = Astro.props;
 ---
 
-<div class="flex flex-col gap-3 pb-8">
-  <div class="flex flex-col gap-3 sm:flex-row sm:justify-between">
-    <Anchor url={url} class="text-xl">
+<div class="flex flex-col gap-3 py-5 border-b border-zag-dark/15 dark:border-zag-light/15">
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <Anchor url={url} class="text-lg">
       {title}
     </Anchor>
-    <div class="flex gap-2">
+    <div class="flex gap-3 text-sm shrink-0">
       {
         githubUrl ? (
-          <Anchor url={githubUrl} class="text-base" external>
+          <Anchor url={githubUrl} class="text-sm" external>
             GitHub
           </Anchor>
         ) : null
       }
       {
         liveUrl ? (
-          <Anchor url={liveUrl} class="text-base" external>
+          <Anchor url={liveUrl} class="text-sm" external>
             Live
           </Anchor>
         ) : null
       }
     </div>
   </div>
-  <p class="zag-text zag-transition">
+  <p class="zag-muted zag-transition text-sm leading-7 max-w-[var(--content-width)]">
     {description}
   </p>
-  <div class="flex flex-row wrap gap-2">
+  <div class="flex flex-row flex-wrap gap-2">
     {
       tags.map((tag) => (
-        <span class="-zag-text -zag-bg zag-transition px-2 py-1 text-sm font-semibold">
+        <span class="zag-transition px-2 py-1 text-xs font-semibold text-zag-accent-dark dark:text-zag-accent-light border border-zag-accent-dark dark:border-zag-accent-light">
           {tag}
         </span>
       ))

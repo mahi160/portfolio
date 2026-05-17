@@ -3,7 +3,8 @@ import Section from "../components/common/Section.astro";
 import FeaturedArticles from "../components/home/FeaturedArticles.astro";
 import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
-import { featuredArticles } from "../lib/featured";
+import FeaturedProjects from "../components/home/FeaturedProjects.astro";
+import { featuredArticles, featuredProjects } from "../lib/featured";
 import { GLOBAL } from "../lib/variables";
 ---
 
@@ -22,29 +23,29 @@ import { GLOBAL } from "../lib/variables";
       property="og:description"
       content={GLOBAL.longDescription}
     />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/zaggonaut.png`} />
+    <meta property="og:image" content={`${GLOBAL.rootUrl}/pp.webp`} />
     <meta property="og:url" content={GLOBAL.rootUrl} />
-    <meta name="linkedin:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta
-      name="linkedin:title"
+      name="twitter:title"
       content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
     />
     <meta
-      name="linkedin:description"
+      name="twitter:description"
       content={GLOBAL.longDescription}
     />
-    <meta name="linkedin:image" content={`${GLOBAL.rootUrl}/zaggonaut.png`} />
+    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/pp.webp`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={GLOBAL.rootUrl} />
   </Fragment>
-  <Section class="my-16">
+  <Section class="pt-12 sm:pt-16 pb-6">
     <Hero />
   </Section>
-  <!-- <Section>
+  <Section class="py-6">
     <FeaturedProjects featuredProjects={featuredProjects} />
-  </Section> -->
-  <Section>
+  </Section>
+  <Section class="py-6">
     <FeaturedArticles featuredArticles={featuredArticles} />
   </Section>
 </Layout>

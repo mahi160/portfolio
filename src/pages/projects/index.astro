@@ -31,10 +31,11 @@ import { GLOBAL } from "../../lib/variables";
     <meta name="language" content="English" />
     <link rel="canonical" href={`${GLOBAL.rootUrl}/projects`} />
   </Fragment>
-  <Section class="py-4 my-8">
-    <div class="flex items-center gap-4 pt-8 pb-16">
-      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{GLOBAL.projectsName}</h1>
-    </div>
+  <Section class="py-12">
+    <header class="flex flex-col gap-2 pb-8 max-w-[var(--content-width)]">
+      <p class="text-xs uppercase tracking-[0.2em] font-mono zag-muted zag-transition">Selected work</p>
+      <h1 class="font-display text-3xl sm:text-4xl leading-tight text-zag-accent-dark dark:text-zag-accent-light">{GLOBAL.projectsName}</h1>
+    </header>
     <ul>
       {
         projects.map((project) => (

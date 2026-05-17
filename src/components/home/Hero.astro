@@ -1,27 +1,49 @@
 ---
-import { Image } from "astro:assets";
 import { GLOBAL } from "../../lib/variables";
 ---
 
-<div class="flex flex-col items-center sm:flex-row gap-8">
-    <Image
-        height={160}
-        width={160}
-        src="/pp.webp"
-        alt="Salauddin Omar Sifat"
-        class="rounded-full w-40 aspect-square z-0 grayscale"
-        loading={"eager"}
-    />
-    <div>
-        <h1
-            class="text-3xl sm:text-4xl font-display font-semibold opsz text-center sm:text-left"
-        >
-            {GLOBAL.username}
-        </h1>
-        <h2
-            class="text-center text-xl sm:text-2xl font-mono font-medium sm:text-left"
-        >
-            {GLOBAL.shortDescription}
-        </h2>
+<div class="max-w-[var(--content-width)]">
+    <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+            <p class="text-xs uppercase tracking-[0.2em] font-mono zag-muted zag-transition">
+                frontend systems · developer tools · terminal workflows
+            </p>
+            <h1 class="text-4xl sm:text-5xl font-display font-semibold text-zag-accent-dark dark:text-zag-accent-light leading-tight">
+                {GLOBAL.username}
+            </h1>
+            <h2 class="text-base sm:text-lg font-mono font-medium zag-text zag-transition leading-relaxed">
+                {GLOBAL.shortDescription}
+            </h2>
+        </div>
+
+        <p class="zag-muted zag-transition text-sm sm:text-base font-mono leading-7">
+            {GLOBAL.longDescription}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-mono">
+            {GLOBAL.githubProfile && (
+                <a href={GLOBAL.githubProfile} target="_blank" rel="noreferrer" class="zag-offset underline font-medium hover:text-zag-accent-dark dark:hover:text-zag-accent-light">
+                    GitHub
+                </a>
+            )}
+            {GLOBAL.linkedinProfile && (
+                <a href={GLOBAL.linkedinProfile} target="_blank" rel="noreferrer" class="zag-offset underline font-medium hover:text-zag-accent-dark dark:hover:text-zag-accent-light">
+                    LinkedIn
+                </a>
+            )}
+            {GLOBAL.resumeUrl && (
+                <a href={GLOBAL.resumeUrl} target="_blank" rel="noreferrer" class="zag-offset underline font-medium hover:text-zag-accent-dark dark:hover:text-zag-accent-light">
+                    Resume
+                </a>
+            )}
+        </div>
+
+        <div class="flex items-center gap-2 text-xs sm:text-sm font-mono zag-muted zag-transition flex-wrap pt-2">
+            <span class="w-2 h-2 rounded-full bg-zag-accent-dark dark:bg-zag-accent-light shrink-0"></span>
+            <span>currently building</span>
+            <a href="https://github.com/mahi160/flowd" target="_blank" rel="noreferrer" class="zag-offset underline font-medium hover:text-zag-accent-dark dark:hover:text-zag-accent-light">flowd</a>
+            <span>&</span>
+            <a href="https://github.com/mahi160/ki" target="_blank" rel="noreferrer" class="zag-offset underline font-medium hover:text-zag-accent-dark dark:hover:text-zag-accent-light">ki</a>
+        </div>
     </div>
 </div>
