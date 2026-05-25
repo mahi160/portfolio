@@ -1,56 +1,123 @@
 ---
 import ArticleSnippet from "../../components/ArticleSnippet.astro";
-import Section from "../../components/common/Section.astro";
 import Layout from "../../layouts/Layout.astro";
 import { articles } from "../../lib/list";
 import { GLOBAL } from "../../lib/variables";
 
+// Group by year
+const groups: Record<number, typeof articles> = {};
+for (const a of articles) {
+  const year = new Date(a.timestamp).getFullYear();
+  (groups[year] ??= []).push(a);
+}
+const groupedYears = Object.entries(groups)
+  .sort(([a], [b]) => Number(b) - Number(a))
+  .map(([year, list]) => ({ year: Number(year), list }));
 ---
 
 <Layout>
   <Fragment slot="head">
     <title>{GLOBAL.blogTitle} • {GLOBAL.username}</title>
-    <meta
-      name="description"
-      content={GLOBAL.blogLongDescription}
-    />
+    <meta name="description" content={GLOBAL.blogLongDescription} />
     <meta property="og:title" content={`${GLOBAL.blogTitle} • ${GLOBAL.username}`} />
-    <meta
-      property="og:description"
-      content={GLOBAL.blogShortDescription}
-    />
+    <meta property="og:description" content={GLOBAL.blogShortDescription} />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
     <meta property="og:url" content={`${GLOBAL.rootUrl}/blog`} />
-    <meta name="linkedin:card" content="summary_large_image" />
-    <meta name="linkedin:title" content={`${GLOBAL.blogTitle} • ${GLOBAL.username}`} />
-    <meta
-      name="linkedin:description"
-      content={GLOBAL.blogShortDescription}
-    />
-    <meta name="linkedin:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={`${GLOBAL.rootUrl}/blog`} />
   </Fragment>
-  <Section class="py-12">
-    <header class="flex flex-col gap-2 pb-8 max-w-3xl">
-      <p class="text-xs uppercase tracking-[0.2em] font-mono text-muted">Writing</p>
-      <h1 class="font-display text-3xl sm:text-4xl leading-tight text-accent">{GLOBAL.articlesName}</h1>
-    </header>
-    <ul>
-      {
-        articles.map((article) => (
-          <li>
-            <ArticleSnippet
-              title={article.title}
-              description={article.description}
-              duration={`${article.time} min`}
-              url={article.filename}
-              timestamp={article.timestamp}
-            />
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
+
+  <main class="wrap">
+    <div class="page-head">
+      <div class="page-kicker">Writing</div>
+      <h1>Notes from the workshop.</h1>
+      <p class="page-lede">
+        Developer tools, frontend systems, AI workflows, and terminal-first programming.
+        Written when I have something to say — not on a schedule.
+      </p>
+    </div>
+
+    <div class="year-groups">
+      {groupedYears.map(({ year, list }) => (
+        <div class="year-group">
+          <div class="year-header">
+            <span class="year-label">{year}</span>
+            <span class="year-count">{list.length} {list.length === 1 ? "entry" : "entries"}</span>
+          </div>
+          <div class="year-articles">
+            {list.map((article) => (
+              <ArticleSnippet
+                title={article.title}
+                description={article.description}
+                duration={`${article.time} min`}
+                url={article.filename}
+                timestamp={article.timestamp}
+              />
+            ))}
+            <div class="list-cap"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .page-head {
+    margin-bottom: 3rem;
+    max-width: 44rem;
+  }
+
+  .page-kicker {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.7rem;
+  }
+
+  .page-head h1 {
+    margin-bottom: 1.1rem;
+  }
+
+  .page-lede {
+    color: var(--ink-muted);
+    font-size: 1.15rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .year-group {
+    margin-bottom: 2.4rem;
+  }
+
+  .year-header {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1.6rem;
+    align-items: baseline;
+    padding-bottom: 0.4rem;
+  }
+
+  .year-label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+
+  .year-count {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .list-cap {
+    border-top: 1px solid var(--line-soft);
+  }
+</style>

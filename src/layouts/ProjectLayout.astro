@@ -1,19 +1,19 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
-import Anchor from "../components/common/Anchor.astro";
-import Section from "../components/common/Section.astro";
-import Prose from "../components/Prose.astro";
 import type { ProjectFrontmatter } from "../lib/types";
 import { generateSourceUrl, getShortDescription } from "../lib/utils";
 import { GLOBAL } from "../lib/variables";
 import Layout from "./Layout.astro";
 
-
 type Props = MarkdownLayoutProps<ProjectFrontmatter>;
 
 const { frontmatter } = Astro.props;
-const shortDescription = getShortDescription(frontmatter.description);
-const sourceUrl = generateSourceUrl(frontmatter.filename, "projects");
+
+function fmtMonthYear(iso: string) {
+  try {
+    return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long" });
+  } catch { return iso; }
+}
 ---
 
 <Layout>
@@ -21,55 +21,123 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "projects");
     <title>{frontmatter.title} • {GLOBAL.username}</title>
     <meta name="description" content={frontmatter.description} />
     <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={shortDescription} />
+    <meta property="og:description" content={getShortDescription(frontmatter.description)} />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={frontmatter.url} />
-    <meta name="linkedin:card" content="summary_large_image" />
-    <meta name="linkedin:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta name="linkedin:description" content={shortDescription} />
-    <meta name="linkedin:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    <meta property="og:url" content={`${GLOBAL.rootUrl}/projects/${frontmatter.filename}`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
-    <link rel="canonical" href={sourceUrl} />
+    <link rel="canonical" href={generateSourceUrl(frontmatter.filename, "projects")} />
   </Fragment>
-  <Section class="py-12">
-    <header class="flex flex-col gap-4 mb-10 max-w-3xl">
-      <p class="text-xs uppercase tracking-[0.2em] font-mono text-muted">
-        Project
-      </p>
-      <h1 class="text-3xl sm:text-4xl leading-tight font-display text-accent">
-        {frontmatter.title}
-      </h1>
-      <div class="flex text-xs gap-2 flex-wrap">
-        {
-          frontmatter.tags
-            ? frontmatter.tags.map((tag) => (
-                <span class="font-semibold py-1 px-2 text-xs text-accent border border-accent">
-                  {tag}
-                </span>
-              ))
-            : null
-        }
+
+  <main class="wrap-narrow">
+    <a href="/projects" class="back-link">← All projects</a>
+
+    <article>
+      <header class="project-header">
+        <div class="project-kicker">
+          Project&nbsp;&nbsp;·&nbsp;&nbsp;{fmtMonthYear(frontmatter.timestamp)}
+        </div>
+
+        <h1 class="project-title">{frontmatter.title}</h1>
+
+        <p class="project-desc">{frontmatter.description}</p>
+
+        <div class="project-links">
+          {frontmatter.githubUrl && (
+            <a href={frontmatter.githubUrl} target="_blank" rel="noopener" class="pill pill-accent">
+              GitHub ↗
+            </a>
+          )}
+          {frontmatter.liveUrl && (
+            <a href={frontmatter.liveUrl} target="_blank" rel="noopener" class="pill">
+              Live ↗
+            </a>
+          )}
+        </div>
+
+        {frontmatter.tags && frontmatter.tags.length > 0 && (
+          <div class="tag-row">
+            {frontmatter.tags.map((t) => <span class="tag">{t}</span>)}
+          </div>
+        )}
+      </header>
+
+      <div class="project-rule"></div>
+
+      <div class="prose-warm">
+        <slot />
       </div>
-      <div class="flex gap-3 text-sm">
-        {
-          frontmatter.githubUrl ? (
-            <Anchor url={frontmatter.githubUrl} class="text-sm" external>
-              GitHub
-            </Anchor>
-          ) : null
-        }
-        {
-          frontmatter.liveUrl ? (
-            <Anchor url={frontmatter.liveUrl} class="text-sm" external>
-              Live
-            </Anchor>
-          ) : null
-        }
-      </div>
-    </header>
-    <Prose>
-      <slot />
-    </Prose>
-  </Section>
+    </article>
+  </main>
 </Layout>
+
+<style>
+  .back-link {
+    font-family: var(--mono);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    margin-bottom: 1.8rem;
+  }
+  .back-link:hover { color: var(--ink); text-decoration: none; }
+
+  .project-header { margin-bottom: 2.4rem; }
+
+  .project-kicker {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: var(--mono);
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .project-desc {
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    margin-bottom: 1.4rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 0.8rem;
+  }
+
+  .pill-accent {
+    border-color: var(--accent);
+    color: var(--accent-deep);
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.65em;
+  }
+
+  .project-rule {
+    width: 3rem;
+    border-top: 1px solid var(--accent);
+    margin-bottom: 2.4rem;
+  }
+
+  @media (max-width: 540px) {
+    .project-title { font-size: 2.2rem; }
+  }
+</style>

@@ -1,19 +1,14 @@
 ---
-import Section from "../components/common/Section.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <Section class="py-12">
-    <h1 class="text-2xl sm:text-3xl font-display pb-6">
-      Well, this is awkward
-    </h1>
-    <h2 class="text-lg sm:text-xl pb-6">404 - Page not found</h2>
-    <p>
-      It seems that this page does not exist. If you want to return to safety, <a
-        class="underline underline-offset-4 font-medium"
-        href="/">click here to go home</a
-      >.
-    </p>
-  </Section>
+  <main class="wrap-narrow" style="padding-top: 4rem; text-align: center;">
+    <div style="font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 1rem;">404</div>
+    <h1 style="margin-bottom: 1rem;">Lost in the grove.</h1>
+    <p style="color: var(--ink-muted);">That page hasn't been planted yet.</p>
+    <div style="margin-top: 2rem;">
+      <a href="/" class="arrow-link">Back to the index</a>
+    </div>
+  </main>
 </Layout>

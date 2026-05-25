@@ -1,7 +1,6 @@
 ---
-import Section from "../../components/common/Section.astro";
-import ProjectSnippet from "../../components/ProjectSnippet.astro";
 import Layout from "../../layouts/Layout.astro";
+import ProjectSnippet from "../../components/ProjectSnippet.astro";
 import { projects } from "../../lib/list";
 import { GLOBAL } from "../../lib/variables";
 ---
@@ -9,48 +8,68 @@ import { GLOBAL } from "../../lib/variables";
 <Layout>
   <Fragment slot="head">
     <title>{GLOBAL.projectTitle} • {GLOBAL.username}</title>
-    <meta
-      name="description"
-      content={GLOBAL.projectLongDescription}
-    />
+    <meta name="description" content={GLOBAL.projectLongDescription} />
     <meta property="og:title" content={`${GLOBAL.projectTitle} • ${GLOBAL.username}`} />
-    <meta
-      property="og:description"
-      content={GLOBAL.projectShortDescription}
-    />
+    <meta property="og:description" content={GLOBAL.projectShortDescription} />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
     <meta property="og:url" content={`${GLOBAL.rootUrl}/projects`} />
-    <meta name="linkedin:card" content="summary_large_image" />
-    <meta name="linkedin:title" content={`${GLOBAL.projectTitle} • ${GLOBAL.username}`} />
-    <meta
-      name="linkedin:description"
-      content={GLOBAL.projectShortDescription}
-    />
-    <meta name="linkedin:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={`${GLOBAL.rootUrl}/projects`} />
   </Fragment>
-  <Section class="py-12">
-    <header class="flex flex-col gap-2 pb-8 max-w-3xl">
-      <p class="text-xs uppercase tracking-[0.2em] font-mono text-muted">Selected work</p>
-      <h1 class="font-display text-3xl sm:text-4xl leading-tight text-accent">{GLOBAL.projectsName}</h1>
-    </header>
-    <ul>
-      {
-        projects.map((project) => (
-          <li>
-            <ProjectSnippet
-              title={project.title}
-              description={project.description}
-              url={project.filename}
-              githubUrl={project.githubUrl}
-              liveUrl={project.liveUrl}
-              tags={project.tags ?? []}
-            />
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
+
+  <main class="wrap">
+    <div class="page-head">
+      <div class="page-kicker">Projects</div>
+      <h1>Things I made on purpose.</h1>
+      <p class="page-lede">
+        Developer tools and frontend experiments. Mostly small, focused, terminal-leaning —
+        built around real workflows rather than ideas of products.
+      </p>
+    </div>
+
+    <div class="project-list">
+      {projects.map((project) => (
+        <ProjectSnippet
+          title={project.title}
+          description={project.description}
+          url={project.filename}
+          githubUrl={project.githubUrl}
+          liveUrl={project.liveUrl}
+          tags={project.tags ?? []}
+          timestamp={project.timestamp}
+        />
+      ))}
+      <div class="list-cap"></div>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .page-head {
+    margin-bottom: 3rem;
+    max-width: 44rem;
+  }
+
+  .page-kicker {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.7rem;
+  }
+
+  .page-head h1 { margin-bottom: 1.1rem; }
+
+  .page-lede {
+    color: var(--ink-muted);
+    font-size: 1.15rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .list-cap {
+    border-top: 1px solid var(--line-soft);
+  }
+</style>

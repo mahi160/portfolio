@@ -1,39 +1,127 @@
 ---
 import type { ProjectFrontmatter } from "../../lib/types";
-import { GLOBAL } from "../../lib/variables";
-import Anchor from "../common/Anchor.astro";
-import ProjectSnippet from "../ProjectSnippet.astro";
 
 type Props = {
   featuredProjects: Array<ProjectFrontmatter>;
 }
 
 const { featuredProjects } = Astro.props;
+
+function fmtMonthYear(iso: string) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+  } catch { return iso; }
+}
 ---
 
-<div class="flex flex-col gap-2 mb-8">
-  <p class="text-xs uppercase tracking-widest font-mono text-muted">
-    Open source & explorations
-  </p>
-  <div class="flex justify-between items-end gap-6">
-    <h3 class="font-display text-4xl sm:text-5xl leading-tight text-accent">{GLOBAL.projectsName}</h3>
-    <Anchor url="/projects" class="text-sm shrink-0">{GLOBAL.viewAll}</Anchor>
+<section class="featured-projects">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker">Selected</div>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <a href="/projects" class="arrow-link">All projects</a>
   </div>
-</div>
-<ul>
-  {
-    (featuredProjects.length === 0 && <p>{GLOBAL.noProjects}</p>) ||
-      featuredProjects.map((project) => (
-        <li>
-          <ProjectSnippet
-            title={project.title}
-            description={project.description}
-            url={project.filename}
-            githubUrl={project.githubUrl}
-            liveUrl={project.liveUrl}
-            tags={project.tags ?? []}
-          />
-        </li>
-      ))
+
+  <div class="projects-grid">
+    {featuredProjects.map((project) => (
+      <a href={project.filename} class="project-card">
+        <div class="card-top">
+          <span class="card-title">{project.title}</span>
+          <span class="card-date">{fmtMonthYear(project.timestamp)}</span>
+        </div>
+        <p class="card-desc">{project.description}</p>
+        {project.tags && project.tags.length > 0 && (
+          <div class="card-tags">
+            {project.tags.map((t: string) => <span class="tag">{t}</span>)}
+          </div>
+        )}
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .featured-projects {
+    margin-bottom: 2rem;
   }
-</ul>
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .section-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+  }
+
+  .section-title {
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.4rem;
+  }
+
+  .project-card {
+    display: block;
+    padding: 1.7rem 1.7rem 1.6rem;
+    text-decoration: none;
+    background: var(--paper-deep);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    transition: border-color 200ms ease;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.7rem;
+  }
+
+  .card-title {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .card-date {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+
+  .card-desc {
+    color: var(--ink-muted);
+    font-size: 0.97rem;
+    line-height: 1.6;
+    margin-bottom: 0.95rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.65em;
+  }
+</style>

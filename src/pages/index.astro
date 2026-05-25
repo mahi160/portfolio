@@ -1,9 +1,8 @@
 ---
-import Section from "../components/common/Section.astro";
 import FeaturedArticles from "../components/home/FeaturedArticles.astro";
+import FeaturedProjects from "../components/home/FeaturedProjects.astro";
 import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
-import FeaturedProjects from "../components/home/FeaturedProjects.astro";
 import { featuredArticles, featuredProjects } from "../lib/featured";
 import { GLOBAL } from "../lib/variables";
 ---
@@ -11,41 +10,171 @@ import { GLOBAL } from "../lib/variables";
 <Layout>
   <Fragment slot="head">
     <title>{GLOBAL.username} • {GLOBAL.shortDescription}</title>
-    <meta
-      name="description"
-      content={GLOBAL.longDescription}
-    />
-    <meta
-      property="og:title"
-      content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
-    />
-    <meta
-      property="og:description"
-      content={GLOBAL.longDescription}
-    />
+    <meta name="description" content={GLOBAL.longDescription} />
+    <meta property="og:title" content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`} />
+    <meta property="og:description" content={GLOBAL.longDescription} />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/pp.webp`} />
     <meta property="og:url" content={GLOBAL.rootUrl} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
-    />
-    <meta
-      name="twitter:description"
-      content={GLOBAL.longDescription}
-    />
+    <meta name="twitter:title" content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`} />
+    <meta name="twitter:description" content={GLOBAL.longDescription} />
     <meta name="twitter:image" content={`${GLOBAL.rootUrl}/pp.webp`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={GLOBAL.rootUrl} />
   </Fragment>
-  <Section class="pt-24 sm:pt-32 pb-16">
+
+  <main class="wrap">
+    <!-- Hero -->
     <Hero />
-  </Section>
-  <Section class="py-12 sm:py-20 border-t border-border/50">
+
+    <!-- Now block -->
+    <section class="now-block">
+      <div class="now-grid">
+        <div class="now-label">
+          Now
+          <div class="now-date">May 2026</div>
+        </div>
+        <div class="now-body">
+          Leading frontend for a satellite product at QuestionPro and shaping our internal
+          React component library. After hours I'm in tmux — writing Go for{" "}
+          <a href="/projects/flowd">flowd</a>, my local-first work journal, and{" "}
+          <a href="/projects/ki">ki</a>, a terminal AI chat client. Reading a lot about
+          local-first systems and small, single-purpose tools.
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Writing -->
     <FeaturedArticles featuredArticles={featuredArticles} />
-  </Section>
-  <Section class="py-12 sm:py-20 border-t border-border/50">
+
+    <!-- Featured Projects -->
     <FeaturedProjects featuredProjects={featuredProjects} />
-  </Section>
+
+    <!-- Colophon -->
+    <section class="colophon">
+      <div class="colophon-grid">
+        <div class="colophon-cell">
+          <div class="colophon-label">Working in</div>
+          <ul>
+            <li>TypeScript</li>
+            <li>Go</li>
+            <li>React</li>
+          </ul>
+        </div>
+        <div class="colophon-cell">
+          <div class="colophon-label">Living in</div>
+          <ul>
+            <li>Neovim</li>
+            <li>tmux</li>
+            <li>Ghostty</li>
+          </ul>
+        </div>
+        <div class="colophon-cell">
+          <div class="colophon-label">Building with</div>
+          <ul>
+            <li>SQLite</li>
+            <li>Bubble Tea</li>
+            <li>Astro</li>
+          </ul>
+        </div>
+        <div class="colophon-cell">
+          <div class="colophon-label">Reading about</div>
+          <ul>
+            <li>Local-first</li>
+            <li>TUI design</li>
+            <li>Small tools</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  /* Now block */
+  .now-block {
+    padding: 2rem 2.2rem;
+    background: var(--paper-deep);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    margin-bottom: 5rem;
+  }
+
+  .now-grid {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .now-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    padding-top: 0.15rem;
+  }
+
+  .now-date {
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+  }
+
+  .now-body {
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.7;
+  }
+  .now-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+  }
+  .now-body a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  /* Colophon */
+  .colophon {
+    margin-top: 5rem;
+  }
+
+  .colophon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2.4rem;
+    padding-top: 2.4rem;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .colophon-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.7rem;
+  }
+
+  .colophon-cell ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .colophon-cell li {
+    padding: 0.18rem 0;
+    font-size: 0.98rem;
+  }
+
+  @media (max-width: 540px) {
+    .now-grid {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+  }
+</style>

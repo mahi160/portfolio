@@ -1,22 +1,18 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
-import Section from "../components/common/Section.astro";
-import Prose from "../components/Prose.astro";
 import type { ArticleFrontmatter } from "../lib/types";
-import {
-generateSourceUrl,
-getShortDescription,
-processArticleDate,
-} from "../lib/utils";
 import { GLOBAL } from "../lib/variables";
 import Layout from "./Layout.astro";
 
 type Props = MarkdownLayoutProps<ArticleFrontmatter>;
 
 const { frontmatter } = Astro.props;
-const shortDescription = getShortDescription(frontmatter.description);
-const articleDate = processArticleDate(frontmatter.timestamp);
-const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
+
+const fmtDateLong = (iso: string) => {
+  try {
+    return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  } catch { return iso; }
+};
 ---
 
 <Layout>
@@ -24,33 +20,111 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
     <title>{frontmatter.title} • {GLOBAL.username}</title>
     <meta name="description" content={frontmatter.description} />
     <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={shortDescription} />
+    <meta property="og:description" content={frontmatter.description} />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={frontmatter.url} />
-    <meta name="linkedin:card" content="summary_large_image" />
-    <meta name="linkedin:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta name="linkedin:description" content={shortDescription} />
-    <meta name="linkedin:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    <meta property="og:url" content={`${GLOBAL.rootUrl}/blog/${frontmatter.filename}`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
-    <link rel="canonical" href={sourceUrl} />
+    <link rel="canonical" href={`${GLOBAL.rootUrl}/blog/${frontmatter.filename}`} />
   </Fragment>
-  <Section class="py-12">
-    <header class="flex flex-col gap-4 mb-10 max-w-3xl">
-      <p class="text-xs uppercase tracking-[0.2em] font-mono text-muted">
-        Article
-      </p>
-      <h1 class="text-3xl sm:text-4xl leading-tight font-display text-accent">
-        {frontmatter.title}
-      </h1>
-      <div class="flex justify-between text-xs text-muted font-mono">
-        <span>{articleDate}</span>
-        <span>{frontmatter.time} min read</span>
+
+  <main class="wrap-narrow">
+    <a href="/blog" class="back-link">← All writing</a>
+
+    <article>
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-date">{fmtDateLong(frontmatter.timestamp)}</span>
+          <span>·</span>
+          <span>{frontmatter.time < 1 ? "< 1" : Math.round(Number(frontmatter.time))} min read</span>
+        </div>
+
+        <h1 class="article-title">{frontmatter.title}</h1>
+
+        <p class="article-lede">{frontmatter.description}</p>
+
+        {frontmatter.tags && frontmatter.tags.length > 0 && (
+          <div class="tag-row">
+            {frontmatter.tags.map((t) => <span class="tag">{t}</span>)}
+          </div>
+        )}
+      </header>
+
+      <div class="article-rule"></div>
+
+      <div class="prose-warm">
+        <slot />
       </div>
-    </header>
-    <Prose>
-      <slot />
-    </Prose>
-    <p class="pt-8 text-sm text-muted">~{GLOBAL.username}</p>
-  </Section>
+
+      <hr />
+
+      <a href="/blog" class="back-link" style="margin-top: 2.5rem; margin-bottom: 0;">← All writing</a>
+    </article>
+  </main>
 </Layout>
+
+<style>
+  .back-link {
+    font-family: var(--mono);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    margin-bottom: 1.8rem;
+  }
+  .back-link:hover { color: var(--ink); text-decoration: none; }
+
+  .article-header { margin-bottom: 2.4rem; }
+
+  .article-meta {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .article-date { color: var(--accent-deep); }
+
+  .article-title {
+    font-size: 2.6rem;
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+    font-variation-settings: "opsz" 60;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  .article-lede {
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.65em;
+  }
+
+  .article-rule {
+    width: 3rem;
+    border-top: 1px solid var(--accent);
+    margin-bottom: 2.4rem;
+  }
+
+  @media (max-width: 540px) {
+    .article-title { font-size: 2rem; }
+  }
+</style>

@@ -1,73 +1,106 @@
 ---
 import type { ArticleFrontmatter } from "../../lib/types";
 import { processArticleDate } from "../../lib/utils";
-import { GLOBAL } from "../../lib/variables";
-import Anchor from "../common/Anchor.astro";
 
 type Props = {
   featuredArticles: Array<ArticleFrontmatter>;
 }
 
 const { featuredArticles } = Astro.props;
-const [hero, ...rest] = featuredArticles;
 ---
 
-<section class="max-w-3xl">
-  <div class="flex flex-col gap-2 mb-8">
-    <p class="text-xs uppercase tracking-widest font-mono text-muted">
-      Notes from the workshop
-    </p>
-    <div class="flex justify-between items-end gap-6">
-      <h3 class="font-display text-4xl sm:text-5xl leading-tight text-accent">
-        {GLOBAL.articlesName}
-      </h3>
-      <Anchor url="/blog" class="text-sm shrink-0">{GLOBAL.viewAll}</Anchor>
+<section class="featured-writing">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker">Recent</div>
+      <h2 class="section-title">Writing</h2>
     </div>
+    <a href="/blog" class="arrow-link">All writing</a>
   </div>
 
-  {featuredArticles.length === 0 ? (
-    <p class="text-muted">{GLOBAL.noArticles}</p>
-  ) : (
-    <div class="flex flex-col gap-10">
-      {hero && (
-        <a href={hero.filename} class="block group border-b border-border pb-8">
-          <article class="flex flex-col gap-4">
-            <div class="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-widest">
-              <span>Featured</span>
-              <span>·</span>
-              <span>{processArticleDate(hero.timestamp)}</span>
-              <span>·</span>
-              <span>{hero.time} min read</span>
-            </div>
-            <h4 class="text-3xl sm:text-4xl font-display leading-tight group-hover:text-accent text-foreground">
-              {hero.title}
-            </h4>
-
-            <p class="text-muted text-base sm:text-lg font-sans leading-relaxed">
-              {hero.description}
-            </p>
-
-            <span class="text-sm font-mono font-medium text-accent underline-offset-4 underline underline-offset-4">
-              Read article →
-            </span>
-          </article>
-        </a>
-      )}
-
-      {rest.length > 0 && (
-        <ul class="flex flex-col gap-5">
-          {rest.map((article) => (
-            <li class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-baseline border-b border-border pb-5">
-              <Anchor url={article.filename} class="text-lg sm:text-xl font-sans font-medium">
-                {article.title}
-              </Anchor>
-              <span class="text-xs font-mono text-muted shrink-0">
-                {processArticleDate(article.timestamp)} · {article.time} min
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  )}
+  <div class="article-list">
+    {featuredArticles.map((article) => (
+      <a href={article.filename} class="article-card">
+        <div class="article-meta">
+          {processArticleDate(article.timestamp)}
+          &nbsp;·&nbsp;
+          {article.time < 1 ? "< 1" : Math.round(Number(article.time))} min read
+        </div>
+        <div class="article-title">{article.title}</div>
+        <div class="article-desc">{article.description}</div>
+      </a>
+    ))}
+    <div class="list-cap"></div>
+  </div>
 </section>
+
+<style>
+  .featured-writing {
+    margin-bottom: 5rem;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .section-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+  }
+
+  .section-title {
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .article-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-card {
+    display: block;
+    padding: 1.6rem 0;
+    text-decoration: none;
+    border-top: 1px solid var(--line-soft);
+    transition: background 160ms ease;
+  }
+  .article-card:hover { text-decoration: none; }
+
+  .article-meta {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.55rem;
+    letter-spacing: 0.04em;
+  }
+
+  .article-title {
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  .article-desc {
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .list-cap {
+    border-top: 1px solid var(--line-soft);
+  }
+</style>

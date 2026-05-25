@@ -1,104 +1,111 @@
 ---
 import { GLOBAL } from "../lib/variables";
-import Anchor from "./common/Anchor.astro";
-import ThemeToggle from "./ThemeToggle.astro";
+
+const pathname = Astro.url?.pathname ?? "/";
+const isHome     = pathname === "/";
+const isWriting  = pathname.startsWith("/blog");
+const isProjects = pathname.startsWith("/projects");
 ---
 
-<header
-  class="bg-background border-b border-border sticky top-0 w-full z-40"
->
-  <div id="mobileBackdrop" class="fixed inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm -z-10 transition-opacity duration-300 opacity-0 pointer-events-none sm:hidden"></div>
-  <div
-    class="bg-background sm:hidden relative py-4 flex items-center"
-  >
-    <button class="px-4" aria-label="Toggle navigation menu">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 512 512"
-        class="fill-foreground"
-      >
-        <path d="M80 96h352v32H80zm0 144h352v32H80zm0 144h352v32H80z"></path>
-      </svg>
-    </button>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <!-- Logo / name -->
+    <a href="/" class="header-logo">
+      <span class="logo-dot" aria-hidden="true"></span>
+      <span class="logo-name">Sifat</span>
+      <span class="logo-handle">{GLOBAL.handle ?? "sifat.is-a.dev"}</span>
+    </a>
+
+    <!-- Nav -->
+    <nav class="header-nav">
+      <a href="/"         class:list={["nav-link", { active: isHome }]}>Index</a>
+      <a href="/blog"     class:list={["nav-link", { active: isWriting }]}>Writing</a>
+      <a href="/projects" class:list={["nav-link", { active: isProjects }]}>Projects</a>
+      <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" class="nav-link">Résumé</a>
+    </nav>
   </div>
-  <nav
-    class="bg-background border-b border-border fixed sm:relative inset-x-0 top-0 h-auto px-4 sm:px-6 flex justify-between flex-col gap-8 py-4 text-sm sm:flex-row max-w-3xl mx-auto sm:border-none transition-transform duration-300 ease-in-out sm:transition-none -z-20 sm:z-auto"
-  >
-    <div
-      class="flex flex-col font-mono font-medium gap-4 sm:flex-row px-4 sm:px-0 mt-16 sm:mt-0"
-    >
-    {Object.entries(GLOBAL.menu).map((i) => (
-      <Anchor url={i[1]}>{i[0]}</Anchor>
-    ))}
-    </div>
-    <div class="flex gap-4 justify-between px-4 sm:px-0">
-      {GLOBAL.githubProfile && (<Anchor url={GLOBAL.githubProfile} external aria-label="Sifat's GitHub Profile">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          class="fill-foreground"
-        >
-          <path
-            d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"
-          ></path>
-        </svg>
-      </Anchor>)}
-      {GLOBAL.linkedinProfile && (<Anchor url={GLOBAL.linkedinProfile} external aria-label="Sifat's LinkedIn Profile">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 50 50"
-          class="fill-foreground"
-        >
-          <path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"></path>
-        </svg>
-      </Anchor>)}
-      <ThemeToggle />
-    </div>
-  </nav>
 </header>
 
-<script>
-  const button = document.querySelector("button");
-  const nav = document.querySelector("nav");
-  const backdrop = document.getElementById("mobileBackdrop");
-  let isOpen = false;
-
-  function updateNavState() {
-    const isMobile = window.matchMedia("(max-width: 640px)").matches;
-    if (isMobile) {
-      nav!.style.transform = isOpen ? "translateY(0)" : "translateY(-100%)";
-      if (isOpen) {
-        backdrop!.classList.remove("opacity-0", "pointer-events-none");
-        backdrop!.classList.add("opacity-100", "pointer-events-auto");
-      } else {
-        backdrop!.classList.add("opacity-0", "pointer-events-none");
-        backdrop!.classList.remove("opacity-100", "pointer-events-auto");
-      }
-    } else {
-      nav!.style.transform = "translateY(0)";
-      backdrop!.classList.add("opacity-0", "pointer-events-none");
-      backdrop!.classList.remove("opacity-100", "pointer-events-auto");
-      isOpen = false;
-    }
+<style>
+  .site-header {
+    padding-top: 2rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 3.5rem;
   }
 
-  function toggleNav() {
-    isOpen = !isOpen;
-    updateNavState();
+  .header-inner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
   }
 
-  button?.addEventListener("click", toggleNav);
-  backdrop?.addEventListener("click", () => {
-    isOpen = false;
-    updateNavState();
-  });
-  window.addEventListener("resize", updateNavState);
+  .header-logo {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+  .header-logo:hover { text-decoration: none; }
 
-  updateNavState();
-</script>
+  .logo-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateY(-1px);
+    flex-shrink: 0;
+  }
+
+  .logo-name {
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+
+  .logo-handle {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-left: 0.2rem;
+    white-space: nowrap;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: color 160ms ease, border-color 160ms ease;
+  }
+  .nav-link:hover {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom-color: var(--line);
+  }
+  .nav-link.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 540px) {
+    .header-inner { flex-direction: column; gap: 1rem; }
+    .logo-handle { display: none; }
+    .header-nav { gap: 1rem; }
+  }
+</style>

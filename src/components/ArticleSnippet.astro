@@ -1,6 +1,5 @@
 ---
 import { processArticleDate } from "../lib/utils";
-import Anchor from "./common/Anchor.astro";
 
 export type Props = {
   title: string;
@@ -11,19 +10,74 @@ export type Props = {
 };
 
 const { title, description, url, duration, timestamp } = Astro.props;
+const time = duration ? parseInt(duration) : null;
 ---
 
-<div class="text-foreground flex flex-col gap-3 py-5 border-b border-border">
-  <Anchor url={url} class="text-xl sm:text-2xl font-display font-medium">
-    {title}
-  </Anchor>
-  <p class="text-muted text-base font-sans leading-relaxed max-w-3xl">
-    {description}
-  </p>
-  <div
-    class="text-muted flex justify-between items-center text-xs"
-  >
-    {timestamp ? <p>{processArticleDate(timestamp)}</p> : null}
-    {duration ? <p>{duration}</p> : null}
+<a href={url} class="article-row">
+  <span class="article-date">
+    {timestamp ? processArticleDate(timestamp) : ""}
+  </span>
+  <div class="article-body">
+    <div class="article-title">{title}</div>
+    <div class="article-desc">{description}</div>
   </div>
-</div>
+  <span class="article-time">
+    {time !== null ? (time < 1 ? "< 1" : time) : ""}{duration ? " min" : ""}
+  </span>
+</a>
+
+<style>
+  .article-row {
+    display: grid;
+    grid-template-columns: 5rem 1fr auto;
+    gap: 1.6rem;
+    align-items: baseline;
+    padding: 1.45rem 0;
+    border-top: 1px solid var(--line-soft);
+    text-decoration: none;
+    transition: background 160ms ease;
+  }
+  .article-row:hover {
+    background: var(--paper-deep);
+    text-decoration: none;
+  }
+
+  .article-date {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .article-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0.35rem;
+    color: var(--ink);
+  }
+
+  .article-desc {
+    color: var(--ink-muted);
+    font-size: 0.97rem;
+    line-height: 1.55;
+  }
+
+  .article-time {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    align-self: start;
+    padding-top: 0.2rem;
+  }
+
+  @media (max-width: 540px) {
+    .article-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .article-time { display: none; }
+  }
+</style>

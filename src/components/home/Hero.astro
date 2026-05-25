@@ -2,48 +2,164 @@
 import { GLOBAL } from "../../lib/variables";
 ---
 
-<div class="max-w-3xl">
-    <div class="flex flex-col gap-6">
-        <div class="flex flex-col gap-3">
-            <p class="text-xs uppercase tracking-widest font-mono text-muted">
-                frontend systems · developer tools · terminal workflows
-            </p>
-            <h1 class="text-4xl sm:text-5xl font-display font-semibold text-accent leading-tight">
-                {GLOBAL.username}
-            </h1>
-            <h2 class="text-xl sm:text-2xl font-sans font-medium text-foreground leading-relaxed">
-                {GLOBAL.shortDescription}
-            </h2>
-        </div>
+<section class="hero-section">
+  <div class="hero-grid">
+    <!-- Text -->
+    <div class="hero-text">
+      <div class="hero-kicker">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Currently — {GLOBAL.currentRole}
+      </div>
 
-        <p class="text-muted text-base sm:text-lg font-sans leading-relaxed">
-            {GLOBAL.longDescription}
-        </p>
+      <h1 class="hero-headline">
+        Hi, I'm <em>Sifat</em>.<br />
+        I build calm, careful software.
+      </h1>
 
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-mono">
-            {GLOBAL.githubProfile && (
-                <a href={GLOBAL.githubProfile} target="_blank" rel="noreferrer" class="underline-offset-4 underline font-medium hover:text-accent">
-                    GitHub
-                </a>
-            )}
-            {GLOBAL.linkedinProfile && (
-                <a href={GLOBAL.linkedinProfile} target="_blank" rel="noreferrer" class="underline-offset-4 underline font-medium hover:text-accent">
-                    LinkedIn
-                </a>
-            )}
-            {GLOBAL.resumeUrl && (
-                <a href={GLOBAL.resumeUrl} target="_blank" rel="noreferrer" class="underline-offset-4 underline font-medium hover:text-accent">
-                    Resume
-                </a>
-            )}
-        </div>
+      <p class="hero-tagline">{GLOBAL.shortDescription}</p>
 
-        <div class="flex items-center gap-2 text-xs sm:text-sm font-mono text-muted flex-wrap pt-2">
-            <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
-            <span>currently building</span>
-            <a href="https://github.com/mahi160/flowd" target="_blank" rel="noreferrer" class="underline-offset-4 underline font-medium hover:text-accent">flowd</a>
-            <span>&</span>
-            <a href="https://github.com/mahi160/ki" target="_blank" rel="noreferrer" class="underline-offset-4 underline font-medium hover:text-accent">ki</a>
-        </div>
+      <p class="hero-bio">{GLOBAL.longDescription}</p>
+
+      <div class="hero-cta">
+        <a href="/blog" class="arrow-link">Read the writing</a>
+        <a href="/projects" class="arrow-link">See the projects</a>
+      </div>
     </div>
-</div>
+
+    <!-- Portrait placeholder -->
+    <div class="hero-portrait" aria-hidden="true">
+      <div class="portrait-frame">
+        <svg width="100%" height="100%" viewBox="0 0 200 240" preserveAspectRatio="none">
+          <defs>
+            <pattern id="stripes" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <rect width="6" height="6" fill="transparent" />
+              <line x1="0" y1="0" x2="0" y2="6" stroke="var(--line)" stroke-width="1" />
+            </pattern>
+          </defs>
+          <rect width="200" height="240" fill="url(#stripes)" />
+        </svg>
+        <span class="portrait-label">portrait</span>
+      </div>
+      <div class="portrait-meta">
+        Dhaka<br />GMT +6
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    padding-top: 2.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .hero-text {
+    max-width: 38rem;
+  }
+
+  .hero-kicker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .kicker-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    flex-shrink: 0;
+  }
+
+  .hero-headline {
+    font-size: 3.4rem;
+    line-height: 1.08;
+    margin-bottom: 1.6rem;
+    font-variation-settings: "opsz" 72;
+    font-weight: 400;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+
+  .hero-tagline {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-muted);
+    margin-bottom: 2rem;
+    max-width: 34rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Portrait */
+  .hero-portrait {
+    width: 200px;
+    justify-self: end;
+  }
+
+  .portrait-frame {
+    position: relative;
+    width: 200px;
+    height: 240px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--paper-deep);
+  }
+
+  .portrait-label {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .portrait-meta {
+    margin-top: 0.7rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-portrait { display: none; }
+    .hero-headline { font-size: 2.4rem; }
+  }
+</style>
