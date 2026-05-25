@@ -69,9 +69,10 @@
 
     prose.style.setProperty("--rc-size",    s.size);
     prose.style.setProperty("--rc-leading", s.leading);
-    prose.style.setProperty("--rc-font",    FONT[p.font as keyof typeof FONT] || FONT.serif);
+    prose.style.setProperty("--rc-font",    FONT[p.font as keyof typeof FONT] || FONT.sans);
     prose.style.setProperty("--rc-para",    sp.para);
     prose.style.setProperty("--rc-gap",     sp.gap);
+    prose.dataset.font = p.font;
 
     // Sync active states + aria-pressed
     document.querySelectorAll<HTMLElement>("[data-rc]").forEach((btn) => {

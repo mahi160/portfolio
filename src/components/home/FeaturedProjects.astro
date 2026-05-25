@@ -91,6 +91,7 @@ function fmtMonthYear(iso: string) {
     border-color: var(--accent);
     text-decoration: none;
   }
+  .project-card:hover .card-title { color: var(--accent-deep); }
 
   .card-top {
     display: flex;
@@ -104,6 +105,7 @@ function fmtMonthYear(iso: string) {
     font-size: 1.15rem;
     font-weight: 500;
     color: var(--ink);
+    transition: color 160ms ease;
   }
 
   .card-date {

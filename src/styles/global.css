@@ -292,3 +292,10 @@
 .prose-warm hr { margin: var(--rc-gap, 2rem) 0; border-top: 1px solid var(--line-soft); }
 .prose-warm strong { color: var(--ink); font-weight: 600; }
 .prose-warm em { font-style: italic; color: var(--ink); }
+
+/* Cormorant Garamond is a display face — bump size and leading at body scale */
+.prose-warm[data-font="lore"] {
+  --rc-size:    calc(var(--rc-size, 1.075rem) * 1.12);
+  --rc-leading: calc(var(--rc-leading, 1.78) * 1.06);
+  font-feature-settings: "kern", "liga", "calt", "swsh";
+}

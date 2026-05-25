@@ -50,6 +50,7 @@ function fmtMonthYear(iso: string) {
     background: var(--paper-deep);
     text-decoration: none;
   }
+  .project-row:hover .project-title { color: var(--accent-deep); }
 
   .project-top {
     display: flex;
@@ -64,6 +65,7 @@ function fmtMonthYear(iso: string) {
     font-weight: 500;
     color: var(--ink);
     letter-spacing: -0.01em;
+    transition: color 160ms ease;
   }
 
   .project-date {
