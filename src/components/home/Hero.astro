@@ -2,18 +2,18 @@
 import { GLOBAL } from "../../lib/variables";
 
 const icons = [
-  { name: "HTML",       slug: "html5"      },
-  { name: "CSS",        slug: "css3"       },
-  { name: "JavaScript", slug: "javascript" },
-  { name: "TypeScript", slug: "typescript" },
-  { name: "React",      slug: "react"      },
-  { name: "Angular",    slug: "angular"    },
-  { name: "Go",         slug: "go"         },
-  { name: "Git",        slug: "git"        },
-  { name: "Neovim",     slug: "neovim"     },
-  { name: "Linux",      slug: "linux"      },
-  { name: "macOS",      slug: "apple"      },
-  { name: "Claude",     slug: "anthropic"  },
+  { name: "HTML",       slug: "html5",      top: "3%",  left: 18,  size: 26, opacity: 0.14 },
+  { name: "CSS",        slug: "css3",        top: "2%",  left: 148, size: 20, opacity: 0.10 },
+  { name: "JavaScript", slug: "javascript",  top: "18%", left: 82,  size: 30, opacity: 0.16 },
+  { name: "TypeScript", slug: "typescript",  top: "15%", left: 172, size: 22, opacity: 0.11 },
+  { name: "React",      slug: "react",       top: "34%", left: 28,  size: 26, opacity: 0.13 },
+  { name: "Angular",    slug: "angular",     top: "31%", left: 138, size: 20, opacity: 0.09 },
+  { name: "Go",         slug: "go",          top: "50%", left: 68,  size: 28, opacity: 0.15 },
+  { name: "Git",        slug: "git",         top: "48%", left: 182, size: 18, opacity: 0.10 },
+  { name: "Neovim",     slug: "neovim",      top: "65%", left: 12,  size: 24, opacity: 0.12 },
+  { name: "Linux",      slug: "linux",       top: "67%", left: 122, size: 26, opacity: 0.13 },
+  { name: "macOS",      slug: "apple",       top: "83%", left: 52,  size: 20, opacity: 0.10 },
+  { name: "Claude",     slug: "anthropic",   top: "80%", left: 178, size: 24, opacity: 0.12 },
 ];
 ---
 
@@ -34,7 +34,6 @@ const icons = [
         Frontend by trade.<br />
         <em>Terminal by choice.</em>
       </h1>
-
       <div class="hero-lower">
         <p class="hero-bio">{GLOBAL.longDescription}</p>
         <div class="hero-cta">
@@ -44,15 +43,15 @@ const icons = [
       </div>
     </div>
 
-    <div class="hero-icons" aria-label="Technologies I work with">
+    <div class="hero-icons" aria-hidden="true">
       {icons.map((icon) => (
         <img
           src={`https://cdn.simpleicons.org/${icon.slug}`}
-          alt={icon.name}
-          title={icon.name}
-          width="28"
-          height="28"
+          alt=""
+          width={icon.size}
+          height={icon.size}
           class="tech-icon"
+          style={`top:${icon.top}; left:${icon.left}px; width:${icon.size}px; height:${icon.size}px; opacity:${icon.opacity};`}
           loading="lazy"
         />
       ))}
@@ -68,7 +67,6 @@ const icons = [
     padding-bottom: 3.5rem;
   }
 
-  /* ── Meta bar ─────────────────────────────────────────────────────── */
   .hero-meta {
     display: flex;
     justify-content: space-between;
@@ -102,15 +100,13 @@ const icons = [
     flex-shrink: 0;
   }
 
-  /* ── Grid ─────────────────────────────────────────────────────────── */
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 3rem;
-    align-items: start;
+    grid-template-columns: 1fr 220px;
+    gap: 2rem;
+    align-items: stretch;
   }
 
-  /* ── Text column ──────────────────────────────────────────────────── */
   .hero-headline {
     font-size: clamp(2.4rem, 4.8vw, 3.8rem);
     line-height: 1.06;
@@ -146,38 +142,26 @@ const icons = [
     align-items: center;
   }
 
-  /* ── Icon grid ────────────────────────────────────────────────────── */
+  /* ── Scattered icons ──────────────────────────────────────────────── */
   .hero-icons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.1rem;
-    padding-top: 0.3rem;
+    position: relative;
+    overflow: hidden;
   }
 
   .tech-icon {
-    width: 28px;
-    height: 28px;
-    display: block;
-    filter: grayscale(1) opacity(0.35);
-    transition: filter 220ms ease;
+    position: absolute;
+    filter: grayscale(1) brightness(0.3);
+    pointer-events: none;
+    user-select: none;
   }
 
-  .tech-icon:hover {
-    filter: grayscale(0) opacity(1);
-  }
-
-  /* Dark mode: invert grayscale so icons read on dark paper */
   :global([data-theme="dark"]) .tech-icon {
-    filter: grayscale(1) invert(1) opacity(0.45);
-  }
-  :global([data-theme="dark"]) .tech-icon:hover {
-    filter: grayscale(0) invert(0) opacity(0.9);
+    filter: grayscale(1) brightness(3) invert(0.85);
   }
 
-  /* ── Responsive ───────────────────────────────────────────────────── */
-  @media (max-width: 640px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-icons { grid-template-columns: repeat(6, 1fr); gap: 0.8rem; }
-    .meta-loc { display: none; }
+  @media (max-width: 700px) {
+    .hero-grid  { grid-template-columns: 1fr; }
+    .hero-icons { display: none; }
+    .meta-loc   { display: none; }
   }
 </style>
