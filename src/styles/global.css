@@ -111,8 +111,8 @@
 }
 
 /* ── Layout helpers ────────────────────────────────────────────────── */
-.wrap        { width: 100%; max-width: 64rem; margin: 0 auto; padding: 0 2rem; }
-.wrap-narrow { width: 100%; max-width: 42rem; margin: 0 auto; padding: 0 2rem; }
+.wrap        { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 2rem; }
+.wrap-narrow { width: 100%; max-width: 52rem; margin: 0 auto; padding: 0 2rem; }
 
 /* ── Typography utilities ──────────────────────────────────────────── */
 .font-mono-custom { font-family: var(--mono); }
