@@ -8,4 +8,12 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: "gruvbox-light-medium",
+        dark:  "gruvbox-dark-medium",
+      },
+    },
+  },
 });

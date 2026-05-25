@@ -218,8 +218,8 @@
   color: var(--ink);
   border: 1px solid var(--line-soft);
 }
-.prose-warm pre {
-  background: var(--paper-deep);
+.prose-warm pre,
+.prose-warm .astro-code {
   border: 1px solid var(--line-soft);
   border-radius: 6px;
   padding: 1.1rem 1.25rem;
@@ -227,7 +227,27 @@
   font-size: 0.85rem;
   line-height: 1.55;
   margin: 1.4rem 0;
-  color: var(--ink);
+}
+
+/* ── Shiki dual-theme wiring ──────────────────────────────────────── */
+/* Light: use --shiki-light tokens (Gruvbox light) */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+/* Dark: switch to --shiki-dark tokens (Gruvbox dark) */
+[data-theme="dark"] .astro-code,
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 .prose-warm blockquote {
   margin: calc(var(--rc-gap, 2rem) * 0.65) 0;
