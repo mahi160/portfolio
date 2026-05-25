@@ -1,5 +1,20 @@
 ---
 import { GLOBAL } from "../../lib/variables";
+
+const icons = [
+  { name: "HTML",       slug: "html5"      },
+  { name: "CSS",        slug: "css3"       },
+  { name: "JavaScript", slug: "javascript" },
+  { name: "TypeScript", slug: "typescript" },
+  { name: "React",      slug: "react"      },
+  { name: "Angular",    slug: "angular"    },
+  { name: "Go",         slug: "go"         },
+  { name: "Git",        slug: "git"        },
+  { name: "Neovim",     slug: "neovim"     },
+  { name: "Linux",      slug: "linux"      },
+  { name: "macOS",      slug: "apple"      },
+  { name: "Claude",     slug: "anthropic"  },
+];
 ---
 
 <section class="hero-section">
@@ -12,17 +27,37 @@ import { GLOBAL } from "../../lib/variables";
     <span class="meta-loc" aria-hidden="true">Dhaka · GMT +6</span>
   </div>
 
-  <h1 class="hero-headline">
-    Frontend by trade.<br />
-    <em>Terminal by choice.</em>
-  </h1>
+  <div class="hero-grid">
 
-  <div class="hero-lower">
-    <p class="hero-bio">{GLOBAL.longDescription}</p>
-    <div class="hero-cta">
-      <a href="/blog"     class="arrow-link">Read the writing</a>
-      <a href="/projects" class="arrow-link">See the projects</a>
+    <div class="hero-text">
+      <h1 class="hero-headline">
+        Frontend by trade.<br />
+        <em>Terminal by choice.</em>
+      </h1>
+
+      <div class="hero-lower">
+        <p class="hero-bio">{GLOBAL.longDescription}</p>
+        <div class="hero-cta">
+          <a href="/blog"     class="arrow-link">Read the writing</a>
+          <a href="/projects" class="arrow-link">See the projects</a>
+        </div>
+      </div>
     </div>
+
+    <div class="hero-icons" aria-label="Technologies I work with">
+      {icons.map((icon) => (
+        <img
+          src={`https://cdn.simpleicons.org/${icon.slug}`}
+          alt={icon.name}
+          title={icon.name}
+          width="28"
+          height="28"
+          class="tech-icon"
+          loading="lazy"
+        />
+      ))}
+    </div>
+
   </div>
 
 </section>
@@ -33,6 +68,7 @@ import { GLOBAL } from "../../lib/variables";
     padding-bottom: 3.5rem;
   }
 
+  /* ── Meta bar ─────────────────────────────────────────────────────── */
   .hero-meta {
     display: flex;
     justify-content: space-between;
@@ -66,8 +102,17 @@ import { GLOBAL } from "../../lib/variables";
     flex-shrink: 0;
   }
 
+  /* ── Grid ─────────────────────────────────────────────────────────── */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── Text column ──────────────────────────────────────────────────── */
   .hero-headline {
-    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-size: clamp(2.4rem, 4.8vw, 3.8rem);
     line-height: 1.06;
     letter-spacing: -0.022em;
     font-weight: 600;
@@ -82,9 +127,9 @@ import { GLOBAL } from "../../lib/variables";
 
   .hero-lower {
     border-top: 1px solid var(--line-soft);
-    margin-top: 2rem;
-    padding-top: 1.6rem;
-    max-width: 48rem;
+    margin-top: 1.8rem;
+    padding-top: 1.5rem;
+    max-width: 42rem;
   }
 
   .hero-bio {
@@ -101,7 +146,38 @@ import { GLOBAL } from "../../lib/variables";
     align-items: center;
   }
 
-  @media (max-width: 540px) {
+  /* ── Icon grid ────────────────────────────────────────────────────── */
+  .hero-icons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    padding-top: 0.3rem;
+  }
+
+  .tech-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    filter: grayscale(1) opacity(0.35);
+    transition: filter 220ms ease;
+  }
+
+  .tech-icon:hover {
+    filter: grayscale(0) opacity(1);
+  }
+
+  /* Dark mode: invert grayscale so icons read on dark paper */
+  :global([data-theme="dark"]) .tech-icon {
+    filter: grayscale(1) invert(1) opacity(0.45);
+  }
+  :global([data-theme="dark"]) .tech-icon:hover {
+    filter: grayscale(0) invert(0) opacity(0.9);
+  }
+
+  /* ── Responsive ───────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-icons { grid-template-columns: repeat(6, 1fr); gap: 0.8rem; }
     .meta-loc { display: none; }
   }
 </style>
