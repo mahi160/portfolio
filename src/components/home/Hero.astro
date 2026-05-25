@@ -2,18 +2,18 @@
 import { GLOBAL } from "../../lib/variables";
 
 const icons = [
-  { name: "HTML",       slug: "html5",      top: "3%",  left: 18,  size: 26, opacity: 0.14 },
-  { name: "CSS",        slug: "css3",        top: "2%",  left: 148, size: 20, opacity: 0.10 },
-  { name: "JavaScript", slug: "javascript",  top: "18%", left: 82,  size: 30, opacity: 0.16 },
-  { name: "TypeScript", slug: "typescript",  top: "15%", left: 172, size: 22, opacity: 0.11 },
-  { name: "React",      slug: "react",       top: "34%", left: 28,  size: 26, opacity: 0.13 },
-  { name: "Angular",    slug: "angular",     top: "31%", left: 138, size: 20, opacity: 0.09 },
-  { name: "Go",         slug: "go",          top: "50%", left: 68,  size: 28, opacity: 0.15 },
-  { name: "Git",        slug: "git",         top: "48%", left: 182, size: 18, opacity: 0.10 },
-  { name: "Neovim",     slug: "neovim",      top: "65%", left: 12,  size: 24, opacity: 0.12 },
-  { name: "Linux",      slug: "linux",       top: "67%", left: 122, size: 26, opacity: 0.13 },
-  { name: "macOS",      slug: "apple",       top: "83%", left: 52,  size: 20, opacity: 0.10 },
-  { name: "Claude",     slug: "anthropic",   top: "80%", left: 178, size: 24, opacity: 0.12 },
+  { name: "HTML",       slug: "html5",      top:  "3%", left:  55, size: 30, opacity: 0.40, rotate: -14 },
+  { name: "CSS",        slug: "css3",        top:  "8%", left: 165, size: 22, opacity: 0.30, rotate:   9 },
+  { name: "JavaScript", slug: "javascript",  top: "17%", left:  22, size: 26, opacity: 0.36, rotate:  18 },
+  { name: "TypeScript", slug: "typescript",  top: "13%", left: 118, size: 18, opacity: 0.27, rotate:  -7 },
+  { name: "React",      slug: "react",       top: "30%", left:  82, size: 34, opacity: 0.44, rotate: -22 },
+  { name: "Angular",    slug: "angular",     top: "36%", left: 178, size: 24, opacity: 0.32, rotate:  11 },
+  { name: "Go",         slug: "go",          top: "50%", left:  14, size: 28, opacity: 0.38, rotate:  -5 },
+  { name: "Git",        slug: "git",         top: "44%", left: 142, size: 20, opacity: 0.26, rotate:  17 },
+  { name: "Neovim",     slug: "neovim",      top: "63%", left:  98, size: 30, opacity: 0.42, rotate: -12 },
+  { name: "Linux",      slug: "linux",       top: "70%", left: 172, size: 22, opacity: 0.28, rotate:  20 },
+  { name: "macOS",      slug: "apple",       top: "82%", left:  42, size: 24, opacity: 0.34, rotate:  -8 },
+  { name: "Claude",     slug: "anthropic",   top: "87%", left: 152, size: 28, opacity: 0.36, rotate:   6 },
 ];
 ---
 
@@ -51,7 +51,7 @@ const icons = [
           width={icon.size}
           height={icon.size}
           class="tech-icon"
-          style={`top:${icon.top}; left:${icon.left}px; width:${icon.size}px; height:${icon.size}px; opacity:${icon.opacity};`}
+          style={`top:${icon.top}; left:${icon.left}px; width:${icon.size}px; height:${icon.size}px; opacity:${icon.opacity}; transform:rotate(${icon.rotate}deg);`}
           loading="lazy"
         />
       ))}
