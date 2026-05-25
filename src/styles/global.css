@@ -163,26 +163,27 @@
 
 /* ── Prose ────────────────────────────────────────────────────────── */
 .prose-warm {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: var(--rc-size, 1.075rem);
+  line-height: var(--rc-leading, 1.78);
+  font-family: var(--rc-font, var(--serif));
   color: var(--ink-soft);
 }
-.prose-warm p  { margin: 0 0 1em; }
+.prose-warm p  { margin: 0 0 var(--rc-para, 1.25em); }
 .prose-warm h2 {
-  font-size: 1.35rem;
-  margin: 2rem 0 0.7rem;
+  font-size: 1.38rem;
+  margin: var(--rc-gap, 2rem) 0 0.75rem;
   color: var(--ink);
   font-variation-settings: "opsz" 28;
 }
 .prose-warm h3 {
-  font-size: 1.1rem;
-  margin: 1.6rem 0 0.55rem;
+  font-size: 1.15rem;
+  margin: calc(var(--rc-gap, 2rem) * 0.8) 0 0.6rem;
   color: var(--ink);
   font-variation-settings: "opsz" 22;
 }
 .prose-warm h4 {
-  font-size: 1rem;
-  margin: 1.4rem 0 0.4rem;
+  font-size: 1.02rem;
+  margin: calc(var(--rc-gap, 2rem) * 0.65) 0 0.45rem;
   color: var(--ink);
   font-weight: 600;
 }
@@ -213,8 +214,8 @@
   color: var(--ink);
 }
 .prose-warm blockquote {
-  margin: 1.2rem 0;
-  padding: 0.2rem 0 0.2rem 1.1rem;
+  margin: calc(var(--rc-gap, 2rem) * 0.65) 0;
+  padding: 0.25rem 0 0.25rem 1.1rem;
   border-left: 2px solid var(--accent);
   color: var(--ink-muted);
   font-style: italic;
@@ -232,6 +233,6 @@
   color: var(--accent);
   font-size: 0.9em;
 }
-.prose-warm hr { margin: 1.8rem 0; border-top: 1px solid var(--line-soft); }
+.prose-warm hr { margin: var(--rc-gap, 2rem) 0; border-top: 1px solid var(--line-soft); }
 .prose-warm strong { color: var(--ink); font-weight: 600; }
 .prose-warm em { font-style: italic; color: var(--ink); }

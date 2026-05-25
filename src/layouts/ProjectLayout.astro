@@ -3,6 +3,7 @@ import type { MarkdownLayoutProps } from "astro";
 import type { ProjectFrontmatter } from "../lib/types";
 import { generateSourceUrl, getShortDescription } from "../lib/utils";
 import { GLOBAL } from "../lib/variables";
+import ReadingControls from "../components/ReadingControls.astro";
 import Layout from "./Layout.astro";
 
 type Props = MarkdownLayoutProps<ProjectFrontmatter>;
@@ -64,6 +65,7 @@ function fmtMonthYear(iso: string) {
 
       <div class="project-rule"></div>
 
+      <ReadingControls />
       <div class="prose-warm">
         <slot />
       </div>

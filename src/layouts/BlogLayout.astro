@@ -2,6 +2,7 @@
 import type { MarkdownLayoutProps } from "astro";
 import type { ArticleFrontmatter } from "../lib/types";
 import { GLOBAL } from "../lib/variables";
+import ReadingControls from "../components/ReadingControls.astro";
 import Layout from "./Layout.astro";
 
 type Props = MarkdownLayoutProps<ArticleFrontmatter>;
@@ -52,6 +53,7 @@ const fmtDateLong = (iso: string) => {
 
       <div class="article-rule"></div>
 
+      <ReadingControls />
       <div class="prose-warm">
         <slot />
       </div>
