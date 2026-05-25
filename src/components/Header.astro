@@ -22,9 +22,36 @@ const isProjects = pathname.startsWith("/projects");
       <a href="/blog"     class:list={["nav-link", { active: isWriting }]}>Writing</a>
       <a href="/projects" class:list={["nav-link", { active: isProjects }]}>Projects</a>
       <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" class="nav-link">Résumé</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="theme-icon theme-icon-light">○</span>
+        <span class="theme-icon theme-icon-dark">●</span>
+      </button>
     </nav>
   </div>
 </header>
+
+<script>
+  const btn = document.getElementById("themeToggle");
+  const root = document.documentElement;
+
+  function getTheme() {
+    return localStorage.getItem("sifat-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+
+  function applyTheme(theme: string) {
+    root.setAttribute("data-theme", theme === "dark" ? "dark" : "");
+    btn?.setAttribute("data-theme", theme);
+  }
+
+  applyTheme(getTheme());
+
+  btn?.addEventListener("click", () => {
+    const next = getTheme() === "dark" ? "light" : "dark";
+    localStorage.setItem("sifat-theme", next);
+    applyTheme(next);
+  });
+</script>
 
 <style>
   .site-header {
@@ -102,6 +129,29 @@ const isProjects = pathname.startsWith("/projects");
     color: var(--ink);
     border-bottom-color: var(--accent);
   }
+
+  .theme-toggle {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.15rem 0.3rem;
+    color: var(--ink-faint);
+    line-height: 1;
+    border-radius: 3px;
+    transition: color 160ms ease;
+    display: flex;
+    align-items: center;
+  }
+  .theme-toggle:hover { color: var(--ink-muted); }
+
+  .theme-icon { display: none; }
+
+  /* show moon in light mode (clicking switches to dark) */
+  :root:not([data-theme="dark"]) .theme-icon-light { display: inline; }
+  /* show sun in dark mode (clicking switches to light) */
+  :root[data-theme="dark"] .theme-icon-dark { display: inline; }
 
   @media (max-width: 540px) {
     .header-inner { flex-direction: column; gap: 1rem; }
