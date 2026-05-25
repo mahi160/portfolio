@@ -26,12 +26,43 @@ import { GLOBAL } from "../../lib/variables";
       </div>
     </div>
 
-    <!-- Portrait -->
-    <div class="hero-portrait">
+    <!-- Dot-grid abstract -->
+    <div class="hero-portrait" aria-hidden="true">
       <div class="portrait-frame">
-        <img src="/pp.webp" alt="Sifat" width="160" height="192" />
+        <svg width="160" height="192" viewBox="0 0 160 192" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="hero-dotgrid" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+              <circle cx="8" cy="8" r="1.4" fill="var(--line)" opacity="0.45" />
+            </pattern>
+          </defs>
+          <!-- base grid -->
+          <rect width="160" height="192" fill="url(#hero-dotgrid)" />
+          <!-- medium emphasis dots -->
+          <circle cx="24"  cy="40"  r="2"   fill="var(--line)" />
+          <circle cx="72"  cy="24"  r="2"   fill="var(--line)" />
+          <circle cx="104" cy="56"  r="2"   fill="var(--line)" />
+          <circle cx="152" cy="88"  r="2"   fill="var(--line)" />
+          <circle cx="40"  cy="104" r="2"   fill="var(--line)" />
+          <circle cx="120" cy="136" r="2"   fill="var(--line)" />
+          <circle cx="56"  cy="168" r="2"   fill="var(--line)" />
+          <circle cx="136" cy="168" r="2"   fill="var(--line)" />
+          <circle cx="88"  cy="136" r="2"   fill="var(--line)" />
+          <circle cx="136" cy="40"  r="2"   fill="var(--line)" />
+          <!-- accent-soft scatter -->
+          <circle cx="40"  cy="56"  r="2.8" fill="var(--accent-soft)" />
+          <circle cx="120" cy="24"  r="2.8" fill="var(--accent-soft)" />
+          <circle cx="24"  cy="120" r="2.8" fill="var(--accent-soft)" />
+          <circle cx="136" cy="104" r="2.8" fill="var(--accent-soft)" />
+          <circle cx="56"  cy="152" r="2.8" fill="var(--accent-soft)" />
+          <circle cx="104" cy="168" r="2.8" fill="var(--accent-soft)" />
+          <circle cx="152" cy="40"  r="2.8" fill="var(--accent-soft)" />
+          <!-- bright accent focal dots -->
+          <circle cx="88"  cy="88"  r="2.5" fill="var(--accent)" />
+          <circle cx="72"  cy="152" r="2.5" fill="var(--accent)" />
+          <circle cx="136" cy="72"  r="2.5" fill="var(--accent)" />
+        </svg>
       </div>
-      <div class="portrait-meta" aria-hidden="true">
+      <div class="portrait-meta">
         Dhaka&nbsp;·&nbsp;GMT +6
       </div>
     </div>
@@ -124,13 +155,6 @@ import { GLOBAL } from "../../lib/variables";
     overflow: hidden;
     border: 1px solid var(--line);
     background: var(--paper-deep);
-  }
-
-  .portrait-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
   }
 
   .portrait-meta {
