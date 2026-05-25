@@ -39,13 +39,13 @@ import { GLOBAL } from "../lib/variables";
     <meta name="language" content="English" />
     <link rel="canonical" href={GLOBAL.rootUrl} />
   </Fragment>
-  <Section class="pt-12 sm:pt-16 pb-6">
+  <Section class="pt-24 sm:pt-32 pb-16">
     <Hero />
   </Section>
-  <Section class="py-6">
-    <FeaturedProjects featuredProjects={featuredProjects} />
-  </Section>
-  <Section class="py-6">
+  <Section class="py-12 sm:py-20 border-t border-border/50">
     <FeaturedArticles featuredArticles={featuredArticles} />
+  </Section>
+  <Section class="py-12 sm:py-20 border-t border-border/50">
+    <FeaturedProjects featuredProjects={featuredProjects} />
   </Section>
 </Layout>

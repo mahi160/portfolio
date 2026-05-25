@@ -13,15 +13,15 @@ export type Props = {
 const { title, description, url, duration, timestamp } = Astro.props;
 ---
 
-<div class="zag-text zag-transition flex flex-col gap-3 py-5 border-b border-zag-dark/15 dark:border-zag-light/15">
-  <Anchor url={url} class="text-lg">
+<div class="text-foreground flex flex-col gap-3 py-5 border-b border-border">
+  <Anchor url={url} class="text-xl sm:text-2xl font-display font-medium">
     {title}
   </Anchor>
-  <p class="zag-muted zag-transition text-sm leading-7 max-w-[var(--content-width)]">
+  <p class="text-muted text-base font-sans leading-relaxed max-w-3xl">
     {description}
   </p>
   <div
-    class="zag-muted zag-transition flex justify-between items-center text-xs"
+    class="text-muted flex justify-between items-center text-xs"
   >
     {timestamp ? <p>{processArticleDate(timestamp)}</p> : null}
     {duration ? <p>{duration}</p> : null}

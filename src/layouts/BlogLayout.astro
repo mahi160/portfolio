@@ -36,14 +36,14 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
     <link rel="canonical" href={sourceUrl} />
   </Fragment>
   <Section class="py-12">
-    <header class="flex flex-col gap-4 mb-10 max-w-[var(--content-width)]">
-      <p class="text-xs uppercase tracking-[0.2em] font-mono zag-muted zag-transition">
+    <header class="flex flex-col gap-4 mb-10 max-w-3xl">
+      <p class="text-xs uppercase tracking-[0.2em] font-mono text-muted">
         Article
       </p>
-      <h1 class="text-3xl sm:text-4xl leading-tight font-display text-zag-accent-dark dark:text-zag-accent-light">
+      <h1 class="text-3xl sm:text-4xl leading-tight font-display text-accent">
         {frontmatter.title}
       </h1>
-      <div class="flex justify-between text-xs zag-muted zag-transition font-mono">
+      <div class="flex justify-between text-xs text-muted font-mono">
         <span>{articleDate}</span>
         <span>{frontmatter.time} min read</span>
       </div>
@@ -51,6 +51,6 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
     <Prose>
       <slot />
     </Prose>
-    <p class="pt-8 text-sm zag-muted zag-transition">~{GLOBAL.username}</p>
+    <p class="pt-8 text-sm text-muted">~{GLOBAL.username}</p>
   </Section>
 </Layout>

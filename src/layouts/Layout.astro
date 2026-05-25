@@ -28,12 +28,12 @@ import "../styles/global.css";
         <meta name="generator" content={Astro.generator} />
         <link rel="preconnect" href="https://fonts.bunny.net" />
         <link
-            href="https://fonts.bunny.net/css?family=ibm-plex-sans:400,400i,500,500i,600,600i,700,700i|ibm-plex-serif:600,700"
+            href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,400i,500,500i,600,600i,700,700i|ibm-plex-sans:400,400i,500,500i,600,600i,700,700i|ibm-plex-serif:600,700"
             rel="stylesheet"
         />
         <slot name="head" />
     </head>
-    <body class="zag-bg zag-text zag-transition font-mono">
+    <body class="font-sans antialiased">
         <Header />
         <main class="min-h-[calc(100vh-66px-64px-32px-166px)]">
             <slot />

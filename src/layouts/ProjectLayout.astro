@@ -33,18 +33,18 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "projects");
     <link rel="canonical" href={sourceUrl} />
   </Fragment>
   <Section class="py-12">
-    <header class="flex flex-col gap-4 mb-10 max-w-[var(--content-width)]">
-      <p class="text-xs uppercase tracking-[0.2em] font-mono zag-muted zag-transition">
+    <header class="flex flex-col gap-4 mb-10 max-w-3xl">
+      <p class="text-xs uppercase tracking-[0.2em] font-mono text-muted">
         Project
       </p>
-      <h1 class="text-3xl sm:text-4xl leading-tight font-display text-zag-accent-dark dark:text-zag-accent-light">
+      <h1 class="text-3xl sm:text-4xl leading-tight font-display text-accent">
         {frontmatter.title}
       </h1>
       <div class="flex text-xs gap-2 flex-wrap">
         {
           frontmatter.tags
             ? frontmatter.tags.map((tag) => (
-                <span class="zag-transition font-semibold py-1 px-2 text-xs text-zag-accent-dark dark:text-zag-accent-light border border-zag-accent-dark dark:border-zag-accent-light">
+                <span class="font-semibold py-1 px-2 text-xs text-accent border border-accent">
                   {tag}
                 </span>
               ))
