@@ -15,17 +15,19 @@
   --accent:       oklch(0.5   0.062 145);
   --accent-soft:  oklch(0.88  0.04  140);
   --accent-deep:  oklch(0.38  0.062 145);
-  --serif: "Newsreader", "Iowan Old Style", "Hoefler Text", Georgia, serif;
-  --mono:  "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --serif: "Lora", Georgia, serif;
+  --sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
+  --fancy: "Cormorant Garamond", Georgia, serif;
   --rhythm: 1.5rem;
   --measure: 38rem;
 }
 
 /* ── Tailwind theme ───────────────────────────────────────────────── */
 @theme {
-  --font-serif: "Newsreader", "Iowan Old Style", "Hoefler Text", Georgia, serif;
-  --font-mono:  "JetBrains Mono", "SF Mono", Menlo, monospace;
-  --font-sans:  "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
 
   --color-paper:       oklch(0.962 0.018 84);
   --color-paper-deep:  oklch(0.935 0.024 80);
@@ -73,13 +75,12 @@
     padding: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-size: 16.5px;
     line-height: 1.6;
-    font-feature-settings: "kern", "liga", "calt", "onum";
+    font-feature-settings: "kern", "liga", "calt";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    font-variation-settings: "opsz" 16;
   }
 
   a {
@@ -97,13 +98,12 @@
 
   h1, h2, h3, h4 {
     font-family: var(--serif);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.012em;
     line-height: 1.18;
     margin: 0;
-    font-variation-settings: "opsz" 36;
   }
-  h1 { font-size: 2.4rem; font-variation-settings: "opsz" 60; }
+  h1 { font-size: 2.4rem; }
   h2 { font-size: 1.5rem; }
   h3 { font-size: 1.2rem; }
   p  { margin: 0 0 1rem; }
@@ -181,7 +181,7 @@
 .prose-warm {
   font-size: var(--rc-size, 1.075rem);
   line-height: var(--rc-leading, 1.78);
-  font-family: var(--rc-font, var(--serif));
+  font-family: var(--rc-font, var(--sans));
   color: var(--ink-soft);
 }
 .prose-warm p  { margin: 0 0 var(--rc-para, 1.25em); }
@@ -189,13 +189,11 @@
   font-size: 1.38rem;
   margin: var(--rc-gap, 2rem) 0 0.75rem;
   color: var(--ink);
-  font-variation-settings: "opsz" 28;
 }
 .prose-warm h3 {
   font-size: 1.15rem;
   margin: calc(var(--rc-gap, 2rem) * 0.8) 0 0.6rem;
   color: var(--ink);
-  font-variation-settings: "opsz" 22;
 }
 .prose-warm h4 {
   font-size: 1.02rem;
