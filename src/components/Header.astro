@@ -10,10 +10,10 @@ const isProjects = pathname.startsWith("/projects");
 <header class="site-header">
   <div class="wrap header-inner">
     <!-- Logo / name -->
-    <a href="/" class="header-logo">
+    <a href="/" class="header-logo" aria-label="Sifat — home">
       <span class="logo-dot" aria-hidden="true"></span>
-      <span class="logo-name">Sifat</span>
-      <span class="logo-handle">{GLOBAL.handle ?? "sifat.is-a.dev"}</span>
+      <span class="logo-name" aria-hidden="true">Sifat</span>
+      <span class="logo-handle" aria-hidden="true">{GLOBAL.handle ?? "sifat.is-a.dev"}</span>
     </a>
 
     <!-- Nav -->
@@ -21,10 +21,10 @@ const isProjects = pathname.startsWith("/projects");
       <a href="/"         class:list={["nav-link", { active: isHome }]}>Index</a>
       <a href="/blog"     class:list={["nav-link", { active: isWriting }]}>Writing</a>
       <a href="/projects" class:list={["nav-link", { active: isProjects }]}>Projects</a>
-      <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" class="nav-link">Résumé</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-        <span class="theme-icon theme-icon-light">○</span>
-        <span class="theme-icon theme-icon-dark">●</span>
+      <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" class="nav-link" aria-label="Résumé, opens in new tab">Résumé</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
+        <span class="theme-icon theme-icon-light" aria-hidden="true">○</span>
+        <span class="theme-icon theme-icon-dark" aria-hidden="true">●</span>
       </button>
     </nav>
   </div>
@@ -40,8 +40,10 @@ const isProjects = pathname.startsWith("/projects");
   }
 
   function applyTheme(theme: string) {
-    root.setAttribute("data-theme", theme === "dark" ? "dark" : "");
-    btn?.setAttribute("data-theme", theme);
+    const isDark = theme === "dark";
+    root.setAttribute("data-theme", isDark ? "dark" : "");
+    btn?.setAttribute("aria-pressed", String(isDark));
+    btn?.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   }
 
   applyTheme(getTheme());

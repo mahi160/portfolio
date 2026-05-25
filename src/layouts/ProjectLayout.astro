@@ -30,7 +30,7 @@ function fmtMonthYear(iso: string) {
     <link rel="canonical" href={generateSourceUrl(frontmatter.filename, "projects")} />
   </Fragment>
 
-  <main class="wrap-narrow">
+  <main id="main-content" class="wrap-narrow" tabindex="-1">
     <a href="/projects" class="back-link">← All projects</a>
 
     <article>
@@ -45,12 +45,12 @@ function fmtMonthYear(iso: string) {
 
         <div class="project-links">
           {frontmatter.githubUrl && (
-            <a href={frontmatter.githubUrl} target="_blank" rel="noopener" class="pill pill-accent">
+            <a href={frontmatter.githubUrl} target="_blank" rel="noopener" class="pill pill-accent" aria-label="View on GitHub, opens in new tab">
               GitHub ↗
             </a>
           )}
           {frontmatter.liveUrl && (
-            <a href={frontmatter.liveUrl} target="_blank" rel="noopener" class="pill">
+            <a href={frontmatter.liveUrl} target="_blank" rel="noopener" class="pill" aria-label="View live site, opens in new tab">
               Live ↗
             </a>
           )}

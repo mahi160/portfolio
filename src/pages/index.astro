@@ -24,7 +24,7 @@ import { GLOBAL } from "../lib/variables";
     <link rel="canonical" href={GLOBAL.rootUrl} />
   </Fragment>
 
-  <main class="wrap">
+  <main id="main-content" class="wrap" tabindex="-1">
     <!-- Hero -->
     <Hero />
 
@@ -55,32 +55,32 @@ import { GLOBAL } from "../lib/variables";
     <section class="colophon">
       <div class="colophon-grid">
         <div class="colophon-cell">
-          <div class="colophon-label">Working in</div>
-          <ul>
+          <div class="colophon-label" id="col-working">Working in</div>
+          <ul role="list" aria-labelledby="col-working">
             <li>TypeScript</li>
             <li>Go</li>
             <li>React</li>
           </ul>
         </div>
         <div class="colophon-cell">
-          <div class="colophon-label">Living in</div>
-          <ul>
+          <div class="colophon-label" id="col-living">Living in</div>
+          <ul role="list" aria-labelledby="col-living">
             <li>Neovim</li>
             <li>tmux</li>
             <li>Ghostty</li>
           </ul>
         </div>
         <div class="colophon-cell">
-          <div class="colophon-label">Building with</div>
-          <ul>
+          <div class="colophon-label" id="col-building">Building with</div>
+          <ul role="list" aria-labelledby="col-building">
             <li>SQLite</li>
             <li>Bubble Tea</li>
             <li>Astro</li>
           </ul>
         </div>
         <div class="colophon-cell">
-          <div class="colophon-label">Reading about</div>
-          <ul>
+          <div class="colophon-label" id="col-reading">Reading about</div>
+          <ul role="list" aria-labelledby="col-reading">
             <li>Local-first</li>
             <li>TUI design</li>
             <li>Small tools</li>

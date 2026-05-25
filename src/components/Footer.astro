@@ -5,15 +5,15 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <div class="footer-elsewhere">
-      <div class="elsewhere-label">Elsewhere</div>
+    <nav class="footer-elsewhere" aria-label="Social links">
+      <div class="elsewhere-label" aria-hidden="true">Elsewhere</div>
       <div class="elsewhere-links">
-        {GLOBAL.githubProfile   && <a href={GLOBAL.githubProfile}   target="_blank" rel="noopener">GitHub</a>}
-        {GLOBAL.linkedinProfile && <a href={GLOBAL.linkedinProfile} target="_blank" rel="noopener">LinkedIn</a>}
+        {GLOBAL.githubProfile   && <a href={GLOBAL.githubProfile}   target="_blank" rel="noopener" aria-label="GitHub, opens in new tab">GitHub</a>}
+        {GLOBAL.linkedinProfile && <a href={GLOBAL.linkedinProfile} target="_blank" rel="noopener" aria-label="LinkedIn, opens in new tab">LinkedIn</a>}
         <a href={`mailto:${GLOBAL.email ?? "hello@sifat.is-a.dev"}`}>Email</a>
-        {GLOBAL.resumeUrl && <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener">Résumé</a>}
+        {GLOBAL.resumeUrl && <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" aria-label="Résumé, opens in new tab">Résumé</a>}
       </div>
-    </div>
+    </nav>
 
     <div class="footer-copy">
       <div>© {year} Salauddin Omar Sifat</div>

@@ -7,14 +7,14 @@
   --paper-deep:   oklch(0.935 0.024 80);
   --paper-deeper: oklch(0.905 0.028 78);
   --ink:          oklch(0.245 0.022 55);
-  --ink-soft:     oklch(0.36  0.02  58);
-  --ink-muted:    oklch(0.5   0.018 62);
-  --ink-faint:    oklch(0.68  0.014 65);
+  --ink-soft:     oklch(0.30  0.02  58);
+  --ink-muted:    oklch(0.40  0.018 62);
+  --ink-faint:    oklch(0.50  0.014 65);
   --line:         oklch(0.83  0.022 72);
   --line-soft:    oklch(0.88  0.018 75);
   --accent:       oklch(0.5   0.062 145);
   --accent-soft:  oklch(0.88  0.04  140);
-  --accent-deep:  oklch(0.38  0.062 145);
+  --accent-deep:  oklch(0.30  0.062 145);
   --serif: "Lora", Georgia, serif;
   --sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
@@ -55,15 +55,15 @@
   --paper:        oklch(0.16  0.012 55);
   --paper-deep:   oklch(0.19  0.014 55);
   --paper-deeper: oklch(0.22  0.016 55);
-  --ink:          oklch(0.92  0.010 75);
-  --ink-soft:     oklch(0.80  0.010 72);
-  --ink-muted:    oklch(0.65  0.010 70);
-  --ink-faint:    oklch(0.48  0.008 68);
+  --ink:          oklch(0.94  0.010 75);
+  --ink-soft:     oklch(0.86  0.010 72);
+  --ink-muted:    oklch(0.73  0.010 70);
+  --ink-faint:    oklch(0.62  0.008 68);
   --line:         oklch(0.32  0.014 60);
   --line-soft:    oklch(0.26  0.012 58);
-  --accent:       oklch(0.62  0.10  145);
+  --accent:       oklch(0.68  0.10  145);
   --accent-soft:  oklch(0.30  0.055 145);
-  --accent-deep:  oklch(0.75  0.10  145);
+  --accent-deep:  oklch(0.82  0.10  145);
 }
 
 /* ── Base ─────────────────────────────────────────────────────────── */
@@ -120,10 +120,39 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--ink);
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+/* ── Skip link ─────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+/* ── Screen-reader only ────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ── Layout helpers ────────────────────────────────────────────────── */
