@@ -3,99 +3,93 @@ import { GLOBAL } from "../../lib/variables";
 ---
 
 <section class="hero-section">
-  <div class="hero-grid">
-    <!-- Text -->
-    <div class="hero-text">
-      <div class="hero-kicker">
-        <span class="kicker-dot" aria-hidden="true"></span>
-        Currently — {GLOBAL.currentRole}
-      </div>
 
-      <h1 class="hero-headline">
-        Frontend by trade.<br />
-        <em>Terminal by choice.</em>
-      </h1>
+  <!-- meta bar -->
+  <div class="hero-meta">
+    <span class="meta-role">
+      <span class="kicker-dot" aria-hidden="true"></span>
+      {GLOBAL.currentRole}
+    </span>
+    <span class="meta-loc" aria-hidden="true">Dhaka · GMT +6</span>
+  </div>
 
+  <!-- full-width headline -->
+  <h1 class="hero-headline">
+    Frontend by trade.<br />
+    <em>Terminal by choice.</em>
+  </h1>
+
+  <!-- body row: bio left, dot-accent right -->
+  <div class="hero-lower">
+    <div class="hero-body">
       <p class="hero-tagline">{GLOBAL.shortDescription}</p>
-
       <p class="hero-bio">{GLOBAL.longDescription}</p>
-
       <div class="hero-cta">
-        <a href="/blog" class="arrow-link">Read the writing</a>
+        <a href="/blog"     class="arrow-link">Read the writing</a>
         <a href="/projects" class="arrow-link">See the projects</a>
       </div>
     </div>
 
-    <!-- Dot-grid abstract -->
-    <div class="hero-portrait" aria-hidden="true">
-      <div class="portrait-frame">
-        <svg width="160" height="192" viewBox="0 0 160 192" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="hero-dotgrid" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-              <circle cx="8" cy="8" r="1.4" fill="var(--line)" opacity="0.45" />
-            </pattern>
-          </defs>
-          <!-- base grid -->
-          <rect width="160" height="192" fill="url(#hero-dotgrid)" />
-          <!-- medium emphasis dots -->
-          <circle cx="24"  cy="40"  r="2"   fill="var(--line)" />
-          <circle cx="72"  cy="24"  r="2"   fill="var(--line)" />
-          <circle cx="104" cy="56"  r="2"   fill="var(--line)" />
-          <circle cx="152" cy="88"  r="2"   fill="var(--line)" />
-          <circle cx="40"  cy="104" r="2"   fill="var(--line)" />
-          <circle cx="120" cy="136" r="2"   fill="var(--line)" />
-          <circle cx="56"  cy="168" r="2"   fill="var(--line)" />
-          <circle cx="136" cy="168" r="2"   fill="var(--line)" />
-          <circle cx="88"  cy="136" r="2"   fill="var(--line)" />
-          <circle cx="136" cy="40"  r="2"   fill="var(--line)" />
-          <!-- accent-soft scatter -->
-          <circle cx="40"  cy="56"  r="2.8" fill="var(--accent-soft)" />
-          <circle cx="120" cy="24"  r="2.8" fill="var(--accent-soft)" />
-          <circle cx="24"  cy="120" r="2.8" fill="var(--accent-soft)" />
-          <circle cx="136" cy="104" r="2.8" fill="var(--accent-soft)" />
-          <circle cx="56"  cy="152" r="2.8" fill="var(--accent-soft)" />
-          <circle cx="104" cy="168" r="2.8" fill="var(--accent-soft)" />
-          <circle cx="152" cy="40"  r="2.8" fill="var(--accent-soft)" />
-          <!-- bright accent focal dots -->
-          <circle cx="88"  cy="88"  r="2.5" fill="var(--accent)" />
-          <circle cx="72"  cy="152" r="2.5" fill="var(--accent)" />
-          <circle cx="136" cy="72"  r="2.5" fill="var(--accent)" />
-        </svg>
-      </div>
-      <div class="portrait-meta">
-        Dhaka&nbsp;·&nbsp;GMT +6
-      </div>
+    <!-- unboxed dot-grid accent -->
+    <div class="hero-accent" aria-hidden="true">
+      <svg width="80" height="96" viewBox="0 0 80 96" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="hero-dotgrid" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+            <circle cx="8" cy="8" r="1.3" fill="var(--line)" opacity="0.45" />
+          </pattern>
+        </defs>
+        <rect width="80" height="96" fill="url(#hero-dotgrid)" />
+        <!-- medium emphasis -->
+        <circle cx="24" cy="24" r="1.9" fill="var(--line)" />
+        <circle cx="56" cy="40" r="1.9" fill="var(--line)" />
+        <circle cx="8"  cy="56" r="1.9" fill="var(--line)" />
+        <circle cx="72" cy="72" r="1.9" fill="var(--line)" />
+        <circle cx="40" cy="88" r="1.9" fill="var(--line)" />
+        <!-- accent scatter -->
+        <circle cx="8"  cy="24" r="2.4" fill="var(--accent-soft)" />
+        <circle cx="56" cy="8"  r="2.4" fill="var(--accent-soft)" />
+        <circle cx="40" cy="56" r="2.4" fill="var(--accent-soft)" />
+        <circle cx="72" cy="40" r="2.4" fill="var(--accent-soft)" />
+        <circle cx="24" cy="72" r="2.4" fill="var(--accent-soft)" />
+        <!-- bright focal -->
+        <circle cx="40" cy="32" r="2.2" fill="var(--accent)" />
+        <circle cx="24" cy="80" r="2.2" fill="var(--accent)" />
+      </svg>
     </div>
   </div>
+
 </section>
 
 <style>
   .hero-section {
-    padding-top: 1.5rem;
-    padding-bottom: 3rem;
+    padding-top: 1.8rem;
+    padding-bottom: 3.5rem;
   }
 
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 2.5rem;
-    align-items: start;
-  }
-
-  .hero-text {
-    max-width: 38rem;
-  }
-
-  .hero-kicker {
+  /* ── Meta bar ─────────────────────────────────────────────────────── */
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 2rem;
     font-family: var(--mono);
     font-size: 0.72rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent-deep);
-    margin-bottom: 1rem;
+  }
+
+  .meta-role {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    color: var(--accent-deep);
+  }
+
+  .meta-loc {
+    color: var(--ink-faint);
   }
 
   .kicker-dot {
@@ -108,31 +102,47 @@ import { GLOBAL } from "../../lib/variables";
     flex-shrink: 0;
   }
 
+  /* ── Headline ─────────────────────────────────────────────────────── */
   .hero-headline {
-    font-size: 2.8rem;
-    line-height: 1.12;
-    margin-bottom: 1.2rem;
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    line-height: 1.06;
+    letter-spacing: -0.022em;
     font-weight: 600;
+    margin-bottom: 0;
   }
+
   .hero-headline em {
     font-style: italic;
     font-weight: 400;
     color: var(--accent-deep);
   }
 
+  /* ── Lower row ────────────────────────────────────────────────────── */
+  .hero-lower {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem 3rem;
+    align-items: end;
+    border-top: 1px solid var(--line-soft);
+    margin-top: 2rem;
+    padding-top: 1.8rem;
+  }
+
+  .hero-body { max-width: 44rem; }
+
   .hero-tagline {
-    font-size: 1.1rem;
-    line-height: 1.55;
+    font-size: 1.05rem;
+    line-height: 1.6;
     color: var(--ink-soft);
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.75rem;
   }
 
   .hero-bio {
-    font-size: 0.98rem;
-    line-height: 1.65;
+    font-size: 0.95rem;
+    line-height: 1.7;
     color: var(--ink-muted);
     margin-bottom: 1.4rem;
-    max-width: 34rem;
+    max-width: 38rem;
   }
 
   .hero-cta {
@@ -142,33 +152,17 @@ import { GLOBAL } from "../../lib/variables";
     align-items: center;
   }
 
-  /* Portrait */
-  .hero-portrait {
-    width: 160px;
-    justify-self: end;
+  /* ── Dot accent ───────────────────────────────────────────────────── */
+  .hero-accent {
+    align-self: end;
+    padding-bottom: 0.2rem;
+    opacity: 0.9;
   }
 
-  .portrait-frame {
-    width: 160px;
-    height: 192px;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    background: var(--paper-deep);
-  }
-
-  .portrait-meta {
-    margin-top: 0.7rem;
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--ink-faint);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
+  /* ── Responsive ───────────────────────────────────────────────────── */
   @media (max-width: 640px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-portrait { display: none; }
-    .hero-headline { font-size: 2rem; }
+    .hero-lower  { grid-template-columns: 1fr; }
+    .hero-accent { display: none; }
+    .meta-loc    { display: none; }
   }
 </style>
