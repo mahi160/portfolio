@@ -4,7 +4,6 @@ import { GLOBAL } from "../../lib/variables";
 
 <section class="hero-section">
 
-  <!-- meta bar -->
   <div class="hero-meta">
     <span class="meta-role">
       <span class="kicker-dot" aria-hidden="true"></span>
@@ -13,61 +12,27 @@ import { GLOBAL } from "../../lib/variables";
     <span class="meta-loc" aria-hidden="true">Dhaka · GMT +6</span>
   </div>
 
-  <!-- headline + body in one column; dot accent floats right -->
-  <div class="hero-content">
-    <h1 class="hero-headline">
-      Frontend by trade.<br />
-      <em>Terminal by choice.</em>
-    </h1>
+  <h1 class="hero-headline">
+    Frontend by trade.<br />
+    <em>Terminal by choice.</em>
+  </h1>
 
-    <div class="hero-lower">
-      <p class="hero-bio">{GLOBAL.longDescription}</p>
-      <div class="hero-cta">
-        <a href="/blog"     class="arrow-link">Read the writing</a>
-        <a href="/projects" class="arrow-link">See the projects</a>
-      </div>
+  <div class="hero-lower">
+    <p class="hero-bio">{GLOBAL.longDescription}</p>
+    <div class="hero-cta">
+      <a href="/blog"     class="arrow-link">Read the writing</a>
+      <a href="/projects" class="arrow-link">See the projects</a>
     </div>
-  </div>
-
-  <!-- dot-grid: floats in the right-half of the section -->
-  <div class="hero-accent" aria-hidden="true">
-    <svg width="120" height="144" viewBox="0 0 120 144" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="hero-dotgrid" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="8" cy="8" r="1.3" fill="var(--line)" opacity="0.5" />
-        </pattern>
-      </defs>
-      <rect width="120" height="144" fill="url(#hero-dotgrid)" />
-      <!-- medium -->
-      <circle cx="24"  cy="32"  r="2"   fill="var(--line)" />
-      <circle cx="88"  cy="16"  r="2"   fill="var(--line)" />
-      <circle cx="8"   cy="80"  r="2"   fill="var(--line)" />
-      <circle cx="104" cy="96"  r="2"   fill="var(--line)" />
-      <circle cx="56"  cy="128" r="2"   fill="var(--line)" />
-      <!-- accent-soft -->
-      <circle cx="40"  cy="16"  r="2.6" fill="var(--accent-soft)" />
-      <circle cx="8"   cy="48"  r="2.6" fill="var(--accent-soft)" />
-      <circle cx="88"  cy="64"  r="2.6" fill="var(--accent-soft)" />
-      <circle cx="40"  cy="96"  r="2.6" fill="var(--accent-soft)" />
-      <circle cx="104" cy="128" r="2.6" fill="var(--accent-soft)" />
-      <!-- bright focal -->
-      <circle cx="56"  cy="48"  r="2.2" fill="var(--accent)" />
-      <circle cx="24"  cy="112" r="2.2" fill="var(--accent)" />
-      <circle cx="104" cy="32"  r="2.2" fill="var(--accent)" />
-    </svg>
   </div>
 
 </section>
 
 <style>
   .hero-section {
-    position: relative;
     padding-top: 1.8rem;
     padding-bottom: 3.5rem;
-    overflow: hidden;
   }
 
-  /* ── Meta bar ─────────────────────────────────────────────────────── */
   .hero-meta {
     display: flex;
     justify-content: space-between;
@@ -101,14 +66,8 @@ import { GLOBAL } from "../../lib/variables";
     flex-shrink: 0;
   }
 
-  /* ── Content ──────────────────────────────────────────────────────── */
-  .hero-content {
-    position: relative;
-    z-index: 1;
-  }
-
   .hero-headline {
-    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
     line-height: 1.06;
     letter-spacing: -0.022em;
     font-weight: 600;
@@ -125,7 +84,7 @@ import { GLOBAL } from "../../lib/variables";
     border-top: 1px solid var(--line-soft);
     margin-top: 2rem;
     padding-top: 1.6rem;
-    max-width: 42rem;
+    max-width: 48rem;
   }
 
   .hero-bio {
@@ -142,19 +101,7 @@ import { GLOBAL } from "../../lib/variables";
     align-items: center;
   }
 
-  /* ── Dot accent ───────────────────────────────────────────────────── */
-  .hero-accent {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.75;
-    pointer-events: none;
-  }
-
-  /* ── Responsive ───────────────────────────────────────────────────── */
-  @media (max-width: 700px) {
-    .hero-accent { display: none; }
-    .meta-loc    { display: none; }
+  @media (max-width: 540px) {
+    .meta-loc { display: none; }
   }
 </style>
