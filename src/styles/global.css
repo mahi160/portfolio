@@ -58,8 +58,8 @@
     background: var(--paper);
     color: var(--ink);
     font-family: var(--serif);
-    font-size: 18.5px;
-    line-height: 1.65;
+    font-size: 16.5px;
+    line-height: 1.6;
     font-feature-settings: "kern", "liga", "calt", "onum";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -87,9 +87,9 @@
     margin: 0;
     font-variation-settings: "opsz" 36;
   }
-  h1 { font-size: 2.85rem; font-variation-settings: "opsz" 60; }
-  h2 { font-size: 1.7rem; }
-  h3 { font-size: 1.3rem; }
+  h1 { font-size: 2.4rem; font-variation-settings: "opsz" 60; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
   p  { margin: 0 0 1rem; }
 
   code, pre {
@@ -100,7 +100,7 @@
   hr {
     border: 0;
     border-top: 1px solid var(--line-soft);
-    margin: 2.4rem 0;
+    margin: 1.8rem 0;
   }
 
   :focus-visible {
@@ -163,26 +163,26 @@
 
 /* ── Prose ────────────────────────────────────────────────────────── */
 .prose-warm {
-  font-size: 1.075rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--ink-soft);
 }
-.prose-warm p  { margin: 0 0 1.15em; }
+.prose-warm p  { margin: 0 0 1em; }
 .prose-warm h2 {
-  font-size: 1.55rem;
-  margin: 2.6rem 0 0.9rem;
+  font-size: 1.35rem;
+  margin: 2rem 0 0.7rem;
   color: var(--ink);
   font-variation-settings: "opsz" 28;
 }
 .prose-warm h3 {
-  font-size: 1.2rem;
-  margin: 2rem 0 0.7rem;
+  font-size: 1.1rem;
+  margin: 1.6rem 0 0.55rem;
   color: var(--ink);
   font-variation-settings: "opsz" 22;
 }
 .prose-warm h4 {
-  font-size: 1.05rem;
-  margin: 1.8rem 0 0.5rem;
+  font-size: 1rem;
+  margin: 1.4rem 0 0.4rem;
   color: var(--ink);
   font-weight: 600;
 }
@@ -213,8 +213,8 @@
   color: var(--ink);
 }
 .prose-warm blockquote {
-  margin: 1.6rem 0;
-  padding: 0.2rem 0 0.2rem 1.25rem;
+  margin: 1.2rem 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
   border-left: 2px solid var(--accent);
   color: var(--ink-muted);
   font-style: italic;
@@ -232,6 +232,6 @@
   color: var(--accent);
   font-size: 0.9em;
 }
-.prose-warm hr { margin: 2.4rem 0; border-top: 1px solid var(--line-soft); }
+.prose-warm hr { margin: 1.8rem 0; border-top: 1px solid var(--line-soft); }
 .prose-warm strong { color: var(--ink); font-weight: 600; }
 .prose-warm em { font-style: italic; color: var(--ink); }
