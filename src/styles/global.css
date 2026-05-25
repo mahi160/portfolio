@@ -230,21 +230,14 @@
 }
 
 /* ── Shiki dual-theme wiring ──────────────────────────────────────── */
-/* Light: use --shiki-light tokens (Gruvbox light) */
-.astro-code,
-.astro-code span {
-  color: var(--shiki-light) !important;
-  background-color: var(--shiki-light-bg) !important;
-  font-style: var(--shiki-light-font-style) !important;
-  font-weight: var(--shiki-light-font-weight) !important;
-  text-decoration: var(--shiki-light-text-decoration) !important;
-}
+/* Light: inline styles from Shiki already apply — no override needed  */
 
-/* Dark: switch to --shiki-dark tokens (Gruvbox dark) */
-[data-theme="dark"] .astro-code,
+/* Dark: switch pre background and all span colors to --shiki-dark-*  */
+[data-theme="dark"] .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+}
 [data-theme="dark"] .astro-code span {
   color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
