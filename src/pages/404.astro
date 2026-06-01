@@ -1,14 +1,49 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Meta from "../components/Meta.astro";
+import { GLOBAL } from "../lib/variables";
 ---
 
 <Layout>
-  <main class="wrap-narrow" style="padding-top: 4rem; text-align: center;">
-    <div style="font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 1rem;">404</div>
-    <h1 style="margin-bottom: 1rem;">Lost in the grove.</h1>
-    <p style="color: var(--ink-muted);">That page hasn't been planted yet.</p>
-    <div style="margin-top: 2rem;">
+  <Fragment slot="head">
+    <Meta
+      title={`404 — Not Found • ${GLOBAL.username}`}
+      description="The page you were looking for hasn't been planted yet."
+      canonicalUrl={`${GLOBAL.rootUrl}/404`}
+      noindex={true}
+    />
+  </Fragment>
+
+  <main id="main-content" class="wrap-narrow" tabindex="-1">
+    <div class="not-found">
+      <div class="code">404</div>
+      <h1>Lost in the grove.</h1>
+      <p>That page hasn't been planted yet.</p>
       <a href="/" class="arrow-link">Back to the index</a>
     </div>
   </main>
 </Layout>
+
+<style>
+  .not-found {
+    padding-top: 4rem;
+    text-align: center;
+  }
+
+  .code {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+  }
+
+  .not-found h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .not-found p {
+    color: var(--ink-muted);
+    margin-bottom: 2rem;
+  }
+</style>

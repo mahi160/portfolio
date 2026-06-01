@@ -1,33 +1,28 @@
 ---
-import type { MarkdownLayoutProps } from "astro";
-import type { ProjectFrontmatter } from "../lib/types";
-import { generateSourceUrl, getShortDescription } from "../lib/utils";
+import type { CollectionEntry } from "astro:content";
 import { GLOBAL } from "../lib/variables";
+import { formatMonthYear, generateSourceUrl } from "../lib/utils";
+import Meta from "../components/Meta.astro";
 import ReadingControls from "../components/ReadingControls.astro";
 import Layout from "./Layout.astro";
 
-type Props = MarkdownLayoutProps<ProjectFrontmatter>;
+type Props = {
+  frontmatter: CollectionEntry<"projects">["data"];
+  slug: string;
+};
 
-const { frontmatter } = Astro.props;
-
-function fmtMonthYear(iso: string) {
-  try {
-    return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long" });
-  } catch { return iso; }
-}
+const { frontmatter, slug } = Astro.props;
+const canonicalUrl = generateSourceUrl(slug, "projects");
 ---
 
 <Layout>
   <Fragment slot="head">
-    <title>{frontmatter.title} • {GLOBAL.username}</title>
-    <meta name="description" content={frontmatter.description} />
-    <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={getShortDescription(frontmatter.description)} />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/projects/${frontmatter.filename}`} />
-    <meta http-equiv="content-language" content="en" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href={generateSourceUrl(frontmatter.filename, "projects")} />
+    <Meta
+      title={`${frontmatter.title} • ${GLOBAL.username}`}
+      description={frontmatter.description}
+      canonicalUrl={canonicalUrl}
+      ogType="article"
+    />
   </Fragment>
 
   <main id="main-content" class="wrap-narrow" tabindex="-1">
@@ -36,7 +31,7 @@ function fmtMonthYear(iso: string) {
     <article>
       <header class="project-header">
         <div class="project-kicker">
-          Project&nbsp;&nbsp;·&nbsp;&nbsp;{fmtMonthYear(frontmatter.timestamp)}
+          Project&nbsp;&nbsp;·&nbsp;&nbsp;{formatMonthYear(frontmatter.timestamp)}
         </div>
 
         <h1 class="project-title">{frontmatter.title}</h1>
@@ -45,12 +40,12 @@ function fmtMonthYear(iso: string) {
 
         <div class="project-links">
           {frontmatter.githubUrl && (
-            <a href={frontmatter.githubUrl} target="_blank" rel="noopener" class="pill pill-accent" aria-label="View on GitHub, opens in new tab">
+            <a href={frontmatter.githubUrl} target="_blank" rel="noopener noreferrer" class="pill pill-accent" aria-label="View on GitHub, opens in new tab">
               GitHub ↗
             </a>
           )}
           {frontmatter.liveUrl && (
-            <a href={frontmatter.liveUrl} target="_blank" rel="noopener" class="pill" aria-label="View live site, opens in new tab">
+            <a href={frontmatter.liveUrl} target="_blank" rel="noopener noreferrer" class="pill" aria-label="View live site, opens in new tab">
               Live ↗
             </a>
           )}
@@ -63,7 +58,7 @@ function fmtMonthYear(iso: string) {
         )}
       </header>
 
-      <div class="project-rule"></div>
+      <div class="project-rule" aria-hidden="true"></div>
 
       <ReadingControls />
       <div class="prose-warm">
@@ -140,6 +135,6 @@ function fmtMonthYear(iso: string) {
   }
 
   @media (max-width: 540px) {
-    .project-title { font-size: 2.2rem; }
+    .project-title { font-size: 1.8rem; }
   }
 </style>

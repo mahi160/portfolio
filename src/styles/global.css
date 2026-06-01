@@ -1,6 +1,3 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-
 /* ── Design tokens ────────────────────────────────────────────────── */
 :root {
   --paper:        oklch(0.962 0.018 84);
@@ -18,36 +15,6 @@
   --serif: "Lora", Georgia, serif;
   --sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
-  --fancy: "Cormorant Garamond", Georgia, serif;
-  --rhythm: 1.5rem;
-  --measure: 38rem;
-}
-
-/* ── Tailwind theme ───────────────────────────────────────────────── */
-@theme {
-  --font-serif: "Lora", Georgia, serif;
-  --font-sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
-
-  --color-paper:       oklch(0.962 0.018 84);
-  --color-paper-deep:  oklch(0.935 0.024 80);
-  --color-paper-deeper:oklch(0.905 0.028 78);
-  --color-ink:         oklch(0.245 0.022 55);
-  --color-ink-soft:    oklch(0.36  0.02  58);
-  --color-ink-muted:   oklch(0.5   0.018 62);
-  --color-ink-faint:   oklch(0.68  0.014 65);
-  --color-line:        oklch(0.83  0.022 72);
-  --color-line-soft:   oklch(0.88  0.018 75);
-  --color-accent:      oklch(0.5   0.062 145);
-  --color-accent-soft: oklch(0.88  0.04  140);
-  --color-accent-deep: oklch(0.38  0.062 145);
-
-  /* Aliases for backward compat with existing Tailwind classes */
-  --color-background: oklch(0.962 0.018 84);
-  --color-foreground: oklch(0.245 0.022 55);
-  --color-muted:      oklch(0.5   0.018 62);
-  --color-accent:     oklch(0.5   0.062 145);
-  --color-border:     oklch(0.88  0.018 75);
 }
 
 /* ── Dark theme ───────────────────────────────────────────────────── */
@@ -66,7 +33,7 @@
   --accent-deep:  oklch(0.82  0.10  145);
 }
 
-/* ── Base ─────────────────────────────────────────────────────────── */
+/* ── Base reset ───────────────────────────────────────────────────── */
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
 
@@ -82,6 +49,23 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
+
+  /* Tailwind preflight cover: images/media baseline */
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Normalize button */
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+  }
+
+  /* Remove list bullets by default (re-added where needed) */
+  ul, ol { list-style: none; margin: 0; padding: 0; }
 
   a {
     color: inherit;
@@ -142,25 +126,9 @@
 }
 .skip-link:focus { top: 0; }
 
-/* ── Screen-reader only ────────────────────────────────────────────── */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
 /* ── Layout helpers ────────────────────────────────────────────────── */
 .wrap        { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 2rem; }
 .wrap-narrow { width: 100%; max-width: 52rem; margin: 0 auto; padding: 0 2rem; }
-
-/* ── Typography utilities ──────────────────────────────────────────── */
-.font-mono-custom { font-family: var(--mono); }
 
 /* ── Tag dots ─────────────────────────────────────────────────────── */
 .tag {
@@ -208,8 +176,8 @@
 
 /* ── Prose ────────────────────────────────────────────────────────── */
 .prose-warm {
-  font-size: var(--rc-size, 1.075rem);
-  line-height: var(--rc-leading, 1.78);
+  font-size: calc(var(--rc-size, 1.075rem) * var(--rc-lore-scale, 1));
+  line-height: calc(var(--rc-leading, 1.78) * var(--rc-lore-leading, 1));
   font-family: var(--rc-font, var(--sans));
   color: var(--ink-soft);
 }
@@ -257,9 +225,8 @@
 }
 
 /* ── Shiki dual-theme wiring ──────────────────────────────────────── */
-/* Light: inline styles from Shiki already apply — no override needed  */
-
-/* Dark: switch pre background and all span colors to --shiki-dark-*  */
+/* Light: inline styles from Shiki already apply — no override needed */
+/* Dark: swap pre background and all span colours to --shiki-dark-*  */
 [data-theme="dark"] .astro-code {
   background-color: var(--shiki-dark-bg) !important;
 }
@@ -269,6 +236,7 @@
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
+
 .prose-warm blockquote {
   margin: calc(var(--rc-gap, 2rem) * 0.65) 0;
   padding: 0.25rem 0 0.25rem 1.1rem;
@@ -293,9 +261,9 @@
 .prose-warm strong { color: var(--ink); font-weight: 600; }
 .prose-warm em { font-style: italic; color: var(--ink); }
 
-/* Cormorant Garamond is a display face — bump size and leading at body scale */
+/* Cormorant Garamond: bump font-feature-settings for display quality.
+   Size & leading are scaled via --rc-lore-scale / --rc-lore-leading
+   set inline by ReadingControls.astro when the lore font is selected. */
 .prose-warm[data-font="lore"] {
-  --rc-size:    calc(var(--rc-size, 1.075rem) * 1.12);
-  --rc-leading: calc(var(--rc-leading, 1.78) * 1.06);
   font-feature-settings: "kern", "liga", "calt", "swsh";
 }

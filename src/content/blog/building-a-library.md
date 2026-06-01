@@ -1,15 +1,13 @@
 ---
-layout: ../../layouts/BlogLayout.astro
 title: Building a Component Library
 description: As I am building a library at QuestionPro, here are some points i learned along the way.
 tags: ["react", "vite", "components"]
 time: 10
 featured: true
 timestamp: 2025-08-18
-filename: building-a-library
 ---
 
-At [QuestionPro](https://questionpro.com/), we are building a component library for all our satellite projects using React. During this process, we learned a lot about setting up a project and publishing it to npm. This is not a step-by-step tutorial but rather a collection of key takeaways that might help you if you’re working on a component library.
+At [QuestionPro](https://questionpro.com/), we are building a component library for all our satellite projects using React. During this process, we learned a lot about setting up a project and publishing it to npm. This is not a step-by-step tutorial but rather a collection of key takeaways that might help you if you're working on a component library.
 
 ## 0. Why an In-House Component Library?
 
@@ -19,10 +17,10 @@ So, to ensure our products have a consistent look and feel, we decided to build 
 
 ## 1. Keep It Simple
 
-A React component can be as simple as an HTML element. Avoid over-engineering components by forcing props for everything. For example, don’t pass text as a `label` prop when you can just use children. We don’t use raw HTML like that, so try to keep the developer experience as close to HTML as possible.
+A React component can be as simple as an HTML element. Avoid over-engineering components by forcing props for everything. For example, don't pass text as a `label` prop when you can just use children. We don't use raw HTML like that, so try to keep the developer experience as close to HTML as possible.
 
 ```tsx
-// ❌ Don’t
+// ❌ Don't
 <Button label="A Button" />
 
 // ✅ Do
@@ -36,7 +34,7 @@ Simplicity keeps the API intuitive and reduces developer friction. Your componen
 
 ## 2. Extend Types from Native Elements
 
-When building components, you don’t need to redefine every prop. Instead, extend from React’s native element types (yes, `div` or `button` in React aren’t “raw” HTML elements). This way, you automatically inherit all supported HTML attributes, including ARIA attributes. You can then layer custom props on top.
+When building components, you don't need to redefine every prop. Instead, extend from React's native element types (yes, `div` or `button` in React aren't "raw" HTML elements). This way, you automatically inherit all supported HTML attributes, including ARIA attributes. You can then layer custom props on top.
 
 ```tsx
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -49,16 +47,16 @@ export const Button: React.FC<ButtonProps> = (props) => {
 ```
 
 **Why This Matters:**  
-It keeps your types aligned with React’s ecosystem, avoids reinventing the wheel, and makes your components more flexible and accessible by default.
+It keeps your types aligned with React's ecosystem, avoids reinventing the wheel, and makes your components more flexible and accessible by default.
 
 **Resource:** [TypeScript Handbook – Extending Types](https://www.typescriptlang.org/docs/handbook/interfaces.html#extending-interfaces)
 
 ## 3. Accessibility Matters
 
-Accessibility should not be an afterthought. Use semantic HTML and proper roles. Don’t use a `div` to mimic a button — use a real `<button>`. Every component has its role. For example, an `<input type="number" />` has the role `spinbutton`. Since components will be used in different contexts, make sure accessibility is baked in from the start.
+Accessibility should not be an afterthought. Use semantic HTML and proper roles. Don't use a `div` to mimic a button — use a real `<button>`. Every component has its role. For example, an `<input type="number" />` has the role `spinbutton`. Since components will be used in different contexts, make sure accessibility is baked in from the start.
 
 ```tsx
-// ❌ Don’t
+// ❌ Don't
 export const Button = () => <div onClick={() => {}}></div>;
 
 // ✅ Do
@@ -88,7 +86,7 @@ A consistent commit history makes it easier to track changes, automate versionin
 
 ## 5. Unit Tests Are Essential
 
-For a component library, unit tests are not optional — they’re essential. They ensure that functionality doesn’t break when new features are added. Bugs will inevitably slip in, but tests catch them early. Make sure every piece of functionality has at least basic test coverage. We used **Vitest** and **React Testing Library** for this.
+For a component library, unit tests are not optional — they're essential. They ensure that functionality doesn't break when new features are added. Bugs will inevitably slip in, but tests catch them early. Make sure every piece of functionality has at least basic test coverage. We used **Vitest** and **React Testing Library** for this.
 
 **Why This Matters:**  
 Tests protect your consumers. A single regression in your library could break dozens of projects — tests act as your safety net.
@@ -137,10 +135,10 @@ export default defineConfig({
 ```
 
 **Why This Matters:**  
-Tree-shaking keeps your consumers’ bundles small, and marking dependencies as peers prevents multiple React versions or unnecessary bloat in downstream apps.
+Tree-shaking keeps your consumers' bundles small, and marking dependencies as peers prevents multiple React versions or unnecessary bloat in downstream apps.
 
 **Resources:** [Tree-Shaking in Rollup](https://rollupjs.org/guide/en/#tree-shaking), [Vite Library Mode Guide](https://vitejs.dev/guide/build.html#library-mode)
 
-Building a component library is less about fancy code and more about making it easy and reliable for others to use. Keep it simple, make it accessible, test it well — and you’ll already be ahead.
+Building a component library is less about fancy code and more about making it easy and reliable for others to use. Keep it simple, make it accessible, test it well — and you'll already be ahead.
 
-What lessons have you learned while building your own libraries? I’d love to hear your thoughts!
+What lessons have you learned while building your own libraries? I'd love to hear your thoughts!

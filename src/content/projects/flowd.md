@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/ProjectLayout.astro
 title: flowd
 description: A local coding-activity tracker that watches tmux sessions, builds focus-based summaries, and commits them to a private git journal. WakaTime-ish, but local-first and terminal-native.
 tags: ['Go', 'SQLite', 'tmux', 'CLI', 'Developer Tools']
 githubUrl: https://github.com/mahi160/flowd
 featured: true
 timestamp: 2025-04-30T00:00:00.000Z
-filename: flowd
 ---
 
 `flowd` is a local coding-activity tracker for people who live in tmux.
@@ -78,7 +76,7 @@ The tracker needs to understand whether an active command is coding, shell work,
 ```md
 ### Monday, 30 Apr
 
-## 14:00 – 16:42
+### 14:00 – 16:42
 
 **Focus:** 30 min  ·  **Switches:** 4
 **Repo:** flowd (main)

@@ -1,32 +1,93 @@
 ---
 import { GLOBAL } from "../../lib/variables";
 
-const icons = [
-  { name: "HTML",       slug: "html5",           top:  "1%", left:  48, size: 28, opacity: 0.38, rotate: -14 },
-  { name: "Tailwind",   slug: "tailwindcss",      top:  "3%", left: 152, size: 20, opacity: 0.30, rotate:  10 },
-  { name: "CSS",        slug: "css3",             top:  "8%", left:  98, size: 18, opacity: 0.28, rotate:  -6 },
-  { name: "tmux",       slug: "tmux",             top:  "6%", left: 188, size: 22, opacity: 0.32, rotate:  19 },
-  { name: "JavaScript", slug: "javascript",       top: "14%", left:  18, size: 26, opacity: 0.38, rotate:  16 },
-  { name: "TypeScript", slug: "typescript",       top: "17%", left: 130, size: 22, opacity: 0.30, rotate:  -9 },
-  { name: "Node.js",    slug: "nodedotjs",        top: "22%", left: 178, size: 20, opacity: 0.26, rotate:  22 },
-  { name: "Astro",      slug: "astro",            top: "24%", left:  72, size: 24, opacity: 0.34, rotate:  -5 },
-  { name: "React",      slug: "react",            top: "31%", left:  28, size: 32, opacity: 0.44, rotate: -20 },
-  { name: "SQLite",     slug: "sqlite",           top: "34%", left: 148, size: 22, opacity: 0.30, rotate:  13 },
-  { name: "Angular",    slug: "angular",          top: "40%", left:  95, size: 26, opacity: 0.36, rotate: -17 },
-  { name: "GitHub",     slug: "github",           top: "42%", left: 188, size: 18, opacity: 0.24, rotate:   8 },
-  { name: "Go",         slug: "go",               top: "48%", left:  12, size: 30, opacity: 0.40, rotate:  -4 },
-  { name: "Lua",        slug: "lua",              top: "51%", left: 162, size: 20, opacity: 0.28, rotate:  24 },
-  { name: "Git",        slug: "git",              top: "57%", left:  60, size: 22, opacity: 0.32, rotate: -13 },
-  { name: "Bash",       slug: "gnubash",          top: "60%", left: 130, size: 24, opacity: 0.36, rotate:  11 },
-  { name: "Neovim",     slug: "neovim",           top: "66%", left:  22, size: 28, opacity: 0.42, rotate: -21 },
-  { name: "Docker",     slug: "docker",           top: "70%", left: 178, size: 22, opacity: 0.28, rotate:  16 },
-  { name: "Linux",      slug: "linux",            top: "75%", left:  92, size: 26, opacity: 0.34, rotate:  -8 },
-  { name: "Bun",        slug: "bun",              top: "78%", left: 158, size: 18, opacity: 0.26, rotate:  20 },
-  { name: "macOS",      slug: "apple",            top: "84%", left:  38, size: 24, opacity: 0.32, rotate:   7 },
-  { name: "Rust",       slug: "rust",             top: "86%", left: 115, size: 20, opacity: 0.28, rotate: -15 },
-  { name: "Claude",     slug: "anthropic",        top: "91%", left: 178, size: 26, opacity: 0.36, rotate:  12 },
-  { name: "Python",     slug: "python",           top: "94%", left:  68, size: 22, opacity: 0.30, rotate: -10 },
+const allIcons = [
+  { name: "HTML",         slug: "html5"        },
+  { name: "CSS",          slug: "css3"         },
+  { name: "JavaScript",   slug: "javascript"   },
+  { name: "TypeScript",   slug: "typescript"   },
+  { name: "Sass",         slug: "sass"         },
+  { name: "React",        slug: "react"        },
+  { name: "Vue",          slug: "vuedotjs"     },
+  { name: "Angular",      slug: "angular"      },
+  { name: "Svelte",       slug: "svelte"       },
+  { name: "Astro",        slug: "astro"        },
+  { name: "Next.js",      slug: "nextdotjs"    },
+  { name: "Tailwind",     slug: "tailwindcss"  },
+  { name: "Vite",         slug: "vite"         },
+  { name: "Node.js",      slug: "nodedotjs"    },
+  { name: "Deno",         slug: "deno"         },
+  { name: "Git",          slug: "git"          },
+  { name: "GitHub",       slug: "github"       },
+  { name: "Bash",         slug: "gnubash"      },
+  { name: "Linux",        slug: "linux"        },
+  { name: "Docker",       slug: "docker"       },
+  { name: "Kubernetes",   slug: "kubernetes"   },
+  { name: "Terraform",    slug: "terraform"    },
+  { name: "Go",           slug: "go"           },
+  { name: "Python",       slug: "python"       },
+  { name: "Rust",         slug: "rust"         },
+  { name: "tmux",         slug: "tmux"         },
+  { name: "Neovim",       slug: "neovim"       },
+  { name: "Vim",          slug: "vim"          },
+  { name: "Lua",          slug: "lua"          },
+  { name: "SQLite",       slug: "sqlite"       },
+  { name: "PostgreSQL",   slug: "postgresql"   },
+  { name: "Redis",        slug: "redis"        },
+  { name: "MongoDB",      slug: "mongodb"      },
+  { name: "Bun",          slug: "bun"          },
+  { name: "pnpm",         slug: "pnpm"         },
+  { name: "Vercel",       slug: "vercel"       },
+  { name: "Netlify",      slug: "netlify"      },
+  { name: "Cloudflare",   slug: "cloudflare"   },
+  { name: "Prisma",       slug: "prisma"       },
+  { name: "macOS",        slug: "apple"        },
+  { name: "GraphQL",      slug: "graphql"      },
+  { name: "Supabase",     slug: "supabase"     },
+  { name: "Firebase",     slug: "firebase"     },
+  { name: "Figma",        slug: "figma"        },
+  { name: "Jest",         slug: "jest"         },
+  { name: "Vitest",       slug: "vitest"       },
+  { name: "ESLint",       slug: "eslint"       },
+  { name: "Prettier",     slug: "prettier"     },
+  { name: "Webpack",      slug: "webpack"      },
+  { name: "Claude",       slug: "anthropic"    },
+  { name: "OpenAI",       slug: "openai"       },
+  { name: "Ollama",       slug: "ollama"       },
+  { name: "Mistral",      slug: "mistral"      },
+  { name: "Hugging Face", slug: "huggingface"  },
 ];
+
+// Staggered grid: 12 rows alternating 4-col and 3-col (6×4 + 6×3 = 42 icons).
+// Each icon gets small random transform for organic feel — no chaotic placement.
+// 5-col and 4-col alternating rows, shifted left so leftmost icon nearly bleeds the edge
+const COL5 = [0, 23, 47, 70, 92];   // 5-icon row x-centers (%)
+const COL4 = [11, 35, 59, 83];      // 4-icon row x-centers (%)
+const N_ROWS = 14;
+const rowStep = 92 / (N_ROWS - 1);
+
+const positions: { top: number; left: number }[] = [];
+for (let r = 0; r < N_ROWS; r++) {
+  const top  = 4 + r * rowStep;
+  const cols = r % 2 === 0 ? COL5 : COL4;
+  for (const left of cols) {
+    positions.push({ top, left });
+    if (positions.length === allIcons.length) break;
+  }
+  if (positions.length === allIcons.length) break;
+}
+
+const icons = allIcons.map((icon, i) => ({
+  ...icon,
+  top:     positions[i].top,
+  left:    positions[i].left,
+  tx:      Math.round((Math.random() - 0.5) * 10),   // ±5 px nudge
+  ty:      Math.round((Math.random() - 0.5) * 8),    // ±4 px nudge
+  rotate:  Math.round((Math.random() - 0.5) * 12),   // ±6°
+  opacity: +(0.28 + Math.random() * 0.16).toFixed(2),
+  drift:   Math.random() > 0.85,
+  delay:   +(Math.random() * 4).toFixed(1),
+}));
 ---
 
 <section class="hero-section">
@@ -57,15 +118,21 @@ const icons = [
 
     <div class="hero-icons" aria-hidden="true">
       {icons.map((icon) => (
-        <img
-          src={`https://cdn.simpleicons.org/${icon.slug}`}
-          alt=""
-          width={icon.size}
-          height={icon.size}
-          class="tech-icon"
-          style={`top:${icon.top}; left:${icon.left}px; width:${icon.size}px; height:${icon.size}px; opacity:${icon.opacity}; transform:rotate(${icon.rotate}deg);`}
-          loading="lazy"
-        />
+        <span
+          class="icon-wrap"
+          data-name={icon.name}
+          style={`top:${icon.top}%; left:${icon.left}%;`}
+        >
+          <img
+            src={`https://cdn.simpleicons.org/${icon.slug}`}
+            alt=""
+            width="20"
+            height="20"
+            class={`tech-icon${icon.drift ? " tech-icon--drift" : ""}`}
+            style={`opacity:${icon.opacity}; transform:translate(${icon.tx}px,${icon.ty}px) rotate(${icon.rotate}deg); animation-delay:${icon.delay}s;`}
+            loading="lazy"
+          />
+        </span>
       ))}
     </div>
 
@@ -114,7 +181,7 @@ const icons = [
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 220px;
+    grid-template-columns: 1fr 320px;
     gap: 2rem;
     align-items: stretch;
   }
@@ -157,18 +224,74 @@ const icons = [
   /* ── Scattered icons ──────────────────────────────────────────────── */
   .hero-icons {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
 
-  .tech-icon {
+  .icon-wrap {
     position: absolute;
-    filter: grayscale(1) brightness(0.3);
+    display: inline-flex;
+    cursor: default;
+  }
+
+  .icon-wrap::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    color: var(--ink-muted);
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 0.1rem 0.38rem;
+    border-radius: 3px;
+    opacity: 0;
     pointer-events: none;
+    transition: opacity 160ms ease;
+    z-index: 20;
+  }
+
+  :global([data-theme="dark"]) .icon-wrap::after {
+    background: var(--paper-deep);
+  }
+
+  .icon-wrap:hover::after { opacity: 1; }
+
+  .tech-icon {
+    display: block;
+    filter: grayscale(1) brightness(0.35);
     user-select: none;
+    pointer-events: none;
+    transition: opacity 220ms ease, filter 220ms ease;
+  }
+
+  .icon-wrap:hover .tech-icon {
+    opacity: 1 !important;
+    filter: grayscale(1) brightness(0.60);
   }
 
   :global([data-theme="dark"]) .tech-icon {
-    filter: grayscale(1) brightness(3) invert(0.85);
+    filter: grayscale(1) brightness(3.0) invert(0.82);
+  }
+
+  :global([data-theme="dark"]) .icon-wrap:hover .tech-icon {
+    filter: grayscale(1) brightness(4.5) invert(0.92);
+  }
+
+  @keyframes icon-drift {
+    0%, 100% { translate: 0 0; }
+    50%       { translate: 0 -6px; }
+  }
+
+  .tech-icon--drift {
+    animation: icon-drift 7s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tech-icon--drift { animation: none; }
   }
 
   @media (max-width: 700px) {

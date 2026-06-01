@@ -2,6 +2,7 @@
 import FeaturedArticles from "../components/home/FeaturedArticles.astro";
 import FeaturedProjects from "../components/home/FeaturedProjects.astro";
 import Hero from "../components/home/Hero.astro";
+import Meta from "../components/Meta.astro";
 import Layout from "../layouts/Layout.astro";
 import { featuredArticles, featuredProjects } from "../lib/featured";
 import { GLOBAL } from "../lib/variables";
@@ -9,19 +10,11 @@ import { GLOBAL } from "../lib/variables";
 
 <Layout>
   <Fragment slot="head">
-    <title>{GLOBAL.username} • {GLOBAL.shortDescription}</title>
-    <meta name="description" content={GLOBAL.longDescription} />
-    <meta property="og:title" content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`} />
-    <meta property="og:description" content={GLOBAL.longDescription} />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/pp.webp`} />
-    <meta property="og:url" content={GLOBAL.rootUrl} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`} />
-    <meta name="twitter:description" content={GLOBAL.longDescription} />
-    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/pp.webp`} />
-    <meta http-equiv="content-language" content="en" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href={GLOBAL.rootUrl} />
+    <Meta
+      title={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
+      description={GLOBAL.longDescription}
+      canonicalUrl={GLOBAL.rootUrl}
+    />
   </Fragment>
 
   <main id="main-content" class="wrap" tabindex="-1">
@@ -29,19 +22,13 @@ import { GLOBAL } from "../lib/variables";
     <Hero />
 
     <!-- Now block -->
-    <section class="now-block">
+    <section class="now-block" aria-label="What I'm doing now">
       <div class="now-grid">
         <div class="now-label">
           Now
-          <div class="now-date">May 2026</div>
+          <div class="now-date">{GLOBAL.nowDate}</div>
         </div>
-        <div class="now-body">
-          Leading frontend for a satellite product at QuestionPro and shaping our internal
-          React component library. After hours I'm in tmux — writing Go for{" "}
-          <a href="/projects/flowd">flowd</a>, my local-first work journal, and{" "}
-          <a href="/projects/ki">ki</a>, a terminal AI chat client. Reading a lot about
-          local-first systems and small, single-purpose tools.
-        </div>
+        <div class="now-body" set:html={GLOBAL.nowBody} />
       </div>
     </section>
 
@@ -52,7 +39,7 @@ import { GLOBAL } from "../lib/variables";
     <FeaturedProjects featuredProjects={featuredProjects} />
 
     <!-- Colophon -->
-    <section class="colophon">
+    <section class="colophon" aria-label="Current stack">
       <div class="colophon-grid">
         <div class="colophon-cell">
           <div class="colophon-label" id="col-working">Working in</div>
@@ -128,12 +115,12 @@ import { GLOBAL } from "../lib/variables";
     font-size: 0.95rem;
     line-height: 1.65;
   }
-  .now-body a {
+  .now-body :global(a) {
     color: var(--ink);
     text-decoration: underline;
     text-decoration-color: var(--line);
   }
-  .now-body a:hover {
+  .now-body :global(a:hover) {
     text-decoration-color: var(--accent);
   }
 

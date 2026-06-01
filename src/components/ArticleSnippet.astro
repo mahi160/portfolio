@@ -1,28 +1,27 @@
 ---
-import { processArticleDate } from "../lib/utils";
+import { formatDateLong, formatReadingTime } from "../lib/utils";
 
 export type Props = {
   title: string;
   description: string;
   url: string;
-  duration?: string;
-  timestamp?: string;
+  time?: number;
+  timestamp?: Date;
 };
 
-const { title, description, url, duration, timestamp } = Astro.props;
-const time = duration ? parseInt(duration) : null;
+const { title, description, url, time, timestamp } = Astro.props;
 ---
 
 <a href={url} class="article-row">
   <span class="article-date">
-    {timestamp ? processArticleDate(timestamp) : ""}
+    {timestamp ? formatDateLong(timestamp) : ""}
   </span>
   <div class="article-body">
     <div class="article-title">{title}</div>
     <div class="article-desc">{description}</div>
   </div>
   <span class="article-time">
-    {time !== null ? (time < 1 ? "< 1" : time) : ""}{duration ? " min" : ""}
+    {time !== undefined ? formatReadingTime(time) : ""}
   </span>
 </a>
 

@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Meta from "../../components/Meta.astro";
 import ProjectSnippet from "../../components/ProjectSnippet.astro";
 import { projects } from "../../lib/list";
 import { GLOBAL } from "../../lib/variables";
@@ -7,15 +8,11 @@ import { GLOBAL } from "../../lib/variables";
 
 <Layout>
   <Fragment slot="head">
-    <title>{GLOBAL.projectTitle} • {GLOBAL.username}</title>
-    <meta name="description" content={GLOBAL.projectLongDescription} />
-    <meta property="og:title" content={`${GLOBAL.projectTitle} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={GLOBAL.projectShortDescription} />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/projects`} />
-    <meta http-equiv="content-language" content="en" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href={`${GLOBAL.rootUrl}/projects`} />
+    <Meta
+      title={`${GLOBAL.projectTitle} • ${GLOBAL.username}`}
+      description={GLOBAL.projectLongDescription}
+      canonicalUrl={`${GLOBAL.rootUrl}/projects`}
+    />
   </Fragment>
 
   <main id="main-content" class="wrap" tabindex="-1">
@@ -33,14 +30,12 @@ import { GLOBAL } from "../../lib/variables";
         <ProjectSnippet
           title={project.title}
           description={project.description}
-          url={project.filename}
-          githubUrl={project.githubUrl}
-          liveUrl={project.liveUrl}
+          url={project.url}
           tags={project.tags ?? []}
           timestamp={project.timestamp}
         />
       ))}
-      <div class="list-cap"></div>
+      <div class="list-cap" aria-hidden="true"></div>
     </div>
   </main>
 </Layout>

@@ -1,92 +1,42 @@
-import fs from "node:fs/promises";
 import { GLOBAL } from "./variables";
 
-type MarkdownData<T extends object> = {
-  frontmatter: T;
-  file: string;
-  url: string;
-};
-
-
 /**
- * This function processes the content of a directory and returns an array of processed content.
- * It takes a content type, a function to process the content, and an optional directory.
- * If no directory is provided, it defaults to the current working directory.
- * 
- * @param contentType the type of content to process
- * @param processFn the function to process the content
- * @param dir the directory to process the content from
- * @returns a promise that resolves to an array of processed content
+ * Shortens a string to at most `maxWords` words, appending "…" if truncated.
  */
-export const processContentInDir = async <T extends object, K>(
-  contentType: "projects" | "blog",
-  processFn: (data: MarkdownData<T>) => K,
-  dir: string = process.cwd(),
-) => {
-  const files = await fs.readdir(dir + `/src/pages/${contentType}`);
-  const markdownFiles = files
-    .filter((file: string) => file.endsWith(".md"))
-    .map((file) => file.split(".")[0]);
-  const readMdFileContent = async (file: string) => {
-    if (contentType === "projects") {
-      const content = import.meta
-        .glob(`/src/pages/projects/*.md`)
-        [`/src/pages/projects/${file}.md`]();
-      const data = (await content) as {
-        frontmatter: T;
-        file: string;
-        url: string;
-      };
-      return processFn(data);
-    } else {
-      const content = import.meta
-        .glob(`/src/pages/blog/*.md`)
-        [`/src/pages/blog/${file}.md`]();
-      const data = (await content) as {
-        frontmatter: T;
-        file: string;
-        url: string;
-      };
-      return processFn(data);
-    }
-  };
-  return await Promise.all(markdownFiles.map(readMdFileContent));
+export const getShortDescription = (content: string, maxWords = 20): string => {
+  const words = content.trim().split(/\s+/);
+  return words.length > maxWords
+    ? words.slice(0, maxWords).join(" ") + "…"
+    : content;
 };
 
 /**
- * Shortens a string by removing words at the end until it fits within a certain length.
- * @param content the content to shorten
- * @param maxLength the maximum length of the shortened content (default is 20)
- * @returns a shortened version of the content
+ * Formats a Date as "Mon DD, YYYY" (e.g. "May 8, 2025").
  */
-export const getShortDescription = (content: string, maxLength = 20) => {
-  const splitByWord = content.split(" ");
-  const length = splitByWord.length;
-  return length > maxLength ? splitByWord.slice(0, maxLength).join(" ") + "..." : content;
-};
+export const formatDateLong = (date: Date): string =>
+  date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
 /**
- * Processes the date of an article and returns a string representing the processed date.
- * @param timestamp the timestamp to process
- * @returns a string representing the processed timestamp
+ * Formats a Date as "Month YYYY" (e.g. "April 2025").
  */
-export const processArticleDate = (timestamp: string) => {
-  const date = new Date(timestamp);
-  const monthSmall = date.toLocaleString("default", { month: "short" });
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${monthSmall} ${day}, ${year}`;
-};
+export const formatMonthYear = (date: Date): string =>
+  date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
 
 /**
- * Generates a source URL for a content item. The URL is used in meta tags and social media cards.
- * @param sourceUrl the source URL of the content
- * @param contentType the type of content (either "projects" or "blog")
- * @returns a string representing the source URL with the appropriate domain
+ * Formats a reading-time number as a human-readable string.
+ * Values under 1 minute are displayed as "< 1 min".
+ */
+export const formatReadingTime = (minutes: number): string =>
+  minutes < 1 ? "< 1 min" : `${Math.round(minutes)} min`;
+
+/**
+ * Generates the canonical URL for a content item.
  */
 export const generateSourceUrl = (
-  sourceUrl: string,
+  slug: string,
   contentType: "projects" | "blog",
-) => {
-  return `${GLOBAL.rootUrl}/${contentType}/${sourceUrl}`;
-};
+): string => `${GLOBAL.rootUrl}/${contentType}/${slug}`;

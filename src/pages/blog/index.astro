@@ -1,13 +1,14 @@
 ---
 import ArticleSnippet from "../../components/ArticleSnippet.astro";
+import Meta from "../../components/Meta.astro";
 import Layout from "../../layouts/Layout.astro";
 import { articles } from "../../lib/list";
 import { GLOBAL } from "../../lib/variables";
 
-// Group by year
+// Group by year, newest first
 const groups: Record<number, typeof articles> = {};
 for (const a of articles) {
-  const year = new Date(a.timestamp).getFullYear();
+  const year = a.timestamp.getFullYear();
   (groups[year] ??= []).push(a);
 }
 const groupedYears = Object.entries(groups)
@@ -17,15 +18,11 @@ const groupedYears = Object.entries(groups)
 
 <Layout>
   <Fragment slot="head">
-    <title>{GLOBAL.blogTitle} • {GLOBAL.username}</title>
-    <meta name="description" content={GLOBAL.blogLongDescription} />
-    <meta property="og:title" content={`${GLOBAL.blogTitle} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={GLOBAL.blogShortDescription} />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/blog`} />
-    <meta http-equiv="content-language" content="en" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href={`${GLOBAL.rootUrl}/blog`} />
+    <Meta
+      title={`${GLOBAL.blogTitle} • ${GLOBAL.username}`}
+      description={GLOBAL.blogLongDescription}
+      canonicalUrl={`${GLOBAL.rootUrl}/blog`}
+    />
   </Fragment>
 
   <main id="main-content" class="wrap" tabindex="-1">
@@ -50,12 +47,12 @@ const groupedYears = Object.entries(groups)
               <ArticleSnippet
                 title={article.title}
                 description={article.description}
-                duration={`${article.time} min`}
-                url={article.filename}
+                time={article.time}
+                url={article.url}
                 timestamp={article.timestamp}
               />
             ))}
-            <div class="list-cap"></div>
+            <div class="list-cap" aria-hidden="true"></div>
           </div>
         </div>
       ))}

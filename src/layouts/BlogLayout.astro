@@ -1,32 +1,28 @@
 ---
-import type { MarkdownLayoutProps } from "astro";
-import type { ArticleFrontmatter } from "../lib/types";
+import type { CollectionEntry } from "astro:content";
 import { GLOBAL } from "../lib/variables";
+import { formatDateLong, formatReadingTime, generateSourceUrl } from "../lib/utils";
+import Meta from "../components/Meta.astro";
 import ReadingControls from "../components/ReadingControls.astro";
 import Layout from "./Layout.astro";
 
-type Props = MarkdownLayoutProps<ArticleFrontmatter>;
-
-const { frontmatter } = Astro.props;
-
-const fmtDateLong = (iso: string) => {
-  try {
-    return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-  } catch { return iso; }
+type Props = {
+  frontmatter: CollectionEntry<"blog">["data"];
+  slug: string;
 };
+
+const { frontmatter, slug } = Astro.props;
+const canonicalUrl = generateSourceUrl(slug, "blog");
 ---
 
 <Layout>
   <Fragment slot="head">
-    <title>{frontmatter.title} • {GLOBAL.username}</title>
-    <meta name="description" content={frontmatter.description} />
-    <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={frontmatter.description} />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/blog/${frontmatter.filename}`} />
-    <meta http-equiv="content-language" content="en" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href={`${GLOBAL.rootUrl}/blog/${frontmatter.filename}`} />
+    <Meta
+      title={`${frontmatter.title} • ${GLOBAL.username}`}
+      description={frontmatter.description}
+      canonicalUrl={canonicalUrl}
+      ogType="article"
+    />
   </Fragment>
 
   <main id="main-content" class="wrap-narrow" tabindex="-1">
@@ -35,9 +31,9 @@ const fmtDateLong = (iso: string) => {
     <article>
       <header class="article-header">
         <div class="article-meta">
-          <span class="article-date">{fmtDateLong(frontmatter.timestamp)}</span>
-          <span>·</span>
-          <span>{frontmatter.time < 1 ? "< 1" : Math.round(Number(frontmatter.time))} min read</span>
+          <span class="article-date">{formatDateLong(frontmatter.timestamp)}</span>
+          <span aria-hidden="true">·</span>
+          <span>{formatReadingTime(frontmatter.time)}</span>
         </div>
 
         <h1 class="article-title">{frontmatter.title}</h1>
@@ -51,7 +47,7 @@ const fmtDateLong = (iso: string) => {
         )}
       </header>
 
-      <div class="article-rule"></div>
+      <div class="article-rule" aria-hidden="true"></div>
 
       <ReadingControls />
       <div class="prose-warm">
@@ -127,6 +123,6 @@ const fmtDateLong = (iso: string) => {
   }
 
   @media (max-width: 540px) {
-    .article-title { font-size: 2rem; }
+    .article-title { font-size: 1.8rem; }
   }
 </style>

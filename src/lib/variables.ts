@@ -27,4 +27,8 @@ export const GLOBAL = {
   projectShortDescription: 'Developer tools, frontend systems, and experiments in terminal-first workflows.',
   projectLongDescription:
     'Selected projects that show how I think about interfaces, developer tooling, local-first systems, and focused workflows.',
+
+  // "Now" block — update this when your situation changes
+  nowDate: 'May 2026',
+  nowBody: 'Leading frontend for a satellite product at QuestionPro and shaping our internal React component library. After hours I\'m in tmux — writing Go for <a href="/projects/flowd">flowd</a>, my local-first work journal, and <a href="/projects/ki">ki</a>, a terminal AI chat client. Reading a lot about local-first systems and small, single-purpose tools.',
 };

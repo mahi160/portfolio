@@ -1,18 +1,12 @@
 ---
-import type { ProjectFrontmatter } from "../../lib/types";
+import type { ProjectEntry } from "../../lib/types";
+import { formatMonthYear } from "../../lib/utils";
 
 type Props = {
-  featuredProjects: Array<ProjectFrontmatter>;
-}
+  featuredProjects: ProjectEntry[];
+};
 
 const { featuredProjects } = Astro.props;
-
-function fmtMonthYear(iso: string) {
-  try {
-    const d = new Date(iso);
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "long" });
-  } catch { return iso; }
-}
 ---
 
 <section class="featured-projects">
@@ -26,15 +20,15 @@ function fmtMonthYear(iso: string) {
 
   <div class="projects-grid">
     {featuredProjects.map((project) => (
-      <a href={project.filename} class="project-card">
+      <a href={project.url} class="project-card">
         <div class="card-top">
           <span class="card-title">{project.title}</span>
-          <span class="card-date">{fmtMonthYear(project.timestamp)}</span>
+          <span class="card-date">{formatMonthYear(project.timestamp)}</span>
         </div>
         <p class="card-desc">{project.description}</p>
         {project.tags && project.tags.length > 0 && (
           <div class="card-tags">
-            {project.tags.map((t: string) => <span class="tag">{t}</span>)}
+            {project.tags.map((t) => <span class="tag">{t}</span>)}
           </div>
         )}
       </a>
@@ -98,6 +92,7 @@ function fmtMonthYear(iso: string) {
     align-items: baseline;
     justify-content: space-between;
     margin-bottom: 0.5rem;
+    gap: 0.8rem;
   }
 
   .card-title {
@@ -112,6 +107,7 @@ function fmtMonthYear(iso: string) {
     font-family: var(--mono);
     font-size: 0.72rem;
     color: var(--ink-faint);
+    white-space: nowrap;
   }
 
   .card-desc {

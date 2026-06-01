@@ -1,25 +1,23 @@
 ---
-layout: ../../layouts/BlogLayout.astro
 title: Make AI Your Copilot, Not Your Autopilot
 description: A few weeks ago, my company, QuestionPro.com, provided a subscription for GitHub Copilot. I hadn't used AI to write code entirely and had never "vibe coded" before. So, I thought I'd experiment with it.
 tags: ["github", "ai", "copilot", "programming"]
 time: 20
 featured: true
 timestamp: 2025-09-29
-filename: make-your-ai-copilot-not-autopilot
 ---
 
 A few weeks ago, my company, [QuestionPro](questionpro.com), provided a subscription for GitHub Copilot. I hadn't used AI to write code entirely and had never "vibe coded" before. So, I thought I'd experiment with it.
 
 TL;DR: I'm not going to vibe code again!
 
-#### My Failed Experiment
+## My Failed Experiment
 
 Maybe it was my lack of _vibe code experience_, but I couldn't get it to work very well. I wanted to create a sync manager to sync my local data to the cloud. I'm not a backend engineer, so I described to the AI what I wanted to do. It gave me a detailed PRD (Product requirement document), which I then fed to my agent—in this case, Copilot. It created some files, but they didn't work. I shared the error, it fixed something, and then it failed to work again. After some back and forth, it finally worked (or so I thought).
 
 And guess what? It had created four files with around 600 lines of code, most of which were unnecessarily complex, and I was too ignorant to understand them.
 
-#### The Nightmare of Maintenance
+## The Nightmare of Maintenance
 
 The code worked, but a few days later, I needed to add a new feature. I asked the AI, added the feature, it failed, and after more back and forth, it finally succeeded by adding 300 more lines of code and two new files.
 
@@ -188,7 +186,7 @@ Yes, writing all the functions myself took about twice as long, but it was worth
 
 FYI, don't judge my code quality; I'm still learning. The point is that I understand what I wrote, and I can maintain it.
 
-### How to use AI: My take
+## How to Use AI: My Take
 
 Personally, I think that as a software professional, you should only "vibe code" as a hobby or an experiment. Most of the time, you must use your own NI (Natural Intelligence). Here are some of my suggestions for how I use AI to code:
 

@@ -1,10 +1,10 @@
 ---
-import type { ArticleFrontmatter } from "../../lib/types";
-import { processArticleDate } from "../../lib/utils";
+import type { ArticleEntry } from "../../lib/types";
+import { formatDateLong, formatReadingTime } from "../../lib/utils";
 
 type Props = {
-  featuredArticles: Array<ArticleFrontmatter>;
-}
+  featuredArticles: ArticleEntry[];
+};
 
 const { featuredArticles } = Astro.props;
 ---
@@ -20,17 +20,17 @@ const { featuredArticles } = Astro.props;
 
   <div class="article-list">
     {featuredArticles.map((article) => (
-      <a href={article.filename} class="article-card">
+      <a href={article.url} class="article-card">
         <div class="article-meta">
-          {processArticleDate(article.timestamp)}
+          {formatDateLong(article.timestamp)}
           &nbsp;·&nbsp;
-          {article.time < 1 ? "< 1" : Math.round(Number(article.time))} min read
+          {formatReadingTime(article.time)}
         </div>
         <div class="article-title">{article.title}</div>
         <div class="article-desc">{article.description}</div>
       </a>
     ))}
-    <div class="list-cap"></div>
+    <div class="list-cap" aria-hidden="true"></div>
   </div>
 </section>
 

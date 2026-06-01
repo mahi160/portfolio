@@ -1,5 +1,5 @@
 ---
-// Reading preference controls — font size, font family, spacing
+// Reading preference controls — font size, font family, line spacing
 // Persisted to localStorage under "sifat-reading-prefs"
 ---
 
@@ -15,22 +15,22 @@
 
   <div class="rc-group" role="group" aria-label="Font family">
     <button class="rc-btn" data-rc="font" data-value="serif" aria-pressed="false" aria-label="Serif font">Elvish</button>
-    <button class="rc-btn" data-rc="font" data-value="sans" aria-pressed="false" aria-label="Sans-serif font">Westron</button>
-    <button class="rc-btn" data-rc="font" data-value="lore" aria-pressed="false" aria-label="Display font">Lore</button>
+    <button class="rc-btn" data-rc="font" data-value="sans"  aria-pressed="false" aria-label="Sans-serif font">Westron</button>
+    <button class="rc-btn" data-rc="font" data-value="lore"  aria-pressed="false" aria-label="Display font">Lore</button>
   </div>
 
   <div class="rc-sep" aria-hidden="true"></div>
 
   <div class="rc-group" role="group" aria-label="Line spacing">
     <span class="rc-label" aria-hidden="true">↕</span>
-    <button class="rc-btn" data-rc="spacing" data-value="cozy" aria-pressed="false" aria-label="Compact spacing">Shire</button>
+    <button class="rc-btn" data-rc="spacing" data-value="cozy"    aria-pressed="false" aria-label="Compact spacing">Shire</button>
     <button class="rc-btn" data-rc="spacing" data-value="regular" aria-pressed="false" aria-label="Regular spacing">Rohan</button>
-    <button class="rc-btn" data-rc="spacing" data-value="airy" aria-pressed="false" aria-label="Airy spacing">Rivendell</button>
+    <button class="rc-btn" data-rc="spacing" data-value="airy"    aria-pressed="false" aria-label="Airy spacing">Rivendell</button>
   </div>
 </div>
 
 <script>
-  const LS_KEY = "sifat-reading-prefs";
+  const LS_KEY   = "sifat-reading-prefs";
   const DEFAULTS = { size: "md", font: "sans", spacing: "regular" };
 
   const SIZE = {
@@ -51,9 +51,18 @@
     airy:    { para: "1.6em",  gap: "2.6rem" },
   };
 
-  function load() {
-    try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(LS_KEY) || "{}") }; }
-    catch { return { ...DEFAULTS }; }
+  // Cormorant Garamond is a display face — bump size & leading when active.
+  // We use separate multiplier vars so the CSS calc() in global.css picks them
+  // up without fighting the inline style specificity of --rc-size itself.
+  const LORE_SCALE   = "1.12";
+  const LORE_LEADING = "1.06";
+
+  function load(): typeof DEFAULTS {
+    try {
+      return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(LS_KEY) || "{}") };
+    } catch {
+      return { ...DEFAULTS };
+    }
   }
 
   function save(p: typeof DEFAULTS) {
@@ -64,14 +73,18 @@
     const prose = document.querySelector<HTMLElement>(".prose-warm");
     if (!prose) return;
 
-    const s = SIZE[p.size as keyof typeof SIZE] || SIZE.md;
+    const s  = SIZE[p.size as keyof typeof SIZE]       || SIZE.md;
     const sp = SPACING[p.spacing as keyof typeof SPACING] || SPACING.regular;
+    const isLore = p.font === "lore";
 
-    prose.style.setProperty("--rc-size",    s.size);
-    prose.style.setProperty("--rc-leading", s.leading);
-    prose.style.setProperty("--rc-font",    FONT[p.font as keyof typeof FONT] || FONT.sans);
-    prose.style.setProperty("--rc-para",    sp.para);
-    prose.style.setProperty("--rc-gap",     sp.gap);
+    prose.style.setProperty("--rc-size",         s.size);
+    prose.style.setProperty("--rc-leading",       s.leading);
+    prose.style.setProperty("--rc-font",          FONT[p.font as keyof typeof FONT] || FONT.sans);
+    prose.style.setProperty("--rc-para",          sp.para);
+    prose.style.setProperty("--rc-gap",           sp.gap);
+    // Scale multipliers — non-1 only for the Lore (Cormorant Garamond) display face
+    prose.style.setProperty("--rc-lore-scale",   isLore ? LORE_SCALE   : "1");
+    prose.style.setProperty("--rc-lore-leading", isLore ? LORE_LEADING : "1");
     prose.dataset.font = p.font;
 
     // Sync active states + aria-pressed
@@ -100,9 +113,11 @@
   .rc-bar {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
     margin-bottom: 1.8rem;
-    padding: 0.45rem 0;
+    padding: 0.5rem 0;
     border-top: 1px solid var(--line-soft);
     border-bottom: 1px solid var(--line-soft);
   }
@@ -126,7 +141,7 @@
     width: 1px;
     height: 0.9rem;
     background: var(--line-soft);
-    margin: 0 0.4rem;
+    margin: 0 0.35rem;
     flex-shrink: 0;
   }
 
@@ -137,11 +152,12 @@
     color: var(--ink-faint);
     background: none;
     border: none;
-    padding: 0.2rem 0.38rem;
+    padding: 0.25rem 0.4rem;
     cursor: pointer;
     border-radius: 3px;
     transition: color 120ms ease, background 120ms ease;
     line-height: 1;
+    white-space: nowrap;
   }
 
   .rc-btn:hover {
@@ -152,5 +168,10 @@
   .rc-btn.rc-active {
     color: var(--ink);
     background: var(--paper-deeper);
+  }
+
+  /* On very narrow screens collapse separators visually but keep the groups wrapping */
+  @media (max-width: 400px) {
+    .rc-sep { display: none; }
   }
 </style>

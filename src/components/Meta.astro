@@ -1,0 +1,60 @@
+---
+/**
+ * Shared <head> meta block. Drop inside a <Fragment slot="head"> in any page.
+ *
+ * Usage:
+ *   <Meta
+ *     title="Page Title • Sifat"
+ *     description="…"
+ *     canonicalUrl="https://sifat.is-a.dev/blog/my-post"
+ *   />
+ *
+ * Optional:
+ *   ogImage   — defaults to the profile picture
+ *   ogType    — defaults to "website"
+ *   noindex   — set to true for 404 / draft pages
+ */
+import { GLOBAL } from "../lib/variables";
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  noindex?: boolean;
+};
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage = `${GLOBAL.rootUrl}/${GLOBAL.profileImage}`,
+  ogType  = "website",
+  noindex = false,
+} = Astro.props;
+---
+
+<title>{title}</title>
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="description" content={description} />
+
+<!-- Open Graph -->
+<meta property="og:title"       content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image"       content={ogImage} />
+<meta property="og:url"         content={canonicalUrl} />
+<meta property="og:type"        content={ogType} />
+
+<!-- Twitter / X card (summary_large_image) -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image"       content={ogImage} />
+
+<!-- Language -->
+<meta http-equiv="content-language" content="en" />
+<meta name="language"               content="English" />
+
+<!-- Canonical -->
+<link rel="canonical" href={canonicalUrl} />

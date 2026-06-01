@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/ProjectLayout.astro
 title: ki
 description: A terminal-first AI chat client written in Go, with a Bubble Tea TUI and provider support for Anthropic, OpenAI, and Gemini.
 tags: ['Go', 'Bubble Tea', 'TUI', 'AI', 'CLI']
 githubUrl: https://github.com/mahi160/ki
 featured: false
 timestamp: 2025-05-17T00:00:00.000Z
-filename: ki
 ---
 
 `ki` is a terminal AI chat client written in Go. The goal is to build a small, fast, keyboard-native interface for talking to LLMs without leaving the terminal.
