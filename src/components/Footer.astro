@@ -4,74 +4,57 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="wrap footer-inner">
-    <nav class="footer-elsewhere" aria-label="Social links">
-      <div class="elsewhere-label" aria-hidden="true">Elsewhere</div>
-      <div class="elsewhere-links">
-        {GLOBAL.githubProfile   && <a href={GLOBAL.githubProfile}   target="_blank" rel="noopener" aria-label="GitHub, opens in new tab">GitHub</a>}
-        {GLOBAL.linkedinProfile && <a href={GLOBAL.linkedinProfile} target="_blank" rel="noopener" aria-label="LinkedIn, opens in new tab">LinkedIn</a>}
-        <a href={`mailto:${GLOBAL.email ?? "hello@sifat.is-a.dev"}`}>Email</a>
-        {GLOBAL.resumeUrl && <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" aria-label="Résumé, opens in new tab">Résumé</a>}
-      </div>
+  <div class="wrap-narrow footer-inner">
+    <nav class="footer-links" aria-label="Social links">
+      {GLOBAL.githubProfile   && <a href={GLOBAL.githubProfile}   target="_blank" rel="noopener" aria-label="GitHub, opens in new tab">GitHub</a>}
+      {GLOBAL.linkedinProfile && <a href={GLOBAL.linkedinProfile} target="_blank" rel="noopener" aria-label="LinkedIn, opens in new tab">LinkedIn</a>}
+      <a href={`mailto:${GLOBAL.email ?? "hello@sifat.is-a.dev"}`}>Email</a>
+      {GLOBAL.resumeUrl && <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" aria-label="Résumé, opens in new tab">Résumé</a>}
     </nav>
-
-    <div class="footer-copy">
-      <div>© {year} Salauddin Omar Sifat</div>
-      <div class="footer-location">Tended in Dhaka.</div>
-    </div>
+    <p class="footer-copy">© {year} Sifat · Dhaka</p>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    margin-top: 4rem;
-    padding-top: 1.6rem;
-    padding-bottom: 2rem;
+    margin-top: 3rem;
+    padding: 1.2rem 0 1.8rem;
     border-top: 1px solid var(--line-soft);
   }
 
   .footer-inner {
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
+    align-items: center;
+    gap: 1rem;
     flex-wrap: wrap;
-    align-items: flex-end;
   }
 
-  .elsewhere-label {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 0.6rem;
-  }
-
-  .elsewhere-links {
+  .footer-links {
     display: flex;
     gap: 1.4rem;
     flex-wrap: wrap;
   }
-  .elsewhere-links a {
-    font-size: 0.95rem;
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 0.78rem;
     color: var(--ink-muted);
     text-decoration: none;
+    letter-spacing: 0.02em;
   }
-  .elsewhere-links a:hover {
+  .footer-links a:hover {
     color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
+    text-decoration: none;
   }
 
   .footer-copy {
     font-family: var(--mono);
     font-size: 0.72rem;
     color: var(--ink-faint);
-    text-align: right;
+    margin: 0;
   }
-  .footer-location { margin-top: 0.3rem; }
 
-  @media (max-width: 540px) {
-    .footer-copy { text-align: left; }
+  @media (max-width: 480px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
   }
 </style>

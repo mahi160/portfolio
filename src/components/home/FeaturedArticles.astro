@@ -71,12 +71,17 @@ const { featuredArticles } = Astro.props;
 
   .article-card {
     display: block;
-    padding: 1.1rem 0;
-    text-decoration: none;
+    padding: 1.1rem 0.6rem;
+    margin: 0 -0.6rem;
     border-top: 1px solid var(--line-soft);
+    border-radius: 4px;
+    text-decoration: none;
     transition: background 160ms ease;
   }
-  .article-card:hover { text-decoration: none; }
+  .article-card:hover {
+    background: var(--paper-deep);
+    text-decoration: none;
+  }
   .article-card:hover .article-title { color: var(--accent-deep); }
 
   .article-meta {

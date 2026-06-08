@@ -8,10 +8,9 @@ const isProjects = pathname.startsWith("/projects");
 ---
 
 <header class="site-header">
-  <div class="wrap header-inner">
+  <div class="wrap-narrow header-inner">
     <!-- Logo / name -->
     <a href="/" class="header-logo" aria-label="Sifat — home">
-      <span class="logo-dot" aria-hidden="true"></span>
       <span class="logo-name" aria-hidden="true">Sifat</span>
       <span class="logo-handle" aria-hidden="true">{GLOBAL.handle ?? "sifat.is-a.dev"}</span>
     </a>
@@ -24,32 +23,62 @@ const isProjects = pathname.startsWith("/projects");
       <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" class="nav-link" aria-label="Résumé, opens in new tab">Résumé</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
         <span class="theme-icon theme-icon-light" aria-hidden="true">○</span>
-        <span class="theme-icon theme-icon-dark" aria-hidden="true">●</span>
+        <span class="theme-icon theme-icon-dark"  aria-hidden="true">●</span>
+        <span class="theme-icon theme-icon-neon"  aria-hidden="true">⧆</span>
       </button>
     </nav>
   </div>
 </header>
 
 <script>
-  const btn = document.getElementById("themeToggle");
+  const btn  = document.getElementById("themeToggle");
   const root = document.documentElement;
 
-  function getTheme() {
+  function getTheme(): string {
     return localStorage.getItem("sifat-theme") ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   }
 
   function applyTheme(theme: string) {
-    const isDark = theme === "dark";
-    root.setAttribute("data-theme", isDark ? "dark" : "");
-    btn?.setAttribute("aria-pressed", String(isDark));
-    btn?.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    root.setAttribute("data-theme", theme === "light" ? "" : theme);
+    const labels: Record<string, string> = {
+      light: "Switch to dark mode",
+      dark:  "Switch to light mode",
+      neon:  "Exit neon mode",
+    };
+    btn?.setAttribute("aria-pressed", String(theme !== "light"));
+    btn?.setAttribute("aria-label", labels[theme] ?? "Toggle theme");
   }
 
   applyTheme(getTheme());
 
+  // Normal toggle: light ↔ dark. Neon exits to light.
+  // Triple-click activates neon as an easter egg.
+  let clicks = 0;
+  let clickTimer: ReturnType<typeof setTimeout> | null = null;
+
   btn?.addEventListener("click", () => {
-    const next = getTheme() === "dark" ? "light" : "dark";
+    clicks++;
+    if (clickTimer) clearTimeout(clickTimer);
+    clickTimer = setTimeout(() => { clicks = 0; }, 600);
+
+    const current = getTheme();
+
+    // Easter egg: triple-click enters neon
+    if (clicks >= 3 && current !== "neon") {
+      clicks = 0;
+      localStorage.setItem("sifat-theme", "neon");
+      applyTheme("neon");
+      const el = document.createElement("div");
+      el.className = "neon-toast";
+      el.textContent = "// triple-click: neon mode";
+      document.body.appendChild(el);
+      setTimeout(() => el.classList.add("neon-toast--out"), 2200);
+      setTimeout(() => el.remove(), 3100);
+      return;
+    }
+
+    const next = current === "dark" ? "light" : current === "neon" ? "light" : "dark";
     localStorage.setItem("sifat-theme", next);
     applyTheme(next);
   });
@@ -107,7 +136,7 @@ const isProjects = pathname.startsWith("/projects");
   .header-nav {
     display: flex;
     gap: 1.6rem;
-    align-items: center;
+    align-items: baseline;
   }
 
   .nav-link {
@@ -150,10 +179,9 @@ const isProjects = pathname.startsWith("/projects");
 
   .theme-icon { display: none; }
 
-  /* show moon in light mode (clicking switches to dark) */
-  :root:not([data-theme="dark"]) .theme-icon-light { display: inline; }
-  /* show sun in dark mode (clicking switches to light) */
-  :root[data-theme="dark"] .theme-icon-dark { display: inline; }
+  :root:not([data-theme="dark"]):not([data-theme="neon"]) .theme-icon-light { display: inline; }
+  :root[data-theme="dark"]  .theme-icon-dark { display: inline; }
+  :root[data-theme="neon"]  .theme-icon-neon { display: inline; color: #00ffe0; }
 
   @media (max-width: 540px) {
     .header-inner { flex-direction: column; gap: 1rem; }

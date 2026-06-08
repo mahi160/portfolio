@@ -17,7 +17,7 @@ import { GLOBAL } from "../lib/variables";
     />
   </Fragment>
 
-  <main id="main-content" class="wrap" tabindex="-1">
+  <main id="main-content" class="wrap-narrow" tabindex="-1">
     <!-- Hero -->
     <Hero />
 
@@ -40,40 +40,24 @@ import { GLOBAL } from "../lib/variables";
 
     <!-- Colophon -->
     <section class="colophon" aria-label="Current stack">
-      <div class="colophon-grid">
-        <div class="colophon-cell">
-          <div class="colophon-label" id="col-working">Working in</div>
-          <ul role="list" aria-labelledby="col-working">
-            <li>TypeScript</li>
-            <li>Go</li>
-            <li>React</li>
-          </ul>
+      <dl class="colophon-list">
+        <div class="colophon-row">
+          <dt>Working in</dt>
+          <dd>TypeScript · Go · React</dd>
         </div>
-        <div class="colophon-cell">
-          <div class="colophon-label" id="col-living">Living in</div>
-          <ul role="list" aria-labelledby="col-living">
-            <li>Neovim</li>
-            <li>tmux</li>
-            <li>Ghostty</li>
-          </ul>
+        <div class="colophon-row">
+          <dt>Living in</dt>
+          <dd>Neovim · tmux · Ghostty</dd>
         </div>
-        <div class="colophon-cell">
-          <div class="colophon-label" id="col-building">Building with</div>
-          <ul role="list" aria-labelledby="col-building">
-            <li>SQLite</li>
-            <li>Bubble Tea</li>
-            <li>Astro</li>
-          </ul>
+        <div class="colophon-row">
+          <dt>Building with</dt>
+          <dd>SQLite · Bubble Tea · Astro</dd>
         </div>
-        <div class="colophon-cell">
-          <div class="colophon-label" id="col-reading">Reading about</div>
-          <ul role="list" aria-labelledby="col-reading">
-            <li>Local-first</li>
-            <li>TUI design</li>
-            <li>Small tools</li>
-          </ul>
+        <div class="colophon-row">
+          <dt>Reading about</dt>
+          <dd>Local-first · TUI design · Small tools</dd>
         </div>
-      </div>
+      </dl>
     </section>
   </main>
 </Layout>
@@ -127,35 +111,38 @@ import { GLOBAL } from "../lib/variables";
   /* Colophon */
   .colophon {
     margin-top: 3.5rem;
-  }
-
-  .colophon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-    gap: 1.8rem;
-    padding-top: 1.8rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--line-soft);
   }
 
-  .colophon-label {
+  .colophon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .colophon-row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .colophon-row dt {
     font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin-bottom: 0.7rem;
+    white-space: nowrap;
   }
 
-  .colophon-cell ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .colophon-row dd {
+    font-size: 0.92rem;
     color: var(--ink-soft);
-  }
-
-  .colophon-cell li {
-    padding: 0.18rem 0;
-    font-size: 0.98rem;
+    margin: 0;
   }
 
   @media (max-width: 540px) {

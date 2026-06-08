@@ -1,5 +1,5 @@
 ---
-import { formatDateLong, formatReadingTime } from "../lib/utils";
+import { formatDateShort, formatReadingTime } from "../lib/utils";
 
 export type Props = {
   title: string;
@@ -14,7 +14,7 @@ const { title, description, url, time, timestamp } = Astro.props;
 
 <a href={url} class="article-row">
   <span class="article-date">
-    {timestamp ? formatDateLong(timestamp) : ""}
+    {timestamp ? formatDateShort(timestamp) : ""}
   </span>
   <div class="article-body">
     <div class="article-title">{title}</div>
@@ -31,8 +31,10 @@ const { title, description, url, time, timestamp } = Astro.props;
     grid-template-columns: 5rem 1fr auto;
     gap: 1.4rem;
     align-items: baseline;
-    padding: 1rem 0;
+    padding: 1rem 0.6rem;
+    margin: 0 -0.6rem;
     border-top: 1px solid var(--line-soft);
+    border-radius: 4px;
     text-decoration: none;
     transition: background 160ms ease;
   }

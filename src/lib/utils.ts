@@ -21,6 +21,12 @@ export const formatDateLong = (date: Date): string =>
   });
 
 /**
+ * Formats a Date as "Mon D" (e.g. "Dec 8") — for list rows where year is already shown.
+ */
+export const formatDateShort = (date: Date): string =>
+  date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+/**
  * Formats a Date as "Month YYYY" (e.g. "April 2025").
  */
 export const formatMonthYear = (date: Date): string =>

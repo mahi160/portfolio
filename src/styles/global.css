@@ -4,40 +4,102 @@
   --paper-deep:   oklch(0.935 0.024 80);
   --paper-deeper: oklch(0.905 0.028 78);
   --ink:          oklch(0.245 0.022 55);
-  --ink-soft:     oklch(0.30  0.02  58);
-  --ink-muted:    oklch(0.40  0.018 62);
-  --ink-faint:    oklch(0.50  0.014 65);
-  --line:         oklch(0.83  0.022 72);
-  --line-soft:    oklch(0.88  0.018 75);
-  --accent:       oklch(0.5   0.062 145);
-  --accent-soft:  oklch(0.88  0.04  140);
-  --accent-deep:  oklch(0.30  0.062 145);
+  --ink-soft:     oklch(0.3 0.02 58);
+  --ink-muted:    oklch(0.4 0.018 62);
+  --ink-faint:    oklch(0.5 0.014 65);
+  --line:         oklch(0.83 0.022 72);
+  --line-soft:    oklch(0.88 0.018 75);
+  --accent:       oklch(0.5 0.062 145);
+  --accent-soft:  oklch(0.88 0.04 140);
+  --accent-deep:  oklch(0.3 0.062 145);
   --serif: "Lora", Georgia, serif;
   --sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
 }
 
+/* ── Neon / cyberpunk theme ────────────────────────────────── */
+[data-theme="neon"] {
+  --paper:        #07070e;
+  --paper-deep:   #0d0d1d;
+  --paper-deeper: #14142c;
+  --ink:          #e0e8ff;   /* cold blue-white monitor glow */
+  --ink-soft:     #a0aae0;
+  --ink-muted:    #6068aa;
+  --ink-faint:    #383870;
+  --line:         #232360;
+  --line-soft:    #16163a;
+  --accent:       #00ffe0;   /* neon cyan */
+  --accent-soft:  #002d28;
+  --accent-deep:  #55fff0;
+}
+
+/* Neon visual effects — glow, scanlines, pink em */
+[data-theme="neon"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 255, 224, 0.011) 3px,
+    rgba(0, 255, 224, 0.011) 4px
+  );
+  pointer-events: none;
+  z-index: 9000;
+}
+
+[data-theme="neon"] .hero-headline {
+  text-shadow: 0 0 40px oklch(0.85 0.18 185 / 0.3);
+}
+
+[data-theme="neon"] .hero-headline em {
+  color: #ff4af8;
+  text-shadow: 0 0 24px rgba(255, 74, 248, 0.5);
+}
+
+[data-theme="neon"] .site-header {
+  border-bottom-color: var(--line);
+  box-shadow: 0 1px 0 0 rgba(0, 255, 224, 0.08);
+}
+
+[data-theme="neon"] .nav-link.active {
+  border-bottom-color: var(--accent);
+  color: var(--accent-deep);
+}
+
+/* Neon code blocks — extra glow on top of shared Shiki wiring */
+[data-theme="neon"] .astro-code {
+  border-color: var(--line) !important;
+  box-shadow: 0 0 0 1px rgba(0, 255, 224, 0.06);
+}
+
 /* ── Dark theme ───────────────────────────────────────────────────── */
 [data-theme="dark"] {
-  --paper:        oklch(0.16  0.012 55);
-  --paper-deep:   oklch(0.19  0.014 55);
-  --paper-deeper: oklch(0.22  0.016 55);
-  --ink:          oklch(0.94  0.010 75);
-  --ink-soft:     oklch(0.86  0.010 72);
-  --ink-muted:    oklch(0.73  0.010 70);
-  --ink-faint:    oklch(0.62  0.008 68);
-  --line:         oklch(0.32  0.014 60);
-  --line-soft:    oklch(0.26  0.012 58);
-  --accent:       oklch(0.68  0.10  145);
-  --accent-soft:  oklch(0.30  0.055 145);
-  --accent-deep:  oklch(0.82  0.10  145);
+  --paper:        oklch(0.15 0.016 75);   /* deep warm dark          */
+  --paper-deep:   oklch(0.18 0.018 73);   /* slightly elevated        */
+  --paper-deeper: oklch(0.22 0.020 70);   /* cards / code bg          */
+  --ink:          oklch(0.93 0.014 84);   /* warm cream               */
+  --ink-soft:     oklch(0.84 0.012 80);   /* softer body text         */
+  --ink-muted:    oklch(0.70 0.010 76);   /* muted text               */
+  --ink-faint:    oklch(0.54 0.008 72);   /* placeholder / metadata   */
+  --line:         oklch(0.32 0.018 68);   /* warm divider             */
+  --line-soft:    oklch(0.24 0.015 70);   /* subtle divider           */
+  --accent:       oklch(0.65 0.10 145);   /* nature green             */
+  --accent-soft:  oklch(0.28 0.06  145);  /* dark green tint          */
+  --accent-deep:  oklch(0.80 0.10 145);   /* bright green — emphasis  */
 }
 
 /* ── Base reset ───────────────────────────────────────────────────── */
 @layer base {
-  *, *::before, *::after { box-sizing: border-box; }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-  html, body {
+  html,
+  body {
     margin: 0;
     padding: 0;
     background: var(--paper);
@@ -51,7 +113,14 @@
   }
 
   /* Tailwind preflight cover: images/media baseline */
-  img, svg, video, canvas, audio, iframe, embed, object {
+  img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
     display: block;
     max-width: 100%;
   }
@@ -65,7 +134,12 @@
   }
 
   /* Remove list bullets by default (re-added where needed) */
-  ul, ol { list-style: none; margin: 0; padding: 0; }
+  ul,
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
   a {
     color: inherit;
@@ -78,21 +152,36 @@
     text-decoration-color: var(--accent);
   }
 
-  ::selection { background: var(--accent-soft); color: var(--ink); }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--serif);
     font-weight: 600;
     letter-spacing: -0.012em;
     line-height: 1.18;
     margin: 0;
   }
-  h1 { font-size: 2.4rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.2rem; }
-  p  { margin: 0 0 1rem; }
+  h1 {
+    font-size: 2.4rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  p {
+    margin: 0 0 1rem;
+  }
 
-  code, pre {
+  code,
+  pre {
     font-family: var(--mono);
     font-size: 0.86em;
   }
@@ -124,11 +213,23 @@
   border-radius: 0 0 4px 4px;
   text-decoration: none;
 }
-.skip-link:focus { top: 0; }
+.skip-link:focus {
+  top: 0;
+}
 
 /* ── Layout helpers ────────────────────────────────────────────────── */
-.wrap        { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 2rem; }
-.wrap-narrow { width: 100%; max-width: 52rem; margin: 0 auto; padding: 0 2rem; }
+.wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.wrap-narrow {
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 
 /* ── Tag dots ─────────────────────────────────────────────────────── */
 .tag {
@@ -137,8 +238,15 @@
   color: var(--ink-muted);
   letter-spacing: 0.02em;
 }
-.tag::before { content: "·"; margin-right: 0.35em; color: var(--ink-faint); }
-.tag:first-child::before { content: ""; margin: 0; }
+.tag::before {
+  content: "·";
+  margin-right: 0.35em;
+  color: var(--ink-faint);
+}
+.tag:first-child::before {
+  content: "";
+  margin: 0;
+}
 
 /* ── Arrow link ───────────────────────────────────────────────────── */
 .arrow-link {
@@ -152,9 +260,16 @@
   gap: 0.5em;
   text-decoration: none;
 }
-.arrow-link::after { content: "→"; transition: transform 200ms ease; }
-.arrow-link:hover  { text-decoration: none; }
-.arrow-link:hover::after { transform: translateX(3px); }
+.arrow-link::after {
+  content: "→";
+  transition: transform 200ms ease;
+}
+.arrow-link:hover {
+  text-decoration: none;
+}
+.arrow-link:hover::after {
+  transform: translateX(3px);
+}
 
 /* ── Pill ─────────────────────────────────────────────────────────── */
 .pill {
@@ -172,28 +287,41 @@
   gap: 0.4em;
   text-decoration: none;
 }
-.pill:hover { text-decoration: none; border-color: var(--accent); color: var(--accent-deep); }
+.pill:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
 
 /* ── Prose ────────────────────────────────────────────────────────── */
 .prose-warm {
-  font-size: calc(var(--rc-size, 1.075rem) * var(--rc-lore-scale, 1));
-  line-height: calc(var(--rc-leading, 1.78) * var(--rc-lore-leading, 1));
-  font-family: var(--rc-font, var(--sans));
+  font-size: calc(var(--rc-size, 1.1rem) * var(--rc-lore-scale, 1));
+  line-height: calc(var(--rc-leading, 1.82) * var(--rc-lore-leading, 1));
+  font-family: var(--rc-font, var(--serif));
   color: var(--ink-soft);
 }
-.prose-warm p  { margin: 0 0 var(--rc-para, 1.25em); }
-.prose-warm h2 {
-  font-size: 1.38rem;
-  margin: var(--rc-gap, 2rem) 0 0.75rem;
+.prose-warm p {
+  margin: 0 0 var(--rc-para, 1.25em);
+}
+.prose-warm > p:first-child {
+  font-size: 1.06em;
   color: var(--ink);
+  line-height: calc(var(--rc-leading, 1.82) * 0.98 * var(--rc-lore-leading, 1));
+  margin-bottom: calc(var(--rc-para, 1.25em) * 1.4);
+}
+.prose-warm h2 {
+  font-size: 1.45rem;
+  margin: var(--rc-gap, 2rem) 0 0.7rem;
+  color: var(--ink);
+  font-weight: 600;
 }
 .prose-warm h3 {
-  font-size: 1.15rem;
-  margin: calc(var(--rc-gap, 2rem) * 0.8) 0 0.6rem;
+  font-size: 1.18rem;
+  margin: calc(var(--rc-gap, 2rem) * 0.8) 0 0.55rem;
   color: var(--ink);
 }
 .prose-warm h4 {
-  font-size: 1.02rem;
+  font-size: 1.03rem;
   margin: calc(var(--rc-gap, 2rem) * 0.65) 0 0.45rem;
   color: var(--ink);
   font-weight: 600;
@@ -204,7 +332,9 @@
   text-decoration-color: var(--accent-soft);
   text-decoration-thickness: 0.07em;
 }
-.prose-warm a:hover { text-decoration-color: var(--accent); }
+.prose-warm a:hover {
+  text-decoration-color: var(--accent);
+}
 .prose-warm code:not(pre code) {
   background: var(--paper-deep);
   padding: 0.1em 0.38em;
@@ -227,10 +357,12 @@
 /* ── Shiki dual-theme wiring ──────────────────────────────────────── */
 /* Light: inline styles from Shiki already apply — no override needed */
 /* Dark: swap pre background and all span colours to --shiki-dark-*  */
-[data-theme="dark"] .astro-code {
+[data-theme="dark"] .astro-code,
+[data-theme="neon"]  .astro-code {
   background-color: var(--shiki-dark-bg) !important;
 }
-[data-theme="dark"] .astro-code span {
+[data-theme="dark"] .astro-code span,
+[data-theme="neon"]  .astro-code span {
   color: var(--shiki-dark) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
@@ -244,11 +376,26 @@
   color: var(--ink-muted);
   font-style: italic;
 }
-.prose-warm blockquote p { margin: 0; }
-.prose-warm ul, .prose-warm ol { margin: 0 0 1.15em; padding-left: 1.4em; }
-.prose-warm ul li, .prose-warm ol li { margin: 0.35em 0; }
-.prose-warm ul { list-style: none; padding-left: 0; }
-.prose-warm ul > li { position: relative; padding-left: 1.2em; }
+.prose-warm blockquote p {
+  margin: 0;
+}
+.prose-warm ul,
+.prose-warm ol {
+  margin: 0 0 1.15em;
+  padding-left: 1.4em;
+}
+.prose-warm ul li,
+.prose-warm ol li {
+  margin: 0.35em 0;
+}
+.prose-warm ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose-warm ul > li {
+  position: relative;
+  padding-left: 1.2em;
+}
 .prose-warm ul > li::before {
   content: "❧";
   position: absolute;
@@ -257,9 +404,18 @@
   color: var(--accent);
   font-size: 0.9em;
 }
-.prose-warm hr { margin: var(--rc-gap, 2rem) 0; border-top: 1px solid var(--line-soft); }
-.prose-warm strong { color: var(--ink); font-weight: 600; }
-.prose-warm em { font-style: italic; color: var(--ink); }
+.prose-warm hr {
+  margin: var(--rc-gap, 2rem) 0;
+  border-top: 1px solid var(--line-soft);
+}
+.prose-warm strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose-warm em {
+  font-style: italic;
+  color: var(--ink);
+}
 
 /* Cormorant Garamond: bump font-feature-settings for display quality.
    Size & leading are scaled via --rc-lore-scale / --rc-lore-leading
@@ -267,3 +423,26 @@
 .prose-warm[data-font="lore"] {
   font-feature-settings: "kern", "liga", "calt", "swsh";
 }
+
+/* ── Neon toast notification ───────────────────────────────────── */
+.neon-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: #00ffe0;
+  background: #07070e;
+  border: 1px solid #00ffe0;
+  box-shadow: 0 0 18px rgba(0, 255, 224, 0.35);
+  padding: 0.45rem 1.2rem;
+  border-radius: 3px;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 800ms ease;
+  pointer-events: none;
+}
+.neon-toast--out { opacity: 0; }

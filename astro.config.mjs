@@ -7,8 +7,8 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: "gruvbox-light-medium",
-        dark:  "gruvbox-dark-medium",
+        light: "kanagawa-wave",
+        dark:  "kanagawa-dragon",
       },
     },
   },
