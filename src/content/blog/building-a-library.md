@@ -2,7 +2,6 @@
 title: Building a Component Library
 description: As I am building a library at QuestionPro, here are some points i learned along the way.
 tags: ["react", "vite", "components"]
-time: 10
 featured: true
 timestamp: 2025-08-18
 ---

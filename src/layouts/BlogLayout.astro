@@ -2,17 +2,39 @@
 import type { CollectionEntry } from "astro:content";
 import { GLOBAL } from "../lib/variables";
 import { formatDateLong, formatReadingTime, generateSourceUrl } from "../lib/utils";
+import CodeCopy from "../components/CodeCopy.astro";
 import Meta from "../components/Meta.astro";
 import ReadingControls from "../components/ReadingControls.astro";
 import Layout from "./Layout.astro";
 
+type AdjacentPost = { title: string; url: string };
+
 type Props = {
   frontmatter: CollectionEntry<"blog">["data"];
   slug: string;
+  readingTime: number;
+  newer?: AdjacentPost;
+  older?: AdjacentPost;
 };
 
-const { frontmatter, slug } = Astro.props;
+const { frontmatter, slug, readingTime, newer, older } = Astro.props;
 const canonicalUrl = generateSourceUrl(slug, "blog");
+
+// JSON-LD structured data for rich results
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: frontmatter.title,
+  description: frontmatter.description,
+  datePublished: frontmatter.timestamp.toISOString(),
+  url: canonicalUrl,
+  image: `${GLOBAL.rootUrl}/og/blog/${slug}.png`,
+  author: {
+    "@type": "Person",
+    name: GLOBAL.username,
+    url: GLOBAL.rootUrl,
+  },
+});
 ---
 
 <Layout>
@@ -21,8 +43,10 @@ const canonicalUrl = generateSourceUrl(slug, "blog");
       title={`${frontmatter.title} • ${GLOBAL.username}`}
       description={frontmatter.description}
       canonicalUrl={canonicalUrl}
+      ogImage={`${GLOBAL.rootUrl}/og/blog/${slug}.png`}
       ogType="article"
     />
+    <script type="application/ld+json" set:html={jsonLd} is:inline />
   </Fragment>
 
   <div class="read-progress" id="readProgress" aria-hidden="true"></div>
@@ -35,7 +59,7 @@ const canonicalUrl = generateSourceUrl(slug, "blog");
         <div class="article-meta">
           <span class="article-date">{formatDateLong(frontmatter.timestamp)}</span>
           <span aria-hidden="true">·</span>
-          <span>{formatReadingTime(frontmatter.time)}</span>
+          <span>{formatReadingTime(readingTime)}</span>
         </div>
 
         <h1 class="article-title">{frontmatter.title}</h1>
@@ -55,8 +79,28 @@ const canonicalUrl = generateSourceUrl(slug, "blog");
       <div class="prose-warm">
         <slot />
       </div>
+      <CodeCopy />
 
       <hr />
+
+      {(newer || older) && (
+        <nav class="post-nav" aria-label="Adjacent posts">
+          {older ? (
+            <a href={older.url} class="post-nav-link">
+              <span class="post-nav-label">← Older</span>
+              <span class="post-nav-title">{older.title}</span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {newer && (
+            <a href={newer.url} class="post-nav-link post-nav-link--right">
+              <span class="post-nav-label">Newer →</span>
+              <span class="post-nav-title">{newer.title}</span>
+            </a>
+          )}
+        </nav>
+      )}
 
       <a href="/blog" class="back-link" style="margin-top: 2.5rem; margin-bottom: 0;">← All writing</a>
     </article>
@@ -154,7 +198,47 @@ const canonicalUrl = generateSourceUrl(slug, "blog");
     margin-bottom: 1.8rem;
   }
 
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .post-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+  }
+  .post-nav-link--right {
+    text-align: right;
+  }
+  .post-nav-link:hover {
+    text-decoration: none;
+  }
+  .post-nav-link:hover .post-nav-title {
+    color: var(--accent-deep);
+  }
+
+  .post-nav-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .post-nav-title {
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    line-height: 1.35;
+    color: var(--ink);
+    transition: color 160ms ease;
+  }
+
   @media (max-width: 540px) {
     .article-title { font-size: 1.8rem; }
+    .post-nav { grid-template-columns: 1fr; }
+    .post-nav-link--right { text-align: left; }
   }
 </style>

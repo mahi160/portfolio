@@ -2,7 +2,6 @@
 title: Are you the one, NeoVim?
 description: Here's my journey so far with Neovim — full of late-night configs, broken plugins, and some real 'aha!' moments.
 tags: ["code", "neovim", "tmux", "terminal", "ide", "editor"]
-time: 10
 featured: false
 timestamp: 2025-05-08
 ---

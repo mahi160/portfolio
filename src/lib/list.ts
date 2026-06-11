@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
 import type { ArticleEntry, ProjectEntry } from "./types";
-import { getShortDescription } from "./utils";
+import { calculateReadingTime, getShortDescription } from "./utils";
 
 const rawArticles = await getCollection("blog");
 
@@ -9,7 +9,7 @@ export const articles: ArticleEntry[] = rawArticles
     title: entry.data.title,
     description: getShortDescription(entry.data.description),
     tags: entry.data.tags,
-    time: entry.data.time,
+    time: calculateReadingTime(entry.body ?? ""),
     featured: entry.data.featured,
     timestamp: entry.data.timestamp,
     url: `/blog/${entry.id}`,

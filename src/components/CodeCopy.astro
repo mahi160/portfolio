@@ -1,0 +1,33 @@
+---
+// Injects a copy button into every Shiki code block inside .prose-warm.
+// Styles live in global.css (.code-copy) since the buttons are created at runtime.
+---
+
+<script>
+  document
+    .querySelectorAll<HTMLPreElement>(".prose-warm pre.astro-code")
+    .forEach((pre) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "code-copy";
+      btn.textContent = "copy";
+      btn.setAttribute("aria-label", "Copy code to clipboard");
+
+      btn.addEventListener("click", async () => {
+        const code = pre.querySelector("code")?.innerText ?? "";
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.textContent = "copied";
+          btn.classList.add("code-copy--done");
+          setTimeout(() => {
+            btn.textContent = "copy";
+            btn.classList.remove("code-copy--done");
+          }, 1600);
+        } catch {
+          btn.textContent = "failed";
+        }
+      });
+
+      pre.appendChild(btn);
+    });
+</script>

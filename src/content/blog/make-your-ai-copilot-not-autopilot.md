@@ -2,7 +2,6 @@
 title: Make AI Your Copilot, Not Your Autopilot
 description: A few weeks ago, my company, QuestionPro.com, provided a subscription for GitHub Copilot. I hadn't used AI to write code entirely and had never "vibe coded" before. So, I thought I'd experiment with it.
 tags: ["github", "ai", "copilot", "programming"]
-time: 20
 featured: true
 timestamp: 2025-09-29
 ---

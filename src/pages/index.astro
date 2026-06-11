@@ -6,6 +6,19 @@ import Meta from "../components/Meta.astro";
 import Layout from "../layouts/Layout.astro";
 import { featuredArticles, featuredProjects } from "../lib/featured";
 import { GLOBAL } from "../lib/variables";
+
+// JSON-LD structured data — Person
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Salauddin Omar Sifat",
+  alternateName: GLOBAL.username,
+  url: GLOBAL.rootUrl,
+  jobTitle: "Senior Software Engineer",
+  worksFor: { "@type": "Organization", name: "QuestionPro" },
+  email: GLOBAL.email,
+  sameAs: [GLOBAL.githubProfile, GLOBAL.linkedinProfile],
+});
 ---
 
 <Layout>
@@ -14,7 +27,9 @@ import { GLOBAL } from "../lib/variables";
       title={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
       description={GLOBAL.longDescription}
       canonicalUrl={GLOBAL.rootUrl}
+      ogImage={`${GLOBAL.rootUrl}/og/index.png`}
     />
+    <script type="application/ld+json" set:html={jsonLd} is:inline />
   </Fragment>
 
   <main id="main-content" class="wrap-narrow" tabindex="-1">
@@ -62,6 +77,7 @@ import { GLOBAL } from "../lib/variables";
           <dd>Local-first · TUI design · Small tools</dd>
         </div>
       </dl>
+      <a href="/uses" class="arrow-link colophon-link">Full setup</a>
     </section>
   </main>
 </Layout>
@@ -117,6 +133,10 @@ import { GLOBAL } from "../lib/variables";
     margin-top: 3.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--line-soft);
+  }
+
+  .colophon-link {
+    margin-top: 1.1rem;
   }
 
   .colophon-list {

@@ -11,6 +11,14 @@ export const getShortDescription = (content: string, maxWords = 20): string => {
 };
 
 /**
+ * Estimates reading time in minutes from raw markdown (~200 wpm, min 1).
+ */
+export const calculateReadingTime = (body: string): number => {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+};
+
+/**
  * Formats a Date as "Mon DD, YYYY" (e.g. "May 8, 2025").
  */
 export const formatDateLong = (date: Date): string =>

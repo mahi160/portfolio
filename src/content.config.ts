@@ -7,8 +7,6 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     tags: z.array(z.string()).optional(),
-    /** Estimated reading time in minutes */
-    time: z.number(),
     featured: z.boolean(),
     /** Publication date — accepts any date-like string; stored as Date */
     timestamp: z.coerce.date(),

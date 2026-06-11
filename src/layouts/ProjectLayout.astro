@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { GLOBAL } from "../lib/variables";
 import { formatMonthYear, generateSourceUrl } from "../lib/utils";
+import CodeCopy from "../components/CodeCopy.astro";
 import Meta from "../components/Meta.astro";
 import ReadingControls from "../components/ReadingControls.astro";
 import Layout from "./Layout.astro";
@@ -21,6 +22,7 @@ const canonicalUrl = generateSourceUrl(slug, "projects");
       title={`${frontmatter.title} • ${GLOBAL.username}`}
       description={frontmatter.description}
       canonicalUrl={canonicalUrl}
+      ogImage={`${GLOBAL.rootUrl}/og/projects/${slug}.png`}
       ogType="article"
     />
   </Fragment>
@@ -64,6 +66,7 @@ const canonicalUrl = generateSourceUrl(slug, "projects");
       <div class="prose-warm">
         <slot />
       </div>
+      <CodeCopy />
     </article>
   </main>
 </Layout>

@@ -1,0 +1,203 @@
+---
+import Meta from "../components/Meta.astro";
+import Layout from "../layouts/Layout.astro";
+import { GLOBAL } from "../lib/variables";
+
+type Row = { term: string; detail: string };
+type Section = { title: string; note?: string; rows: Row[] };
+
+const sections: Section[] = [
+  {
+    title: "Editor",
+    rows: [
+      { term: "Editor", detail: "Neovim, on a LazyVim base — tweaked until it stopped being LazyVim" },
+      { term: "Colorscheme", detail: "Kanagawa — same palette renders the code blocks on this site" },
+      { term: "Font", detail: "Maple Mono" },
+    ],
+  },
+  {
+    title: "Terminal",
+    rows: [
+      { term: "Emulator", detail: "Ghostty" },
+      { term: "Multiplexer", detail: "tmux — sessions per project, rarely closed" },
+      { term: "Shell", detail: "zsh + starship" },
+      { term: "Daily CLI", detail: "fzf · ripgrep · fd · zoxide · eza · lazygit" },
+    ],
+  },
+  {
+    title: "AI workflow",
+    note: "Copilot, not autopilot — I wrote about this.",
+    rows: [
+      { term: "Agent", detail: "pi — terminal coding agent, extended with my own custom extensions" },
+      { term: "Models", detail: "Claude (work) · opencode (personal) · Gemini Flash for quick, cheap tasks" },
+      { term: "Chat", detail: '<a href="/projects/ki">ki</a> — my own terminal AI chat client' },
+    ],
+  },
+  {
+    title: "Apps",
+    rows: [
+      { term: "Browser", detail: "Brave" },
+      { term: "Notes", detail: "Obsidian" },
+      { term: "Work journal", detail: '<a href="/projects/flowd">flowd</a> — my own tool for recording coding sessions and stats' },
+    ],
+  },
+  {
+    title: "Hardware",
+    rows: [
+      { term: "Machine", detail: "MacBook Air (Apple Silicon)" },
+      { term: "Keyboard", detail: "Built-in — no mechanical keyboard, no excuses" },
+    ],
+  },
+];
+---
+
+<Layout>
+  <Fragment slot="head">
+    <Meta
+      title={`Uses • ${GLOBAL.username}`}
+      description="The hardware, software, and terminal setup behind the work."
+      canonicalUrl={`${GLOBAL.rootUrl}/uses`}
+      ogImage={`${GLOBAL.rootUrl}/og/uses.png`}
+    />
+  </Fragment>
+
+  <main id="main-content" class="wrap-narrow" tabindex="-1">
+    <div class="page-head reveal">
+      <div class="page-kicker">Uses</div>
+      <h1>The setup.</h1>
+      <p class="page-lede">
+        Everything I touch daily — hardware, software, and the terminal stack
+        underneath it. Updated when something earns its place.
+      </p>
+    </div>
+
+    <div class="uses-sections reveal" style="--reveal-delay: 100ms">
+      {sections.map((section) => (
+        <section class="uses-section" aria-label={section.title}>
+          <h2 class="uses-title">{section.title}</h2>
+          {section.note && (
+            <p class="uses-note">
+              <a href="/blog/make-your-ai-copilot-not-autopilot">{section.note}</a>
+            </p>
+          )}
+          <dl class="uses-list">
+            {section.rows.map((row) => (
+              <div class="uses-row">
+                <dt>{row.term}</dt>
+                <dd set:html={row.detail} />
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .page-head {
+    margin-bottom: 2.5rem;
+    max-width: 44rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .page-kicker {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.8rem;
+  }
+
+  .page-head h1 {
+    font-size: 2.6rem;
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .page-lede {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 38rem;
+  }
+
+  .uses-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .uses-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .uses-note {
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin: -0.3rem 0 0.9rem;
+  }
+  .uses-note a {
+    color: var(--ink-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+  }
+  .uses-note a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .uses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .uses-row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .uses-row dt {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .uses-row dd {
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .uses-row dd :global(a) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+  }
+  .uses-row dd :global(a:hover) {
+    text-decoration-color: var(--accent);
+  }
+
+  @media (max-width: 540px) {
+    .uses-row {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

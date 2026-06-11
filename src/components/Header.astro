@@ -5,6 +5,7 @@ const pathname = Astro.url?.pathname ?? "/";
 const isHome     = pathname === "/";
 const isWriting  = pathname.startsWith("/blog");
 const isProjects = pathname.startsWith("/projects");
+const isUses     = pathname.startsWith("/uses");
 ---
 
 <header class="site-header">
@@ -20,6 +21,7 @@ const isProjects = pathname.startsWith("/projects");
       <a href="/"         class:list={["nav-link", { active: isHome }]}>Index</a>
       <a href="/blog"     class:list={["nav-link", { active: isWriting }]}>Writing</a>
       <a href="/projects" class:list={["nav-link", { active: isProjects }]}>Projects</a>
+      <a href="/uses"     class:list={["nav-link", { active: isUses }]}>Uses</a>
       <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" class="nav-link" aria-label="Résumé, opens in new tab">Résumé</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
         <span class="theme-icon theme-icon-light" aria-hidden="true">○</span>

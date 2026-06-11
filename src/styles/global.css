@@ -12,8 +12,8 @@
   --accent:       oklch(0.5 0.062 145);
   --accent-soft:  oklch(0.88 0.04 140);
   --accent-deep:  oklch(0.3 0.062 145);
-  --serif: "Lora", Georgia, serif;
-  --sans:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Lora Variable", Georgia, serif;
+  --sans:  "Plus Jakarta Sans Variable", system-ui, -apple-system, sans-serif;
   --mono:  "IBM Plex Mono", "SF Mono", Menlo, monospace;
 }
 
@@ -350,6 +350,27 @@
   color: var(--ink);
   font-weight: 600;
 }
+
+/* Heading anchors — revealed on hover/focus */
+.prose-warm .heading-anchor {
+  font-family: var(--mono);
+  font-size: 0.75em;
+  font-weight: 400;
+  margin-left: 0.45em;
+  color: var(--accent-deep);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.prose-warm h2:hover .heading-anchor,
+.prose-warm h3:hover .heading-anchor,
+.prose-warm h4:hover .heading-anchor,
+.prose-warm .heading-anchor:focus-visible {
+  opacity: 1;
+}
+.prose-warm .heading-anchor:hover {
+  text-decoration: none;
+}
 .prose-warm h3 {
   font-size: 1.18rem;
   margin: calc(var(--rc-gap, 2rem) * 0.8) 0 0.55rem;
@@ -380,6 +401,7 @@
 }
 .prose-warm pre,
 .prose-warm .astro-code {
+  position: relative;
   border: 1px solid var(--line-soft);
   border-radius: 6px;
   padding: 1.1rem 1.25rem;
@@ -387,6 +409,37 @@
   font-size: 0.85rem;
   line-height: 1.55;
   margin: 1.4rem 0;
+}
+
+/* Code copy button — injected by CodeCopy.astro */
+.code-copy {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.22rem 0.55rem;
+  opacity: 0;
+  transition: opacity 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.astro-code:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+.code-copy:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+.code-copy--done {
+  color: var(--accent-deep);
+  border-color: var(--accent);
+  opacity: 1;
 }
 
 /* ── Shiki dual-theme wiring ──────────────────────────────────────── */
