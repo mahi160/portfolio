@@ -79,11 +79,17 @@ const { featuredProjects } = Astro.props;
     background: var(--paper-deep);
     border: 1px solid var(--line-soft);
     border-radius: 6px;
-    transition: border-color 200ms ease;
+    transition: border-color 200ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease;
   }
   .project-card:hover {
     border-color: var(--accent);
     text-decoration: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .project-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px -10px oklch(0.2 0.02 60 / 0.35);
+    }
   }
   .project-card:hover .card-title { color: var(--accent-deep); }
 

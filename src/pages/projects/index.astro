@@ -16,7 +16,7 @@ import { GLOBAL } from "../../lib/variables";
   </Fragment>
 
   <main id="main-content" class="wrap-narrow" tabindex="-1">
-    <div class="page-head">
+    <div class="page-head reveal">
       <div class="page-kicker">Projects</div>
       <h1>Things I made on purpose.</h1>
       <p class="page-lede">
@@ -25,7 +25,7 @@ import { GLOBAL } from "../../lib/variables";
       </p>
     </div>
 
-    <div class="project-list">
+    <div class="project-list reveal" style="--reveal-delay: 100ms">
       {projects.map((project) => (
         <ProjectSnippet
           title={project.title}

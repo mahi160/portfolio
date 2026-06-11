@@ -25,11 +25,13 @@ const canonicalUrl = generateSourceUrl(slug, "blog");
     />
   </Fragment>
 
+  <div class="read-progress" id="readProgress" aria-hidden="true"></div>
+
   <main id="main-content" class="wrap-narrow" tabindex="-1">
     <a href="/blog" class="back-link">← All writing</a>
 
     <article>
-      <header class="article-header">
+      <header class="article-header reveal">
         <div class="article-meta">
           <span class="article-date">{formatDateLong(frontmatter.timestamp)}</span>
           <span aria-hidden="true">·</span>
@@ -61,7 +63,37 @@ const canonicalUrl = generateSourceUrl(slug, "blog");
   </main>
 </Layout>
 
+<script>
+  const bar = document.getElementById("readProgress");
+  const article = document.querySelector("article");
+
+  function update() {
+    if (!bar || !article) return;
+    const rect = article.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    const read = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
+    bar.style.transform = `scaleX(${total > 0 ? read / total : 0})`;
+  }
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
+</script>
+
 <style>
+  .read-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+  }
+
   .back-link {
     font-family: var(--mono);
     display: inline-flex;

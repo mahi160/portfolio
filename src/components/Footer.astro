@@ -11,9 +11,25 @@ const year = new Date().getFullYear();
       <a href={`mailto:${GLOBAL.email ?? "hello@sifat.is-a.dev"}`}>Email</a>
       {GLOBAL.resumeUrl && <a href={GLOBAL.resumeUrl} target="_blank" rel="noopener" aria-label="Résumé, opens in new tab">Résumé</a>}
     </nav>
-    <p class="footer-copy">© {year} Sifat · Dhaka</p>
+    <p class="footer-copy">
+      © {year} Sifat · Dhaka<span id="dhakaClock" class="footer-clock"></span>
+    </p>
   </div>
 </footer>
+
+<script>
+  const el = document.getElementById("dhakaClock");
+  const fmt = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Dhaka",
+  });
+  function tick() {
+    if (el) el.textContent = ` · ${fmt.format(new Date())} local`;
+  }
+  tick();
+  setInterval(tick, 30_000);
+</script>
 
 <style>
   .site-footer {
@@ -52,6 +68,10 @@ const year = new Date().getFullYear();
     font-size: 0.72rem;
     color: var(--ink-faint);
     margin: 0;
+  }
+
+  .footer-clock {
+    font-variant-numeric: tabular-nums;
   }
 
   @media (max-width: 480px) {

@@ -86,10 +86,16 @@ const isProjects = pathname.startsWith("/projects");
 
 <style>
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     padding-top: 1.2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--line-soft);
     margin-bottom: 2.5rem;
+    background: color-mix(in oklab, var(--paper) 86%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
   }
 
   .header-inner {
@@ -184,6 +190,8 @@ const isProjects = pathname.startsWith("/projects");
   :root[data-theme="neon"]  .theme-icon-neon { display: inline; color: #00ffe0; }
 
   @media (max-width: 540px) {
+    /* Stacked header is tall — don't pin it on small screens */
+    .site-header { position: static; }
     .header-inner { flex-direction: column; gap: 1rem; }
     .logo-handle { display: none; }
     .header-nav { gap: 1rem; }

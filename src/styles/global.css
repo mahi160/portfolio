@@ -166,6 +166,7 @@
     letter-spacing: -0.012em;
     line-height: 1.18;
     margin: 0;
+    text-wrap: balance;
   }
   h1 {
     font-size: 2.4rem;
@@ -178,6 +179,7 @@
   }
   p {
     margin: 0 0 1rem;
+    text-wrap: pretty;
   }
 
   code,
@@ -193,9 +195,42 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--ink);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+}
+
+/* ── Motion system ────────────────────────────────────────────────── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Cross-document view transitions — soft crossfade between pages */
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 160ms;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Staggered entrance — set --reveal-delay inline to sequence */
+  .reveal {
+    animation: reveal-up 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
   }
 }
 

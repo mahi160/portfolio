@@ -22,7 +22,7 @@ import { GLOBAL } from "../lib/variables";
     <Hero />
 
     <!-- Now block -->
-    <section class="now-block" aria-label="What I'm doing now">
+    <section class="now-block reveal" style="--reveal-delay: 260ms" aria-label="What I'm doing now">
       <div class="now-grid">
         <div class="now-label">
           Now
@@ -33,13 +33,17 @@ import { GLOBAL } from "../lib/variables";
     </section>
 
     <!-- Featured Writing -->
-    <FeaturedArticles featuredArticles={featuredArticles} />
+    <div class="reveal" style="--reveal-delay: 320ms">
+      <FeaturedArticles featuredArticles={featuredArticles} />
+    </div>
 
     <!-- Featured Projects -->
-    <FeaturedProjects featuredProjects={featuredProjects} />
+    <div class="reveal" style="--reveal-delay: 380ms">
+      <FeaturedProjects featuredProjects={featuredProjects} />
+    </div>
 
     <!-- Colophon -->
-    <section class="colophon" aria-label="Current stack">
+    <section class="colophon reveal" style="--reveal-delay: 440ms" aria-label="Current stack">
       <dl class="colophon-list">
         <div class="colophon-row">
           <dt>Working in</dt>

@@ -84,6 +84,20 @@ const { featuredArticles } = Astro.props;
   }
   .article-card:hover .article-title { color: var(--accent-deep); }
 
+  .article-title::after {
+    content: "→";
+    display: inline-block;
+    margin-left: 0.4em;
+    color: var(--accent-deep);
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: opacity 180ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .article-card:hover .article-title::after {
+    opacity: 1;
+    transform: none;
+  }
+
   .article-meta {
     font-family: var(--mono);
     font-size: 0.74rem;

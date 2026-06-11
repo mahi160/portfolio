@@ -44,6 +44,20 @@ const { title, description, url, time, timestamp } = Astro.props;
   }
   .article-row:hover .article-title { color: var(--accent-deep); }
 
+  .article-title::after {
+    content: "→";
+    display: inline-block;
+    margin-left: 0.4em;
+    color: var(--accent-deep);
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: opacity 180ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .article-row:hover .article-title::after {
+    opacity: 1;
+    transform: none;
+  }
+
   .article-date {
     font-family: var(--mono);
     font-size: 0.78rem;

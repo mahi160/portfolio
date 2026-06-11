@@ -16,29 +16,52 @@ import { GLOBAL } from "../lib/variables";
 
   <main id="main-content" class="wrap-narrow" tabindex="-1">
     <div class="not-found">
-      <div class="code">404</div>
-      <h1>Lost in the grove.</h1>
-      <p>That page hasn't been planted yet.</p>
-      <a href="/" class="arrow-link">Back to the index</a>
+      <div class="code reveal">ERR · page not found</div>
+      <div class="big reveal" style="--reveal-delay: 60ms" aria-hidden="true">4<em>0</em>4</div>
+      <h1 class="reveal" style="--reveal-delay: 120ms">Lost in the grove.</h1>
+      <p class="reveal" style="--reveal-delay: 180ms">
+        That page hasn't been planted yet — or it grew somewhere else.
+      </p>
+      <a href="/" class="arrow-link reveal" style="--reveal-delay: 240ms">cd ~</a>
     </div>
   </main>
 </Layout>
 
 <style>
   .not-found {
-    padding-top: 4rem;
+    padding-top: 3rem;
     text-align: center;
   }
 
   .code {
     font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--ink-faint);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .big {
+    font-family: var(--serif);
+    font-size: clamp(6rem, 18vw, 10rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    user-select: none;
+  }
+  .big em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-deep);
   }
 
   .not-found h1 {
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
     margin-bottom: 0.75rem;
   }
 

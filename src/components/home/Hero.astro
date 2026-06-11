@@ -3,20 +3,20 @@ import { GLOBAL } from "../../lib/variables";
 ---
 
 <section class="hero-section">
-  <p class="hero-eyebrow">
+  <p class="hero-eyebrow reveal">
     <span>{GLOBAL.currentRole}</span>
     <span class="hero-sep" aria-hidden="true">/</span>
     <span class="hero-loc">Dhaka · GMT+6</span>
   </p>
 
-  <h1 class="hero-headline">
+  <h1 class="hero-headline reveal" style="--reveal-delay: 60ms">
     Frontend by trade.<br />
-    <em>Terminal by choice.</em>
+    <em>Terminal by choice.<span class="hero-caret" aria-hidden="true"></span></em>
   </h1>
 
-  <p class="hero-bio">{GLOBAL.longDescription}</p>
+  <p class="hero-bio reveal" style="--reveal-delay: 130ms">{GLOBAL.longDescription}</p>
 
-  <div class="hero-links">
+  <div class="hero-links reveal" style="--reveal-delay: 200ms">
     <a href="/blog"     class="arrow-link">Read the writing</a>
     <a href="/projects" class="arrow-link">See the projects</a>
   </div>
@@ -59,6 +59,27 @@ import { GLOBAL } from "../../lib/variables";
     font-style: italic;
     font-weight: 400;
     color: var(--accent-deep);
+  }
+
+  /* Terminal caret — the one ornament */
+  .hero-caret {
+    display: inline-block;
+    width: 0.45em;
+    height: 0.78em;
+    margin-left: 0.12em;
+    background: var(--accent);
+    transform: translateY(0.08em);
+    opacity: 0.85;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-caret {
+      animation: caret-blink 1.15s steps(1, end) infinite;
+      animation-delay: 1.2s;
+    }
+  }
+  @keyframes caret-blink {
+    0%, 55% { opacity: 0.85; }
+    56%, 100% { opacity: 0; }
   }
 
   .hero-bio {
